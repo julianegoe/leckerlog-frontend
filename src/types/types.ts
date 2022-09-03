@@ -34,8 +34,8 @@ export interface Restaurant {
   name: string;
   cuisine: string;
   cuisine_id: number;
-  updated_at: string;
-  created_at: string;
+  date_updated: string;
+  date_created: string;
 };
 
 export interface Leckerlog {
