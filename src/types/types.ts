@@ -1,5 +1,5 @@
 export interface ListItem {
-    value: string,
+    value: number,
     label: string,
 }
 
@@ -43,8 +43,8 @@ export interface Leckerlog {
   name: string;
   cuisine: string;
   cuisine_id: number;
-  updated_at: string;
-  created_at: string;
+  date_updated: string;
+  date_created: string;
   food_ordered: FoodOrdered[];
 }
 
@@ -52,7 +52,7 @@ export interface Leckerlog {
 export const INPUT_DEFAULT_VALUES: RecordData = {
     restaurantName: '',
     cuisine: {
-      value: '',
+      value: 0,
       label: '',
     },
     ordered_at: '',

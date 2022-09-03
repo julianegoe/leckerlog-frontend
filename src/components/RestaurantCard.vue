@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import {ref} from "vue";
+import { Leckerlog } from "../types/types";
 import AppModal from './AppModal.vue';
 
 const emits = defineEmits(['delete']);
-defineProps<{
-    leckerLog: any;
+const props = defineProps<{
+    leckerLog: Leckerlog;
 }>();
 
 const showModal = ref(false);
@@ -12,7 +13,6 @@ const handleDelete = () => {
   emits('delete');
   showModal.value = false;
 }
-
 </script>
 <template>
   <div class="flex justify-between">
@@ -20,7 +20,7 @@ const handleDelete = () => {
       <AppModal v-if="showModal" @delete="handleDelete" @close="showModal = false" text="Willst du dieses Restaurant mit allen Gerichten endgültig löschen?" />
     </Transition>
       <div>
-        <div v-if="leckerLog.updated_at" class="text-xs text-gray-500">zuletzt aktualisiert: {{ new Date(leckerLog.updated_at).toLocaleDateString() }}</div>
+        <div v-if="leckerLog.date_updated" class="text-xs text-gray-500">zuletzt aktualisiert: {{ new Date(leckerLog.date_updated).toLocaleDateString() }}</div>
         <h1 class="text-lg font-bold pb-2">{{ leckerLog.name }}</h1>
         <div>{{ leckerLog.cuisine }}</div>
       </div>

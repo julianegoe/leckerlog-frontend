@@ -52,8 +52,8 @@ const handleDelete = async (id: number) => {
     </div>
   </template>
   <!--    Skeleton-->
-  <div v-else-if="leckerlog === null">
-    <div v-for="n in 3" :key="`restaurant-skeleton-${n}`" class="w-full h-32 bg-gray-300 animate-pulse mb-2"></div>
+  <div v-else-if="leckerlog.length === 0">
+    <div v-for="n in 3" :key="`restaurant-skeleton-${n}`" class="w-full h-48 bg-gray-200 animate-pulse mb-2 mx-4"></div>
   </div>
-  <AppEmptyState v-else />
+  <AppEmptyState v-else-if="leckerlog.length > 0 && displayRestaurants.length === 0" />
 </template>

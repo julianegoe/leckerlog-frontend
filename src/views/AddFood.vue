@@ -20,7 +20,7 @@ const showSnackbar = ref(false);
 const inputValues = reactive<RecordData>({
   restaurantName: '',
   cuisine: {
-    value: '',
+    value: 0,
     label: '',
   },
   ordered_at: '',
@@ -78,6 +78,7 @@ const addFood = async () => {
     }
     if (result.status.value === 'SUCCESS') {
       const addedRecord = await api.addRecord(inputValues);
+      console.log(addedRecord)
       if (api.status.value === 'SUCCESS') {
         showSnackbar.value = true;
         setTimeout(() => showSnackbar.value = false, 2000)

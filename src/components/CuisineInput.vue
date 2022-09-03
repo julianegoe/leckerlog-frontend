@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue';
-import { auth } from '../firebase/firebase';
-import { ListItem } from '../types/types';
+import { Cuisine, ListItem } from '../types/types';
 
 const emit = defineEmits(['update']);
 
 const isOpen = ref(false);
 const searchQuery = ref('');
-const cuisines = ref([]);
+const cuisines = ref<Cuisine[]>([]);
 onMounted(async () => {
     try {
         const response = await fetch(import.meta.env.VITE_BASE_URL + '/cuisines', {
@@ -24,10 +23,12 @@ onMounted(async () => {
     }
 })
 
-const selectableCuisines = computed(() => {
-    return cuisines.value.map((cuisine: any) => ({
-        label: cuisine.name,
+const selectableCuisines = computed<ListItem[]>(() => {
+    return cuisines.value.filter((cuisine: Cuisine) => {
+        return cuisine.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    }).map((cuisine: Cuisine) => ({
         value: cuisine.cuisine_id,
+        label: cuisine.name,
     }))
 })
 
