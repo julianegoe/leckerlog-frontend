@@ -26,8 +26,8 @@ export interface FoodOrdered {
   rating: number;
   comment: string;
   image_path: string | null;
-  created_at: string;
-  updated_at: string;
+  date_updated: string;
+  date_created: string;
 }
 export interface Restaurant {
   restaurant_id: number;
