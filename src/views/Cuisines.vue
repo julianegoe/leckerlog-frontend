@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {  onBeforeMount, ref } from 'vue';
+import {  onBeforeMount, onMounted, ref } from 'vue';
 import AppHeader from '../components/AppHeader.vue';
 import { useApi } from '../composables/useApi';
 import { Cuisine } from '../types/types';
@@ -7,7 +7,7 @@ import { Cuisine } from '../types/types';
 const api = useApi();
 const cuisines = ref<Cuisine[]>([]);
 
-onBeforeMount(async () => {
+onMounted(async () => {
     cuisines.value = await api.getCuisines();
 });
 

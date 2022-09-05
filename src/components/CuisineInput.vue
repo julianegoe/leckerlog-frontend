@@ -11,6 +11,9 @@ onMounted(async () => {
     try {
         const response = await fetch(import.meta.env.VITE_BASE_URL + '/cuisines', {
             method: 'GET',
+            headers: {
+                        'Content-Type': 'application/json',
+                    },
         });
         if (response.status === 200) {
             const cuisinesResponse = await response.json();

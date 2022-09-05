@@ -9,7 +9,8 @@ export const useRequest = () => {
 
     const get = async (endpoint: string): Promise<Leckerlog[] | []> => {
         const idToken = await auth.currentUser?.getIdToken(true);
-        const path = `${import.meta.env.VITE_BASE_URL}/${endpoint}/${auth.currentUser?.uid}`;
+        const userId = auth.currentUser?.uid;
+        const path = `${import.meta.env.VITE_BASE_URL}/${endpoint}/${userId}`;
         status.value = 'LOADING';
         try {
             if (idToken) {
@@ -17,6 +18,7 @@ export const useRequest = () => {
                     method: 'GET',
                     headers: {
                         'AuthToken': idToken || '',
+                        'Content-Type': 'application/json',
                     },
                 });
                 const data = await response.json();
@@ -69,6 +71,7 @@ export const useRequest = () => {
                     method: 'DELETE',
                     headers: {
                         'AuthToken': idToken || '',
+                        'Content-Type': 'application/json',
                     },
                 });
                 const data = await response.json();

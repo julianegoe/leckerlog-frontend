@@ -5,7 +5,7 @@ import {ConvertDMSToDEG} from "../services/GoogleService";
 
 const props = defineProps<{
   label: string;
-  id: string;
+  inputId: string;
   latitude?: [number, number, number];
   latitudeDirection?: string;
   longitude?: [number, number, number];
@@ -81,8 +81,8 @@ const handleSelection = (value: string) => {
 </script>
 <template>
     <div>
-        <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="id">{{ label }}</label>
-        <input id="autocomplete" type="text" :ref="restaurantRef" v-model="searchQuery" :id="id"
+        <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="inputId">{{ label }}</label>
+        <input id="autocomplete" type="text" :ref="restaurantRef" v-model="searchQuery" :id="inputId"
                autocomplete="off"  class="py-2 px-4 border border-black w-full" />
       <div class="text-red-700 text-xs" v-if="!googleLocation">Dieses Bild hat keine EXIF Daten</div>
       <ul v-if="googlePredictions.length > 0" class="border border-black">
