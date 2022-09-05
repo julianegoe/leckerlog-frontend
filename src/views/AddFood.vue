@@ -98,7 +98,7 @@ const addFood = async () => {
         <input class="hidden" role="button" id="file-upload" type="file" @change="handlePhotoChange"
           accept="image/jpeg" />
       <GooglePlacesTextInput @update:restaurant="(value) => inputValues.restaurantName = value" label="Restaurant"
-        id="restaurant-input" :latitude="exifGpsData.GPSLatitude" :latitude-direction="exifGpsData.GPSLatitudeRef"
+        input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude" :latitude-direction="exifGpsData.GPSLatitudeRef"
         :longitude="exifGpsData.GPSLongitude" :longitude-direction="exifGpsData.GPSLongitudeRef" />
       <CuisineInput @update="(value: ListItem) => inputValues.cuisine = value" />
       <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
