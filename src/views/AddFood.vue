@@ -89,34 +89,38 @@ const addFood = async () => {
 
 </script>
 <template>
-  <AppHeader>
-    <div class="text-xl font-bold">LeckerLog</div>
-  </AppHeader>
-  <div class="m-auto p-2">
-    <form @submit.prevent="addFood">
-        <label for="file-upload" class="cursor-pointer p-2 border border-black active:bg-gray-200">Bild auswählen</label>
+  <div>
+    <AppHeader>
+      <div class="text-xl font-bold">LeckerLog</div>
+    </AppHeader>
+    <div class="m-auto p-2">
+      <form @submit.prevent="addFood">
+        <label for="file-upload" class="cursor-pointer p-2 border border-black active:bg-gray-200">Bild
+          auswählen</label>
         <input class="hidden" role="button" id="file-upload" type="file" @change="handlePhotoChange"
           accept="image/jpeg" />
-      <GooglePlacesTextInput @update:restaurant="(value) => inputValues.restaurantName = value" label="Restaurant"
-        input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude" :latitude-direction="exifGpsData.GPSLatitudeRef"
-        :longitude="exifGpsData.GPSLongitude" :longitude-direction="exifGpsData.GPSLongitudeRef" />
-      <CuisineInput @update="(value: ListItem) => inputValues.cuisine = value" />
-      <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
-        id="meal-input" type="text" />
-      <AppDateInput v-model="inputValues.ordered_at" :photo-date="inputValues.ordered_at" label="Bestellt am"
-        id="date-input" />
-      <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
-        id="comment-input" type="text" />
-      <AppStarRatingInput @change:stars="(value) => inputValues.rating = value" />
-      <img v-if="inputValues.image_path" class="mt-4" :src="inputValues.image_path" alt="selected-image" />
+        <GooglePlacesTextInput @update:restaurant="(value) => inputValues.restaurantName = value" label="Restaurant"
+          input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude"
+          :latitude-direction="exifGpsData.GPSLatitudeRef" :longitude="exifGpsData.GPSLongitude"
+          :longitude-direction="exifGpsData.GPSLongitudeRef" />
+        <CuisineInput @update="(value: ListItem) => inputValues.cuisine = value" />
+        <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
+          id="meal-input" type="text" />
+        <AppDateInput v-model="inputValues.ordered_at" :photo-date="inputValues.ordered_at" label="Bestellt am"
+          id="date-input" />
+        <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
+          id="comment-input" type="text" />
+        <AppStarRatingInput @change:stars="(value) => inputValues.rating = value" />
+        <img v-if="inputValues.image_path" class="mt-4" :src="inputValues.image_path" alt="selected-image" />
 
 
-      <button class="flex justify-center mt-4 p-2 w-32 border border-black active:bg-gray-200" type="submit">
-        <div v-if="!loading">Hinzufügen</div>
-        <div v-else-if="loading"
-          class="w-6 h-6 border-2 border-black border-solid rounded-full animate-spin border-t-transparent"></div>
-      </button>
-    </form>
-    <SnackBar text="Upload erfolgreich" :show-snackbar="showSnackbar" />
+        <button class="flex justify-center mt-4 p-2 w-32 border border-black active:bg-gray-200" type="submit">
+          <div v-if="!loading">Hinzufügen</div>
+          <div v-else-if="loading"
+            class="w-6 h-6 border-2 border-black border-solid rounded-full animate-spin border-t-transparent"></div>
+        </button>
+      </form>
+      <SnackBar text="Upload erfolgreich" :show-snackbar="showSnackbar" />
+    </div>
   </div>
 </template>

@@ -2,10 +2,12 @@ import { setPersistence, browserLocalPersistence, onAuthStateChanged, signInWith
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { auth } from "../firebase/firebase";
+import { useUserStore } from "../store/user";
 
 export const useAuthentication = () => {
 
   const router = useRouter();
+  const store = useUserStore();
   
     const error = ref({
         errorCode: null,
@@ -17,7 +19,11 @@ export const useAuthentication = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         userData.value = user;
+        store.updateUserId(user.uid)
+        store.refreshIdToken(user)
+
       } else {
+        store.updateUserId('')
         router.replace({ name: 'Login' })
       }
     })
@@ -26,7 +32,6 @@ export const useAuthentication = () => {
       setPersistence(auth, browserLocalPersistence).then(() => {
         signInWithEmailAndPassword(auth, email, password)
       .then(() => {
-        console.log('logged in');
         router.replace({ name: 'Home' });
       }).catch((err) => {
         error.value.errorCode = err.errorCode;

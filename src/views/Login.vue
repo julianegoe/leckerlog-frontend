@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { createUserWithEmailAndPassword, onAuthStateChanged } from '@firebase/auth';
+import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { ref } from 'vue';
 import AppTextInput from '../components/AppTextInput.vue';
 import { useAuthentication } from '../composables/useAuthentication';

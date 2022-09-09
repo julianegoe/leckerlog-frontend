@@ -3,6 +3,9 @@ import router from "./router/index"
 import App from './App.vue'
 import './index.css'
 import clickOutside from './directives/clickOutside';
+import { createPinia } from 'pinia';
 
-createApp(App).use(router).directive('click-outside', clickOutside).mount('#app')
+const pinia = createPinia()
+
+createApp(App).use(router).use(pinia).directive('click-outside', clickOutside).mount('#app')
 

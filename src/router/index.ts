@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { auth } from '../firebase/firebase';
 import Cuisines from '/src/views/Cuisines.vue';
 
 const routes = [
@@ -28,5 +29,8 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 })
+  
+
+
 
 export default router
