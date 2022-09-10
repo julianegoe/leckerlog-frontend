@@ -11,7 +11,7 @@ export const useRequest = () => {
     const store = useUserStore();
 
     const get = async (endpoint: string): Promise<Leckerlog[] | []> => {
-        const path = `${import.meta.env.VITE_BASE_URL}/${endpoint}/${store.userId}`;
+        const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
         status.value = 'LOADING';
         try {
             const response = await fetch(path, {
@@ -36,7 +36,7 @@ export const useRequest = () => {
 
     const post = async (endpoint: string, body: Record<string, string | number | null>): Promise<[Restaurant, FoodOrdered] | []> => {
         const idToken = await auth.currentUser?.getIdToken(true);
-        const path = `${import.meta.env.VITE_BASE_URL}/${endpoint}/${auth.currentUser?.uid}`;
+        const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${auth.currentUser?.uid}`;
         status.value = 'LOADING';
         try {
             if (idToken) {
@@ -63,7 +63,7 @@ export const useRequest = () => {
 
     const deleteRecord = async (endpoint: string, id: number,): Promise<any> => {
         const idToken = await auth.currentUser?.getIdToken(true);
-        const path = `${import.meta.env.VITE_BASE_URL}/${endpoint}/${auth.currentUser?.uid}/${id}`;
+        const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${auth.currentUser?.uid}/${id}`;
         status.value = 'LOADING';
         try {
             if (idToken) {
