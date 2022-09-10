@@ -1,7 +1,7 @@
 import { register } from 'register-service-worker';
 
 if (import.meta.env.VITE_NODE_ENV === 'production') {
-  register(`${import.meta.env.VITE_BASE_URL}sw.ts`, {
+  register(`${import.meta.env.VITE_BASE_URL}`, {
     ready() {
       console.log(
         'App is being served from cache by a service worker.\n'
