@@ -2,11 +2,12 @@
 import { computed } from "vue";
 import AppFooter from "./components/AppFooter.vue";
 import { useAuthentication } from "./composables/useAuthentication";
+import { useUserStore } from "./store/user";
 
-const { userData } = useAuthentication();
+const store = useUserStore();
 
 const isLoggedIn = computed(() => {
-    if (userData) {
+    if (store.userId) {
         return true;
     } else {
         return false;
@@ -16,7 +17,7 @@ const isLoggedIn = computed(() => {
 </script>
 
 <template>
-    <main class="h-[calc(100vh-5rem)] overflow-y-scroll">
+    <main id="scroll-container" class="h-[calc(100vh-5rem)] overflow-y-scroll">
         <router-view v-slot="{ Component }">
             <transition name="slide-fade" mode="out-in">
                 <component :is="Component" />
@@ -39,4 +40,16 @@ const isLoggedIn = computed(() => {
   transform: translateX(20px);
   opacity: 0;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#scroll-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 </style>

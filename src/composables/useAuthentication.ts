@@ -14,17 +14,15 @@ export const useAuthentication = () => {
         errorMessage: '',
     });
 
-    const userData = ref();
-
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        userData.value = user;
+        store.setIsAuthenticated(true);
         store.updateUserId(user.uid)
         store.refreshIdToken(user)
-
       } else {
-        store.updateUserId('')
-        router.replace({ name: 'Login' })
+        store.updateUserId('');
+        router.replace({ name: 'Login' });
+        store.setIsAuthenticated(false);
       }
     })
 
@@ -42,6 +40,7 @@ export const useAuthentication = () => {
 
     const signOut = () => {
       auth.signOut().then(() => {
+        store.setIsAuthenticated(false);
         router.replace({ name: 'Login' });
       }).catch((err) => {
         error.value.errorCode = err.errorCode;
@@ -51,7 +50,6 @@ export const useAuthentication = () => {
 
     return {
         error,
-        userData,
         signIn,
         signOut,
     }

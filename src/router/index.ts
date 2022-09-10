@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { auth } from '../firebase/firebase';
+import { useUserStore } from '../store/user';
 import Cuisines from '/src/views/Cuisines.vue';
 
 const routes = [
@@ -28,7 +28,15 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
-})
+});
+
+router.beforeEach((to, from) => {
+    const store = useUserStore();
+    if (to.name !== 'Login' && !store.isAuthenticated) {
+        return { name: 'Login' }
+    }
+    return true
+  })
   
 
 

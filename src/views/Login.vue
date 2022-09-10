@@ -19,7 +19,8 @@ const handleRegister = () => {
 };
 </script>
 <template>
-  <h1 class="text-2xl font-bold text-center mb-4">Leckerlog!</h1>
+  <div>
+    <h1 class="text-2xl font-bold text-center mb-4">Leckerlog!</h1>
   <div class="flex flex-col items-center gap-4">
     <h1>Registrieren</h1>
     <form @submit.prevent="handleRegister">
@@ -33,5 +34,6 @@ const handleRegister = () => {
       <AppTextInput v-model="password" label="Passwort" id="password" type="password" />
       <button class="border border-1 border-black p-2 mt-4" type="submit">Login</button>
       </form>
+  </div>
   </div>
 </template>

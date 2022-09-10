@@ -6,6 +6,7 @@ import { auth } from '../firebase/firebase'
 export const useUserStore = defineStore('user', () => {
     const userId = ref();
     const idToken = ref();
+    const isAuthenticated = ref(false);
 
     async function refreshIdToken(user: User) {
         idToken.value = await user.getIdToken(true);
@@ -23,5 +24,9 @@ export const useUserStore = defineStore('user', () => {
         userId.value = uid
     }
 
-    return { userId, idToken, getIdToken, getUserId, refreshIdToken, updateUserId }
+    function setIsAuthenticated(authenticated: boolean) {
+        isAuthenticated.value = authenticated;
+    }
+
+    return { userId, idToken, isAuthenticated, getIdToken, getUserId, refreshIdToken, updateUserId, setIsAuthenticated }
 })

@@ -5,7 +5,7 @@
   }>()
 </script>
 <template>
-    <div class="absolute bottom-24 left-10 z-10 w-3/4 bg-white aspect-auto border border-black p-4">
+    <div class="absolute bottom-24 right-0 left-0 mx-10 bg-white aspect-auto border border-black p-4 overflow-hidden">
       <div class="text-sm pb-2">{{ text }}</div>
       <div class="flex justify-between">
         <button class="font-bold" @click="$emit('delete')">Ja</button>

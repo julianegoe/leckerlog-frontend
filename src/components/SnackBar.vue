@@ -9,7 +9,7 @@ defineProps<{
 <template>
     <Transition name="jump">
         <div
-            v-show="showSnackbar" class="absolute bottom-24 left-10 z-10 w-3/4 bg-black aspect-auto border border-black rounded-3xl text-center p-1">
+            v-show="showSnackbar" class="absolute  bottom-24 right-0 left-0 mx-10 bg-black aspect-auto border border-black rounded-3xl text-center p-1">
             <div class="text-sm text-white">{{ text }}</div>
         </div>
     </Transition>
