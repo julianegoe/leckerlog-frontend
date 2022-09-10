@@ -6,37 +6,26 @@ import { VitePWA } from "vite-plugin-pwa"
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), svgLoader(), VitePWA({
-    mode: "development",
-    base: "/",
-    srcDir: "src",
-    filename: "sw.ts",
-    includeAssets: ["/favicon.png"],
-    strategies: "injectManifest",
-    manifest: {
-      name: "Leckerlog",
-      short_name: "LCKR",
-      theme_color: "#ffffff",
-      start_url: "/",
-      display: "standalone",
-      background_color: "#ffffff",
-      icons: [
-        {
-          src: "icon-192.png",
-          sizes: "192x192",
-          type: "image/png",
-        },
-        {
-          src: "/icon-512.png",
-          sizes: "512x512",
-          type: "image/png",
-        },
-        {
-          src: "icon-512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "any maskable",
-        },
-      ],
-    },
+    injectRegister: 'auto',
+    includeAssets: ['./assets/logo.png'],
+      manifest: {
+        name: 'Leckerlog',
+        short_name: 'LCKR',
+        description: 'Logge Leggeres!',
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: './assets/icons/icon-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          },
+          {
+            src: './assets/icons/icon-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          }
+        ]
+      }
+
   })]
 })
