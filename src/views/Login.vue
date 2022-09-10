@@ -39,7 +39,7 @@ const resetPassword = () => {
       const errorCode = error.code;
       const errorMessage = error.message;
     });
-}
+};
 </script>
 <template>
   <div>

@@ -31,8 +31,7 @@ export const useAuthentication = () => {
     }
   })
 
-  const signIn = async (email: string, password: string) => {
-    if (isEmailVerified.value) {
+  const signIn = (email: string, password: string) => {
       loginStatus.value = 'LOADING';
       setPersistence(auth, browserLocalPersistence).then(() => {
         signInWithEmailAndPassword(auth, email, password)
@@ -44,15 +43,6 @@ export const useAuthentication = () => {
             error.value.errorMessage = err.errorMessage;
           })
       })
-    } else {
-      window.alert('Du hast deine Email noch nicht verifiziert. Checke dein E-Mailpostfach.')
-      if (auth.currentUser) {
-        await sendEmailVerification(auth.currentUser, {
-          url: import.meta.env.VITE_BASE_URL,
-          handleCodeInApp: true
-          })
-      }
-    }
   }
 
   const signOut = () => {
