@@ -2,18 +2,20 @@
 import { onMounted, ref } from 'vue';
 import AppHeader from '../components/AppHeader.vue';
 import { useApi } from '../composables/useApi';
+import { useContentStore } from '../store/content';
 import { useUserStore } from '../store/user';
 import { Cuisine } from '../types/types';
 
 const store = useUserStore();
+const data = useContentStore()
 
 const api = useApi();
-const cuisines = ref<Cuisine[]>([]);
 
 onMounted(async () => {
     store.getUserId();
     await store.getIdToken();
-    cuisines.value = await api.getCuisines()
+    const cuisines = await api.getCuisines();
+    data.setCuisines(cuisines);
 });
 
 </script>
@@ -22,8 +24,8 @@ onMounted(async () => {
         <AppHeader>
             <div class="font-bold text-xl">LeckerLog</div>
         </AppHeader>
-        <div v-if="cuisines.length > 0" class="grid gap-3 grid-cols-2 items-center justify-between m-2">
-            <template v-for="(cuisine, index) in cuisines">
+        <div v-if="data.cuisines.length > 0" class="grid gap-3 grid-cols-2 items-center justify-between m-2">
+            <template v-for="(cuisine, index) in data.cuisines">
                 <RouterLink :to="{ name: 'Food', params: { cuisine: cuisine.name } }">
                     <div class="flex items-center justify-center w-full aspect-square p-4 border border-black text-xl font-bold cursor-pointer active:bg-gray-200"
                         :key="index + '-cuiine'">{{ cuisine.name }}</div>

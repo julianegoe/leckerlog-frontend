@@ -8,27 +8,28 @@ import FoodCard from "../components/FoodCard.vue";
 import { useApi } from "../composables/useApi";
 import { Leckerlog } from "../types/types";
 import { useRouter } from "vue-router";
+import { useContentStore } from "../store/content";
 
 
-const router = useRouter();
 const api = useApi();
-const leckerlog = ref<Leckerlog[]>([]);
-
+const data = useContentStore();
 const props = defineProps<{
   cuisine: string;
 }>()
 
 onBeforeMount(async () => {
-  leckerlog.value = await api.getLeckerlog();
+  const leckerlog = await api.getLeckerlog();
+  data.setLeckerlogs(leckerlog);
 });
 
 const displayRestaurants = computed<Leckerlog[]>(() => {
-  return leckerlog.value.filter((restaurant: Leckerlog) => restaurant.cuisine === props.cuisine);
+  return data.leckerlogs.filter((restaurant: Leckerlog) => restaurant.cuisine === props.cuisine);
 })
 
 const handleDelete = async (id: number) => {
-  const deletedRecord = await api.deleteFoodOrdered(id);
-  leckerlog.value = await api.getLeckerlog();
+  await api.deleteFoodOrdered(id);
+  const leckerlog = await api.getLeckerlog();
+  data.setLeckerlogs(leckerlog);
 };
 
 </script>
@@ -55,9 +56,9 @@ const handleDelete = async (id: number) => {
       </div>
     </template>
     <!--    Skeleton-->
-    <div v-else-if="leckerlog.length === 0">
+    <div v-else-if="data.leckerlogs.length === 0">
       <div v-for="n in 3" :key="`restaurant-skeleton-${n}`" class="w-full h-48 bg-gray-200 animate-pulse mb-2"></div>
     </div>
-    <AppEmptyState v-else-if="leckerlog.length > 0 && displayRestaurants.length === 0" />
+    <AppEmptyState v-else-if="data.leckerlogs.length > 0 && displayRestaurants.length === 0" />
   </div>
 </template>
