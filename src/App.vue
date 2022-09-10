@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import AppFooter from "./components/AppFooter.vue";
-import { useAuthentication } from "./composables/useAuthentication";
+import AppFooter from "./components/AppFooter/AppFooter.vue";
 import { useUserStore } from "./store/user";
 
 const store = useUserStore();
@@ -17,7 +16,7 @@ const isLoggedIn = computed(() => {
 </script>
 
 <template>
-    <main id="scroll-container" class="h-[calc(100vh-5rem)] overflow-y-scroll">
+    <main id="scroll-container" class="h-[calc(100vh-4rem)] overflow-y-scroll">
         <router-view v-slot="{ Component }">
             <transition name="fade" mode="out-in">
                 <component :is="Component" />
