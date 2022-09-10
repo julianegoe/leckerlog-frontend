@@ -7,7 +7,6 @@ import AppEmptyState from "../components/AppEmptyState.vue";
 import FoodCard from "../components/FoodCard.vue";
 import { useApi } from "../composables/useApi";
 import { Leckerlog } from "../types/types";
-import { useRouter } from "vue-router";
 import { useContentStore } from "../store/content";
 
 
