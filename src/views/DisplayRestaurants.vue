@@ -42,7 +42,7 @@ const handleDelete = async (id: number) => {
       </div>
       <div class="font-bold text-lg">{{ cuisine }}</div>
     </AppHeader>
-    <template v-if="false || displayRestaurants !== null && displayRestaurants.length > 0">
+    <template v-if="displayRestaurants !== null && displayRestaurants.length > 0">
       <div v-for="restaurant in displayRestaurants" :key="restaurant.restaurant_id"
         class="flex flex-col gap-6 m-auto p-2 mb-8">
         <RestaurantCard v-if="displayRestaurants.length > 0" @delete="handleDelete(restaurant.restaurant_id)"
@@ -55,7 +55,7 @@ const handleDelete = async (id: number) => {
       </div>
     </template>
     <!--    Skeleton-->
-    <div v-else-if="true">
+    <div v-else-if="data.leckerlogs.length === 0">
       <div v-for="n in 3" :key="`restaurant-skeleton-${n}`" class="w-full h-48 bg-gray-200 animate-pulse mb-2"></div>
     </div>
     <AppEmptyState v-else-if="data.leckerlogs.length > 0 && displayRestaurants.length === 0" />

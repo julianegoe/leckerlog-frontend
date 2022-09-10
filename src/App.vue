@@ -5,14 +5,6 @@ import { useUserStore } from "./store/user";
 
 const store = useUserStore();
 
-const isLoggedIn = computed(() => {
-    if (store.userId) {
-        return true;
-    } else {
-        return false;
-    }
-})
-
 </script>
 
 <template>
@@ -23,7 +15,7 @@ const isLoggedIn = computed(() => {
             </transition>
         </router-view>
     </main>
-    <AppFooter v-if="isLoggedIn" />
+    <AppFooter v-if="store.isAuthenticated" />
 </template>
 <style scoped>
 .fade-enter-active {

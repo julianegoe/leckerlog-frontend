@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import AppHeader from '../components/AppHeader.vue';
 import { useApi } from '../composables/useApi';
 import { useContentStore } from '../store/content';
 import { useUserStore } from '../store/user';
-import { Cuisine } from '../types/types';
 
 const store = useUserStore();
 const data = useContentStore()
