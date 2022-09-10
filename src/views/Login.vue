@@ -46,7 +46,7 @@ const resetPassword = () => {
     <h1 class="text-2xl font-bold text-center mb-4">Leckerlog!</h1>
     <div class="flex flex-col items-center gap-4">
       <h1>Registrieren</h1>
-      <form @submit.prevent="handleRegister">
+      <form @submit.prevent="handleRegister" autocomplete="off">
         <AppTextInput v-model="email" label="Email" id="email" type="text" />
         <AppTextInput v-model="password" label="Passwort" id="password" type="password" />
         <button class="border border-1 border-black p-2 mt-4" type="submit">Register</button>

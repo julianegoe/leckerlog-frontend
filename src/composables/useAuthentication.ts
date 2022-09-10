@@ -32,6 +32,7 @@ export const useAuthentication = () => {
   })
 
   const signIn = (email: string, password: string) => {
+    if (isEmailVerified.value) {
       loginStatus.value = 'LOADING';
       setPersistence(auth, browserLocalPersistence).then(() => {
         signInWithEmailAndPassword(auth, email, password)
@@ -43,6 +44,9 @@ export const useAuthentication = () => {
             error.value.errorMessage = err.errorMessage;
           })
       })
+    } else {
+      window.alert('Du hast deine Email noch nicht verifiziert. Checke dein E-Mailpostfach.')
+    }
   }
 
   const signOut = () => {
