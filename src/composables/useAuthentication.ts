@@ -32,22 +32,29 @@ export const useAuthentication = () => {
   })
 
   const signIn = (email: string, password: string) => {
-    if (isEmailVerified.value) {
-      loginStatus.value = 'LOADING';
-      setPersistence(auth, browserLocalPersistence).then(() => {
-        signInWithEmailAndPassword(auth, email, password)
-          .then(() => {
+    loginStatus.value = 'LOADING';
+    setPersistence(auth, browserLocalPersistence).then(() => {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((response) => {
+          if (response.user.emailVerified) {
             loginStatus.value = 'SUCCESS';
             router.replace({ name: 'Home' });
-          }).catch((err) => {
-            error.value.errorCode = err.errorCode;
-            error.value.errorMessage = err.errorMessage;
-          })
-      })
-    } else {
-      window.alert('Du hast deine Email noch nicht verifiziert. Checke dein E-Mailpostfach.')
-    }
-  }
+          } else {
+            sendEmailVerification(response.user, {
+              url: import.meta.env.VITE_BASE_URL,
+              handleCodeInApp: true
+              })
+              .then(() => {
+                window.alert('Dein Account ist nicht verifiziert. Verifizierungs-Mail wurde versendet',)
+              });
+          }
+
+        }).catch((err) => {
+          error.value.errorCode = err.errorCode;
+          error.value.errorMessage = err.errorMessage;
+        })
+    })
+  };
 
   const signOut = () => {
     auth.signOut().then(() => {
