@@ -36,8 +36,8 @@ router.beforeEach((to, from) => {
         return { name: 'Login' }
     }
     return true
-  })
-  
+})
+
 
 
 

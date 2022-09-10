@@ -12,12 +12,18 @@ import { useContentStore } from "../store/content";
 
 const api = useApi();
 const data = useContentStore();
+
 const props = defineProps<{
   cuisine: string;
 }>()
 
+const isLoading = ref(false);
+
 onBeforeMount(async () => {
   const leckerlog = await api.getLeckerlog();
+  if (api.status.value === 'LOADING') {
+    isLoading.value = true
+  }
   data.setLeckerlogs(leckerlog);
 });
 
@@ -55,9 +61,9 @@ const handleDelete = async (id: number) => {
       </div>
     </template>
     <!--    Skeleton-->
-    <div v-else-if="data.leckerlogs.length === 0">
+    <div v-else-if="isLoading">
       <div v-for="n in 3" :key="`restaurant-skeleton-${n}`" class="w-full h-48 bg-gray-200 animate-pulse mb-2"></div>
     </div>
-    <AppEmptyState v-else-if="data.leckerlogs.length > 0 && displayRestaurants.length === 0" />
+    <AppEmptyState v-else-if="data.leckerlogs.length === 0 && data.cuisines.length === 0" />
   </div>
 </template>

@@ -31,7 +31,6 @@ export const useRequest = () => {
             errorMessage.value = error;
             return []
         }
-        return []
     };
 
     const post = async (endpoint: string, body: Record<string, string | number | null>): Promise<[Restaurant, FoodOrdered] | []> => {

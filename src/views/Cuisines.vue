@@ -4,6 +4,7 @@ import AppHeader from '../components/AppHeader.vue';
 import { useApi } from '../composables/useApi';
 import { useContentStore } from '../store/content';
 import { useUserStore } from '../store/user';
+import AppEmptyState from '../components/AppEmptyState.vue';
 
 const store = useUserStore();
 const data = useContentStore()
@@ -32,11 +33,12 @@ onMounted(async () => {
             </template>
         </div>
         <!-- Skeletons -->
-        <div v-else class="grid gap-3 grid-cols-2 items-center justify-between m-2">
+        <div v-else-if="api.status.value === 'LOADING'" class="grid gap-3 grid-cols-2 items-center justify-between m-2">
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
         </div>
+        <AppEmptyState v-else-if="api.status.value === 'SUCCESS' && data.cuisines.length === 0" />
     </div>
 </template>

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
 import { useUserStore } from "./store/user";
 
 const store = useUserStore();
+const router = useRouter()
 
 </script>
 
@@ -15,7 +17,7 @@ const store = useUserStore();
             </transition>
         </router-view>
     </main>
-    <AppFooter v-if="store.isAuthenticated" />
+    <AppFooter v-if="router.currentRoute.value.name !== 'Login'" />
 </template>
 <style scoped>
 .fade-enter-active {
