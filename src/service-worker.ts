@@ -8,12 +8,6 @@ declare let self: any
 
 addRoute(self.__WB_MANIFEST);
 
-const baseURL = `${import.meta.env.VITE_BASE_API_URL}/`;
-const apiRouteRegEx = baseURL.replace('\\.', '\\\\.');
-
-
-setCacheNameDetails({ prefix: 'leckerlog' });
-
 registerRoute(
     new RegExp(`${import.meta.env.VITE_BASE_API_URL}/cuisines`),
     new NetworkFirst({
@@ -23,7 +17,7 @@ registerRoute(
               // Only cache requests for a week
               maxAgeSeconds: 5 * 60,
               // Only cache 10 requests.
-              maxEntries: 1,
+              maxEntries: 2,
             }),
           ],
     })
@@ -38,7 +32,7 @@ registerRoute(
               // Only cache requests for a week
               maxAgeSeconds: 1 * 60,
               // Only cache 10 requests.
-              maxEntries: 1,
+              maxEntries: 2,
             }),
           ],
     })
