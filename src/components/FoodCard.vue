@@ -11,6 +11,7 @@ const props = defineProps<{
   fileName: string | null;
   comment?: string;
   date?: string;
+  restaurantName?: string;
 }>();
 
 const emits = defineEmits(['delete']);
@@ -40,6 +41,7 @@ const handleDelete = () => {
         <li>
           <div v-if="date" class="text-xs">{{ localeDateString }}</div>
           <div class="font-bold text-lg">{{ menuItem }}</div>
+          <div v-if="restaurantName" class="text-xs">{{ restaurantName }}</div>
         </li>
         <li>
           <div class="flex pt-2">

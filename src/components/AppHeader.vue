@@ -1,7 +1,5 @@
 <script lang="ts" setup>
-import { watch } from 'vue';
 import { useAuthentication } from '../composables/useAuthentication';
-import router from '../router';
 
 const { signOut, error } = useAuthentication();
 

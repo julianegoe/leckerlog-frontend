@@ -17,7 +17,6 @@ export default defineConfig({
       description: 'Logge Leggeres!',
       start_url: '/',
       display: 'fullscreen',
-      
       theme_color: '#ffffff',
       icons: [
         {

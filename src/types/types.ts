@@ -29,6 +29,11 @@ export interface FoodOrdered {
   date_updated: string;
   date_created: string;
 }
+
+export interface LastUpdatedFood extends FoodOrdered {
+  restaurant_name: string;
+}
+
 export interface Restaurant {
   restaurant_id: number;
   name: string;
@@ -61,3 +66,10 @@ export const INPUT_DEFAULT_VALUES: RecordData = {
     foodName: '',
     image_path: null,
   }
+
+export type View = 'cuisines' | 'last_updated'
+
+export interface FilterItem {
+  label: string;
+  value: View;
+}

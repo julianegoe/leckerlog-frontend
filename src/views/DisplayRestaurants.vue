@@ -20,11 +20,9 @@ const props = defineProps<{
 const isLoading = ref(false);
 
 onBeforeMount(async () => {
-  const leckerlog = await api.getLeckerlog();
   if (api.status.value === 'LOADING') {
     isLoading.value = true
   }
-  data.setLeckerlogs(leckerlog);
 });
 
 const displayRestaurants = computed<Leckerlog[]>(() => {
