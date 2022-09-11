@@ -31,6 +31,14 @@ export default defineConfig({
           type: 'image/png',
           purpose: 'any maskable'
         }
+      ],
+      shortcuts: [
+        {
+          name: 'Gericht hinzufügen',
+          short_name: 'Hinzufügen',
+          url: '/add',
+          icons: [],
+        },
       ]
     }
 
