@@ -52,9 +52,24 @@ const displayView = (view: FilterItem) => {
             </template>
         </div>
         <div class="px-2 py-2">
-            <CuisinesView v-if="viewStore.active.value === 'cuisines'" :cuisines="data.cuisines"
-                :status="api.status.value" />
-            <LastUpdatedView :status="api.status.value" v-else />
+            <Transition>
+                <CuisinesView v-if="viewStore.active.value === 'cuisines'" :cuisines="data.cuisines"
+                    :status="api.status.value" />
+            </Transition>
+            <Transition>
+                <LastUpdatedView :status="api.status.value" v-if="viewStore.active.value === 'last_ordered'" />
+            </Transition>
         </div>
     </div>
 </template>
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
+</style>
