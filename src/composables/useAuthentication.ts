@@ -1,4 +1,4 @@
-import { setPersistence, browserLocalPersistence, onAuthStateChanged, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { setPersistence, browserLocalPersistence, onAuthStateChanged, signInWithEmailAndPassword, sendEmailVerification, ErrorFn, AuthError } from "firebase/auth";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { auth } from "../firebase/firebase";
@@ -49,9 +49,13 @@ export const useAuthentication = () => {
               });
           }
 
-        }).catch((err) => {
-          error.value.errorCode = err.errorCode;
-          error.value.errorMessage = err.errorMessage;
+        }).catch((err: AuthError) => {
+          if (err.code === 'auth/user-not-found') {
+            window.alert('Nutzer existiert nicht')
+          }
+          if (err.code === 'auth/too-many-requests') {
+            window.alert('Zu viele Versuche')
+          }
         })
     })
   };

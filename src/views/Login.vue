@@ -15,15 +15,6 @@ const handleRegister = () => {
     if (response.user) {
       window.alert('Du bist registriert.');
       console.log(response.user);
-      if (response.user && !response.user.emailVerified) {
-        sendEmailVerification(response.user, {
-          url: import.meta.env.VITE_BASE_URL,
-          handleCodeInApp: true
-          })
-          .then(() => {
-            window.alert('Verifizierungs-Mail wurde versendet',)
-          });
-      }
     }
   }).catch((error) => {
     console.log(error)
