@@ -29,7 +29,6 @@ export default defineConfig({
           src: '/icon-192x192.png',
           sizes: '192x192',
           type: 'image/png',
-          purpose: 'any maskable'
         }
       ],
       shortcuts: [
@@ -37,7 +36,14 @@ export default defineConfig({
           name: 'Gericht hinzufügen',
           short_name: 'Hinzufügen',
           url: '/add',
-          icons: [],
+          icons: [
+            {
+              src: "/pen.svg",
+              sizes: "48x48 72x72 96x96 128x128 256x256 512x512",
+              type: "image/svg+xml",
+              purpose: "any"
+          }
+          ],
         },
       ]
     }
