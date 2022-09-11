@@ -14,7 +14,7 @@ import { useApi } from '../composables/useApi';
 
 const api = useApi()
 
-const loading = computed<boolean>(() => api.status.value === 'LOADING' ? true : false)
+const loading = ref(false);
 const showSnackbar = ref(false);
 
 const inputValues = reactive<RecordData>({
@@ -70,6 +70,7 @@ const result = useFileUpload(fileName, arrayBuffer);
 
 const isValid = ref(false);
 const addFood = async () => {
+  loading.value = true;
   showSnackbar.value = false;
   if (isValid.value) {
     await result.uploadImage();
@@ -80,6 +81,7 @@ const addFood = async () => {
       const addedRecord = await api.addRecord(inputValues);
       console.log(addedRecord)
       if (api.status.value === 'SUCCESS') {
+        loading.value = false
         showSnackbar.value = true;
         setTimeout(() => showSnackbar.value = false, 2000)
       }
