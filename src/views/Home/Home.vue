@@ -32,6 +32,7 @@ onMounted(async () => {
     await store.getIdToken();
     const cuisines = await api.getCuisines();
     const leckerlog = await api.getLeckerlog();
+    console.log(leckerlog);
     data.setLeckerlogs(leckerlog);
     data.setCuisines(cuisines);
 });

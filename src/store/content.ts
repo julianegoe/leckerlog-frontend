@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Cuisine, FoodOrdered, LastUpdatedFood, Leckerlog } from '../types/types';
 
 export const useContentStore = defineStore('content', () => {
@@ -10,18 +10,20 @@ export const useContentStore = defineStore('content', () => {
         cuisines.value = cuisinesData
     }
 
-    function setLeckerlogs (leckerlogdata: Leckerlog[]) {
+    function setLeckerlogs(leckerlogdata: Leckerlog[]) {
         leckerlogs.value = leckerlogdata
     }
 
-    function getLastUpdated () {
-        const foods = [...leckerlogs.value].map((log: Leckerlog) => {
-            return log.food_ordered.map((food: FoodOrdered) => {
-                return {
-                    ...food,
-                    restaurant_name: log.name,
-                }
-            })
+    const getLastUpdated = computed(() => {
+        const foods = [...leckerlogs.value].flatMap((log: Leckerlog) => {
+            if (log.food_ordered !== null) {
+                return log.food_ordered.map((food: FoodOrdered) => {
+                    return [{
+                        ...food,
+                        restaurant_name: log.name,
+                    }]
+                });
+            } else return []
         });
         return foods.flat().sort((a: LastUpdatedFood, b: LastUpdatedFood) => {
             if (new Date(a.ordered_at) > new Date(b.ordered_at)) {
@@ -35,7 +37,7 @@ export const useContentStore = defineStore('content', () => {
             }
             return 0
         }).reverse();
-    }
+    })
 
     return { cuisines, leckerlogs, setCuisines, setLeckerlogs, getLastUpdated }
 })
