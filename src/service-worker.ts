@@ -1,6 +1,7 @@
 import { registerRoute } from 'workbox-routing';
 import { NetworkFirst } from 'workbox-strategies';
 import { setCacheNameDetails } from 'workbox-core';
+import {ExpirationPlugin} from 'workbox-expiration';
 import { addRoute } from 'workbox-precaching';
 
 declare let self: any
@@ -15,7 +16,17 @@ setCacheNameDetails({ prefix: 'leckerlog' });
 
 registerRoute(
     new RegExp(apiRouteRegEx.concat('cuisines*')),
-    new NetworkFirst()
+    new NetworkFirst({
+        cacheName: 'cuisines',
+        plugins: [
+            new ExpirationPlugin({
+              // Only cache requests for a week
+              maxAgeSeconds: 2 * 60,
+              // Only cache 10 requests.
+              maxEntries: 1,
+            }),
+          ],
+    })
 );
 
 registerRoute(
