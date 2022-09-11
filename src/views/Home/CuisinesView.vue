@@ -24,5 +24,5 @@ import AppEmptyState from '../../components/AppEmptyState.vue';
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
         </div>
-        <AppEmptyState v-if="status === 'SUCCESS' && cuisines.length === 0" />
+        <AppEmptyState v-else-if="status === 'SUCCESS' && cuisines.length === 0" />
 </template>

@@ -32,7 +32,6 @@ onMounted(async () => {
     await store.getIdToken();
     const cuisines = await api.getCuisines();
     const leckerlog = await api.getLeckerlog();
-    console.log(leckerlog);
     data.setLeckerlogs(leckerlog);
     data.setCuisines(cuisines);
 });
@@ -55,7 +54,7 @@ const displayView = (view: FilterItem) => {
         <div class="px-2 py-2">
             <CuisinesView v-if="viewStore.active.value === 'cuisines'" :cuisines="data.cuisines"
                 :status="api.status.value" />
-            <LastUpdatedView v-else />
+            <LastUpdatedView :status="api.status.value" v-else />
         </div>
     </div>
 </template>

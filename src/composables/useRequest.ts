@@ -4,8 +4,8 @@ import { useUserStore } from "../store/user";
 import { Leckerlog, Restaurant, FoodOrdered } from "../types/types";
 
 export const useRequest = () => {
-    type Status = 'LOADING' | 'IDLE' | 'SUCCESS' | 'ERROR';
-    const status = ref<Status>('IDLE');
+    type UploadStatus = 'LOADING' | 'IDLE' | 'SUCCESS' | 'ERROR';
+    const status = ref<UploadStatus>('IDLE');
     const errorMessage = ref();
 
     const store = useUserStore();
