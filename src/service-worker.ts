@@ -15,7 +15,7 @@ const apiRouteRegEx = baseURL.replace('\\.', '\\\\.');
 setCacheNameDetails({ prefix: 'leckerlog' });
 
 registerRoute(
-    new RegExp(apiRouteRegEx.concat('cuisines*')),
+    new RegExp(`${import.meta.env.VITE_BASE_API_URL}/cuisines`),
     new NetworkFirst({
         cacheName: 'cuisines',
         plugins: [
@@ -30,6 +30,6 @@ registerRoute(
 );
 
 registerRoute(
-    new RegExp(apiRouteRegEx.concat('leckerlog*')),
+    new RegExp(`${import.meta.env.VITE_BASE_API_URL}/leckerlog`),
     new NetworkFirst()
 );
