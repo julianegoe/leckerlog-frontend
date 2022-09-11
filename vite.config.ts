@@ -41,7 +41,6 @@ export default defineConfig({
               src: "/pen.png",
               sizes: "96x96",
               type: "image/png",
-              purpose: "maskable any"
           }
           ],
         },
