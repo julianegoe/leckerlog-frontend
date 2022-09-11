@@ -15,15 +15,18 @@ export default defineConfig({
       name: 'Leckerlog',
       short_name: 'LCKR',
       description: 'Logge Leggeres!',
+      start_url: '/',
+      display: 'fullscreen',
+      
       theme_color: '#ffffff',
       icons: [
         {
-          src: './assets/icons/icon-512x512.png',
+          src: 'src/assets/icons/icon-512x512.png',
           sizes: '512x512',
           type: 'image/png'
         },
         {
-          src: './assets/icons/icon-192x192.png',
+          src: 'src/assets/icons/icon-192x192.png',
           sizes: '192x192',
           type: 'image/png',
           purpose: 'any maskable'

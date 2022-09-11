@@ -8,6 +8,13 @@ declare let self: any
 
 addRoute(self.__WB_MANIFEST);
 
+self.addEventListener("install", () => {
+  console.log("Service worker installed");
+});
+self.addEventListener("activate", () => {
+  console.log("Service worker activated");
+});
+
 registerRoute(
     new RegExp(`${import.meta.env.VITE_BASE_API_URL}/cuisines`),
     new NetworkFirst({
