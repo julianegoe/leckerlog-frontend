@@ -18,8 +18,8 @@ const api = useApi();
 
 const views = ref<FilterItem[]>([
     {
-        label: 'Zuletzt hinzugefügt',
-        value: 'last_updated',
+        label: 'Zuletzt bestellt',
+        value: 'last_ordered',
     },
     {
         label: 'Küchen',

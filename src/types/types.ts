@@ -67,7 +67,7 @@ export const INPUT_DEFAULT_VALUES: RecordData = {
     image_path: null,
   }
 
-export type View = 'cuisines' | 'last_updated'
+export type View = 'cuisines' | 'last_ordered'
 
 export interface FilterItem {
   label: string;
