@@ -21,7 +21,7 @@ registerRoute(
         plugins: [
             new ExpirationPlugin({
               // Only cache requests for a week
-              maxAgeSeconds: 2 * 60,
+              maxAgeSeconds: 5 * 60,
               // Only cache 10 requests.
               maxEntries: 1,
             }),
@@ -31,5 +31,15 @@ registerRoute(
 
 registerRoute(
     new RegExp(`${import.meta.env.VITE_BASE_API_URL}/leckerlog`),
-    new NetworkFirst()
+    new NetworkFirst({
+        cacheName: 'cuisines',
+        plugins: [
+            new ExpirationPlugin({
+              // Only cache requests for a week
+              maxAgeSeconds: 1 * 60,
+              // Only cache 10 requests.
+              maxEntries: 1,
+            }),
+          ],
+    })
 );
