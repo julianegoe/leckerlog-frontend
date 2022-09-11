@@ -38,10 +38,10 @@ export default defineConfig({
           url: '/add',
           icons: [
             {
-              src: "/pen.svg",
-              sizes: "48x48 72x72 96x96 128x128 256x256 512x512",
-              type: "image/svg+xml",
-              purpose: "any"
+              src: "/pen.png",
+              sizes: "96x96",
+              type: "image/png",
+              purpose: "maskable any"
           }
           ],
         },
