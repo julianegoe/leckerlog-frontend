@@ -55,6 +55,7 @@ const resetPassword = () => {
         </button>
       </form>
       <div class="cursor-pointer" @click="resetPassword">Passwort vergessen</div>
+      <div>Test update?</div>
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { setCacheNameDetails } from 'workbox-core';
-import { addRoute, PrecacheRouteOptions } from 'workbox-precaching';
+import { addRoute } from 'workbox-precaching';
 import { ExpirationPlugin } from 'workbox-expiration';
 
 declare let self: any
