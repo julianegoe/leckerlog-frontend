@@ -1,19 +1,28 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import AddButton from './AddButton.vue';
+import Plus from '../../assets/icons/plus.svg';
 import Squares from '../../assets/icons/squares.svg';
 import List from '../../assets/icons/list.svg';
 
 const isUploading = ref(false);
 </script>
 <template>
-  <footer id="bottom-nav" class="fixed bottom-0 w-full bg-gray-200 flex justify-start items-center border border-1 border-black">
+  <footer id="bottom-nav"
+    class="fixed bottom-0 w-full bg-gray-200 flex justify-start items-center border border-1 border-black">
     <router-link :to="{name: 'AddFood'}">
-      <AddButton :is-uploading="isUploading" />
+      <button :disabled="isUploading"
+        id="add-button"
+        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2"
+        :class="{
+          'disabled:text-gray-500 disabled:cursor-default' : isUploading,
+        }">
+        <Plus />
+        <div class="text-xs">Hinzufügen</div>
+      </button>
     </router-link>
     <router-link :to="{name: 'Home'}">
-      <button :disabled="isUploading"
-        class="w-24 h-16 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400"
+      <button :disabled="isUploading" id="list-button"
+        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -22,8 +31,8 @@ const isUploading = ref(false);
       </button>
     </router-link>
     <router-link :to="{name: 'Categories'}">
-      <button :disabled="isUploading"
-        class="w-24 h-16 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400"
+      <button :disabled="isUploading" id="categories-button"
+        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -34,8 +43,10 @@ const isUploading = ref(false);
   </footer>
 </template>
 <style scroped>
-  #bottom-nav {
-    padding-bottom: env(safe-area-inset-right);
-  }
+#add-button,
+#list-button,
+#categories-button {
+  padding-bottom: env(safe-area-inset-bottom);
+}
 </style>
 
