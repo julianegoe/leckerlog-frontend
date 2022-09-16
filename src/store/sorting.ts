@@ -9,9 +9,23 @@ export const useSortingStore = defineStore('sorting', () => {
         value: 'last_ordered',
     });
 
-    function set (sortBy: FilterItem) {
+    const activeGroupBy = ref<FilterItem>({
+        label: 'Küchen',
+        value: 'cuisines'
+    })
+
+    function setSortingState(sortBy: FilterItem) {
         activeSortBy.value = sortBy;
     }
 
-    return { activeSortBy, set }
+    function setGroupState(sortBy: FilterItem) {
+        activeGroupBy.value = sortBy;
+    }
+
+    return {
+        activeSortBy,
+        activeGroupBy,
+        setSortingState,
+        setGroupState
+    }
 })

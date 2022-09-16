@@ -1,12 +1,28 @@
 <script lang="ts" setup>
-import { Cuisine } from '../types/types';
+import { FilterItem } from '../types/types';
 import AppHeader from '../components/AppHeader.vue';
 import AppEmptyState from '../components/AppEmptyState.vue';
+import AppBadge from '../components/globals/AppBadge.vue';
 import { useContentStore } from '../store/content';
 import { useApi } from '../composables/useApi';
+import { ref } from 'vue';
+import { useSortingStore } from '../store/sorting';
 
 const { cuisines } = useContentStore();
+const { setGroupState, activeGroupBy } = useSortingStore();
 const api = useApi();
+
+const groupBy = ref<FilterItem[]>([
+    {
+        label: 'Küchen',
+        value: 'cuisines',
+    },
+]);
+
+
+const setGroupBy = (groupBy: FilterItem) => {
+    setGroupState(groupBy);
+}
 
 </script>
 <template>
@@ -14,6 +30,11 @@ const api = useApi();
         <AppHeader>
             <div class="font-bold text-xl">LeckerLog</div>
         </AppHeader>
+        <div class="flex flex-row px-2">
+            <template v-for="(groupValue, index) in groupBy" :key="index + groupValue.label">
+                <AppBadge @click="setGroupBy(groupValue)" :action-state="groupValue" :active-state="activeGroupBy" />
+            </template>
+        </div>
         <div v-if="cuisines.length > 0" class="grid gap-3 grid-cols-2 items-center justify-between m-2">
             <template v-for="(cuisine, index) in cuisines">
                 <RouterLink :to="{ name: 'Food', params: { cuisine: cuisine.name } }">
@@ -22,13 +43,6 @@ const api = useApi();
                 </RouterLink>
             </template>
         </div>
-        <!-- Skeletons -->
-        <div v-else-if="api.status.value === 'LOADING'" class="grid gap-3 grid-cols-2 items-center justify-between m-2">
-            <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
-            <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
-            <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
-            <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
-        </div>
-        <AppEmptyState v-else-if="api.status.value === 'SUCCESS' && cuisines.length === 0" />
+        <AppEmptyState v-else-if="cuisines.length === 0" />
     </div>
 </template>

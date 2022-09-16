@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { computed, onBeforeMount, ref, Ref } from "vue";
+import { computed } from "vue";
 import BackIcon from '../assets/icons/chevron-left.svg';
 import AppHeader from "../components/AppHeader.vue";
 import RestaurantCard from "../components/RestaurantCard.vue";
-import AppEmptyState from "../components/AppEmptyState.vue";
 import FoodCard from "../components/FoodCard.vue";
 import { useApi } from "../composables/useApi";
 import { Leckerlog } from "../types/types";
@@ -16,14 +15,6 @@ const data = useContentStore();
 const props = defineProps<{
   cuisine: string;
 }>()
-
-const isLoading = ref(false);
-
-onBeforeMount(async () => {
-  if (api.status.value === 'LOADING') {
-    isLoading.value = true
-  }
-});
 
 const displayRestaurants = computed<Leckerlog[]>(() => {
   return data.leckerlogs.filter((restaurant: Leckerlog) => restaurant.cuisine === props.cuisine);
@@ -58,10 +49,5 @@ const handleDelete = async (id: number) => {
         </div>
       </div>
     </template>
-    <!--    Skeleton-->
-    <div v-else-if="isLoading">
-      <div v-for="n in 3" :key="`restaurant-skeleton-${n}`" class="w-full h-48 bg-gray-200 animate-pulse mb-2"></div>
-    </div>
-    <AppEmptyState v-else-if="data.leckerlogs.length === 0 && data.cuisines.length === 0" />
   </div>
 </template>

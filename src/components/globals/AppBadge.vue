@@ -1,15 +1,15 @@
 <script lang="ts" setup>import { computed } from 'vue';
-import { useSortingStore } from '../../store/sorting';
 import { FilterItem } from '../../types/types';
 
 const props = defineProps<{
-    sortBy: FilterItem;
+    actionState: FilterItem;
+    activeState: FilterItem;
 }>();
 
-const sorting = useSortingStore()
+
 
 const isActive = computed(() => {
-    return sorting.activeSortBy.value === props.sortBy.value ? true : false;
+    return props.activeState.value === props.actionState.value ? true : false;
 })
 
 </script>
@@ -17,7 +17,7 @@ const isActive = computed(() => {
     <div class="cursor-pointer rounded-full border-2 border-black px-2.5 py-1 mx-1 text-xs font-bold flex justify-center items-center"
         :class="{ 'bg-gray-300': isActive }">
         <div>
-            {{ sortBy.label }}
+            {{ actionState.label }}
         </div>
     </div>
 </template>

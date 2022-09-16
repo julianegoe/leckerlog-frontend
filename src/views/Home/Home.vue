@@ -12,7 +12,7 @@ import useDisplayState from '../../composables/useDisplayState';
 
 const store = useUserStore();
 const data = useContentStore();
-const sorting = useSortingStore();
+const { setSortingState, activeSortBy } = useSortingStore();
 
 const api = useApi();
 const isLoading = ref(false);
@@ -30,7 +30,7 @@ const sortBy = ref<FilterItem[]>([
         label: 'A bis Z',
         value: 'alphabetically_asc',
     },
-])
+]);
 
 onMounted(async () => {
     isLoading.value = true;
@@ -44,7 +44,7 @@ onMounted(async () => {
 });
 
 const setSortBy = (sortBy: FilterItem) => {
-    sorting.set(sortBy);
+    setSortingState(sortBy);
 }
 
 </script>
@@ -55,7 +55,7 @@ const setSortBy = (sortBy: FilterItem) => {
         </AppHeader>
         <div class="flex flex-row px-2">
             <template v-for="(sortValue, index) in sortBy" :key="index + sortValue.label">
-                <AppBadge @click="setSortBy(sortValue)" :sort-by="sortValue" />
+                <AppBadge @click="setSortBy(sortValue)" :action-state="sortValue" :active-state="activeSortBy" />
             </template>
         </div>
         <div v-if="!isLoading" class="px-2 py-2">

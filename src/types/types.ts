@@ -70,9 +70,11 @@ export const INPUT_DEFAULT_VALUES: RecordData = {
     tags: [],
   }
 
-export type SortBy = 'last_ordered' | 'best_rated' | 'alphabetically_asc'
+export type SortBy = 'last_ordered' | 'best_rated' | 'alphabetically_asc';
+
+export type GroupBy = 'cuisines' | 'restaurants' | 'tags'
 
 export interface FilterItem {
   label: string;
-  value: SortBy;
+  value: SortBy | GroupBy;
 }
