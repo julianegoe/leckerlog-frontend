@@ -4,8 +4,14 @@ import Plus from '../../assets/icons/plus.svg';
 import Squares from '../../assets/icons/squares.svg';
 import List from '../../assets/icons/list.svg';
 import Chart from '../../assets/icons/chart.svg';
+import { routerKey, useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const isUploading = ref(false);
+const isActive = (name: string) => {
+  return router.currentRoute.value.name === name
+};
 </script>
 <template>
   <footer id="bottom-nav"
@@ -15,6 +21,7 @@ const isUploading = ref(false);
         class="group text-primary-red w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
+          'border-t-2 border-primary-red' : isActive('AddFood'),
         }">
         <Plus class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs pt-1">Hinzufügen</div>
@@ -25,6 +32,7 @@ const isUploading = ref(false);
         class="group text-primary-green  w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
+          'border-t-2 border-primary-green' : isActive('Home'),
         }">
         <List class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs pt-1">Liste</div>
@@ -35,6 +43,7 @@ const isUploading = ref(false);
         class="group text-primary-purple  w-24  cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
+          'border-t-2 border-primary-purple' : isActive('Categories'),
         }">
         <Squares class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs pt-1">Kategorien</div>
@@ -45,6 +54,7 @@ const isUploading = ref(false);
         class="group text-primary-blue w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
+          'border-t-2 border-primary-blue' : isActive('Stats'),
         }">
         <Chart class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs pt-1">Statistik</div>
