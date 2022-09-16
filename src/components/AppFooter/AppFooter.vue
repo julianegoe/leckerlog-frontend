@@ -7,7 +7,7 @@ import List from '../../assets/icons/list.svg';
 const isUploading = ref(false);
 </script>
 <template>
-  <footer class="fixed bottom-0 w-full h-16 bg-gray-200 flex justify-start items-center  border border-1 border-black">
+  <footer class="fixed bottom-4 w-full h-16 bg-gray-200 flex justify-start items-center  border border-1 border-black">
     <router-link :to="{name: 'AddFood'}">
       <AddButton :is-uploading="isUploading" />
     </router-link>
