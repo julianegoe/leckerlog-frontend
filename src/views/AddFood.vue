@@ -13,7 +13,7 @@ import SnackBar from '../components/SnackBar.vue';
 import { useApi } from '../composables/useApi';
 import ChipInput from '../components/ChipInput.vue';
 
-const { isUploading, addRecord } = useApi()
+const { addRecord } = useApi()
 
 const loading = ref(false);
 const showSnackbar = ref(false);
@@ -81,7 +81,7 @@ const addFood = async () => {
     if (result.status.value === 'SUCCESS') {
       const addedRecord = await addRecord(inputValues);
       console.log(addedRecord)
-      if (!isUploading) {
+      if (addedRecord.length) {
         loading.value = false
         showSnackbar.value = true;
         setTimeout(() => showSnackbar.value = false, 2000)
@@ -92,7 +92,7 @@ const addFood = async () => {
 
 </script>
 <template>
-  <div class="mb-20">
+  <div>
     <AppHeader>
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>
