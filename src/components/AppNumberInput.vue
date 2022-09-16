@@ -14,6 +14,8 @@ const updateInput = (value: number) => {
 }
 </script>
 <template>
-    <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="id">{{ label }}</label>
+    <div class="py-2">
+        <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="id">{{ label }}</label>
     <input  :min="0" :max="5" @change="updateInput(inputValue)" v-model="inputValue" :id="id" :ame="id" class="py-2 px-4 border border-black w-full" type="number" />
+    </div>
 </template>

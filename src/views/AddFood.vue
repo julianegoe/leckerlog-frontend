@@ -11,6 +11,7 @@ import CuisineInput from '../components/CuisineInput.vue';
 import { RecordData, ListItem } from '../types/types';
 import SnackBar from '../components/SnackBar.vue';
 import { useApi } from '../composables/useApi';
+import ChipInput from '../components/ChipInput.vue';
 
 const api = useApi()
 
@@ -28,8 +29,8 @@ const inputValues = reactive<RecordData>({
   comment: '',
   foodName: '',
   image_path: null,
+  tags: []
 });
-
 
 const arrayBuffer = ref();
 const fileName = ref(null);
@@ -70,9 +71,9 @@ const result = useFileUpload(fileName, arrayBuffer);
 
 const isValid = ref(false);
 const addFood = async () => {
-  loading.value = true;
   showSnackbar.value = false;
   if (isValid.value) {
+    loading.value = true;
     await result.uploadImage();
     if (result.imagePath) {
       inputValues.image_path = result.imagePath.value;
@@ -96,7 +97,7 @@ const addFood = async () => {
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>
     <div class="m-auto p-2">
-      <form @submit.prevent="addFood">
+      <form @submit.enter.prevent="addFood">
         <label for="file-upload" class="cursor-pointer p-2 border border-black active:bg-gray-200">Bild
           auswählen</label>
         <input class="hidden" role="button" id="file-upload" type="file" @change="handlePhotoChange"
@@ -112,9 +113,10 @@ const addFood = async () => {
           id="date-input" />
         <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
           id="comment-input" type="text" />
+        <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
         <AppStarRatingInput @change:stars="(value) => inputValues.rating = value" />
-        <img v-if="inputValues.image_path" class="mt-4" :src="inputValues.image_path" alt="selected-image" />
 
+        <img v-if="inputValues.image_path" class="mt-4" :src="inputValues.image_path" alt="selected-image" />
 
         <button class="flex justify-center mt-4 p-2 w-32 border border-black active:bg-gray-200" type="submit">
           <div v-if="!loading">Hinzufügen</div>

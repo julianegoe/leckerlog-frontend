@@ -16,6 +16,7 @@ export interface RecordData {
   comment: string;
   foodName: string;
   image_path: string | null;
+  tags: string[];
 }
 
 export interface FoodOrdered {
@@ -26,6 +27,7 @@ export interface FoodOrdered {
   rating: number;
   comment: string;
   image_path: string | null;
+  tags: string[];
   date_updated: string;
   date_created: string;
 }
@@ -65,11 +67,12 @@ export const INPUT_DEFAULT_VALUES: RecordData = {
     comment: '',
     foodName: '',
     image_path: null,
+    tags: [],
   }
 
-export type View = 'cuisines' | 'last_ordered'
+export type SortBy = 'last_ordered' | 'best_rated' | 'alphabetically_asc'
 
 export interface FilterItem {
   label: string;
-  value: View;
+  value: SortBy;
 }

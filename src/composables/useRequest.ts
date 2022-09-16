@@ -33,16 +33,17 @@ export const useRequest = () => {
         }
     };
 
-    const post = async (endpoint: string, body: Record<string, string | number | null>): Promise<[Restaurant, FoodOrdered] | []> => {
-        const idToken = await auth.currentUser?.getIdToken(true);
-        const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${auth.currentUser?.uid}`;
+    const post = async (endpoint: string, body: Record<string, string | number | null | Array<string>>): Promise<[Restaurant, FoodOrdered] | []> => {
+        const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
+        console.log(store.userId, store.idToken)
         status.value = 'LOADING';
         try {
-            if (idToken) {
+            console.log(JSON.stringify(body));
+            if (store.idToken) {
                 const response = await fetch(path, {
                     method: 'POST',
                     headers: {
-                        'AuthToken': idToken || '',
+                        'AuthToken': store.idToken || '',
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(body),

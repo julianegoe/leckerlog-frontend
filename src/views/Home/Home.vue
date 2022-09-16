@@ -3,28 +3,31 @@ import { onMounted, ref } from 'vue';
 import AppHeader from '../../components/AppHeader.vue';
 import { useApi } from '../../composables/useApi';
 import { useContentStore } from '../../store/content';
-import { useViewStore } from '../../store/view';
+import { useSortingStore } from '../../store/sorting';
 import { useUserStore } from '../../store/user';
 import AppBadge from '../../components/globals/AppBadge.vue';
-import CuisinesView from './CuisinesView.vue';
 import { FilterItem } from '../../types/types';
-import LastUpdatedView from './LastUpdatedView.vue';
+import FoodOrderedList from './FoodOrderedList.vue';
 
 const store = useUserStore();
 const data = useContentStore();
-const viewStore = useViewStore();
+const sorting = useSortingStore();
 
 const api = useApi();
 
-const views = ref<FilterItem[]>([
+const sortBy = ref<FilterItem[]>([
     {
         label: 'Zuletzt bestellt',
         value: 'last_ordered',
     },
     {
-        label: 'Küchen',
-        value: 'cuisines',
-    }
+        label: 'Best bewertet',
+        value: 'best_rated',
+    },
+    {
+        label: 'A bis Z',
+        value: 'alphabetically_asc',
+    },
 ])
 
 onMounted(async () => {
@@ -36,8 +39,8 @@ onMounted(async () => {
     data.setCuisines(cuisines);
 });
 
-const displayView = (view: FilterItem) => {
-    viewStore.set(view);
+const setSortBy = (sortBy: FilterItem) => {
+    sorting.set(sortBy);
 }
 
 </script>
@@ -47,18 +50,12 @@ const displayView = (view: FilterItem) => {
             <div class="font-bold text-xl">LeckerLog</div>
         </AppHeader>
         <div class="flex flex-row px-2">
-            <template v-for="(view, index) in views" :key="index">
-                <AppBadge @click="displayView(view)" :view="view" />
+            <template v-for="(sortValue, index) in sortBy" :key="index + sortValue.label">
+                <AppBadge @click="setSortBy(sortValue)" :sort-by="sortValue" />
             </template>
         </div>
         <div class="px-2 py-2">
-            <Transition>
-                <CuisinesView v-if="viewStore.active.value === 'cuisines'" :cuisines="data.cuisines"
-                    :status="api.status.value" />
-            </Transition>
-            <Transition>
-                <LastUpdatedView :status="api.status.value" v-if="viewStore.active.value === 'last_ordered'" />
-            </Transition>
+            <FoodOrderedList />
         </div>
     </div>
 </template>

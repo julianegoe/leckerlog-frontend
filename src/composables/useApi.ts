@@ -22,6 +22,7 @@ export const useApi = () => {
             rating: newRecord.rating,
             ordered_at: newRecord.ordered_at,
             image_path: newRecord.image_path,
+            tags: newRecord.tags,
         })  
         return leckerlog;
     };

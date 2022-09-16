@@ -7,12 +7,9 @@ defineProps<{
 
 </script>
 <template>
-    <div>
-        <button :disabled="isUploading" class="px-8 h-16 border-r border-black cursor-pointer hover:bg-gray-400"
-                :class="{
-                  'disabled:text-gray-500 disabled:cursor-default' : isUploading,
-                }">
-            <Plus />
-        </button>
-    </div>
+    <button :disabled="isUploading" class="w-24 h-16 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400" :class="{
+      'disabled:text-gray-500 disabled:cursor-default' : isUploading,
+    }">
+        <Plus />
+    </button>
 </template>

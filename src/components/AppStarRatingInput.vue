@@ -12,7 +12,7 @@ const setStarRating = (e: any) => {
 };
 </script>
 <template>
-  <div class="flex gap-1 py-3">
+  <div class="flex gap-1 py-2">
     <label for="star-1">
       <StarIconOutline v-show="!rating || rating < 1" class="w-6" />
       <StarIcon v-show="rating >= 1" class="w-6" />

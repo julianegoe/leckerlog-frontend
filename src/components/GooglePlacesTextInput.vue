@@ -80,7 +80,7 @@ const handleSelection = (value: string) => {
 };
 </script>
 <template>
-    <div>
+    <div class="py-2">
         <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="inputId">{{ label }}</label>
         <input id="autocomplete" type="text" :ref="restaurantRef" v-model="searchQuery"
                autocomplete="off"  class="py-2 px-4 border border-black w-full" />
