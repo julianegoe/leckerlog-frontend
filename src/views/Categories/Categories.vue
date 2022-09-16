@@ -50,7 +50,7 @@ const setGroupBy = (groupBy: FilterItem) => {
         <div v-if="!isLoading" class="px-2 py-2">
             <CuisinesList />
         </div>
-        <div v-if="isLoading" class="grid grid-cols-2 gap-2">
+        <div v-if="isLoading" class="grid grid-cols-2 gap-2 px-2 py-2">
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>

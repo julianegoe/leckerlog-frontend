@@ -9,7 +9,7 @@ const isUploading = ref(false);
 </script>
 <template>
   <footer id="bottom-nav"
-    class="fixed bottom-0 w-full bg-blue-200 flex justify-start items-center ">
+    class="fixed bottom-0 w-full bg-black text-white flex justify-start items-center ">
     <router-link :to="{name: 'AddFood'}">
       <button :disabled="isUploading" id="list-button"
         class="group w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
