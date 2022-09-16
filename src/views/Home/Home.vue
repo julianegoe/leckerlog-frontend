@@ -8,11 +8,10 @@ import { useUserStore } from '../../store/user';
 import AppBadge from '../../components/globals/AppBadge.vue';
 import { FilterItem } from '../../types/types';
 import FoodOrderedList from './FoodOrderedList.vue';
-import useDisplayState from '../../composables/useDisplayState';
 
 const store = useUserStore();
 const data = useContentStore();
-const { setSortingState, activeSortBy } = useSortingStore();
+const sorting = useSortingStore();
 const api = useApi();
 
 const isLoading = ref(false);
@@ -42,7 +41,7 @@ onMounted(async () => {
 });
 
 const setSortBy = (sortBy: FilterItem) => {
-    setSortingState(sortBy);
+    sorting.setSortingState(sortBy);
 }
 
 </script>
@@ -53,7 +52,7 @@ const setSortBy = (sortBy: FilterItem) => {
         </AppHeader>
         <div class="flex flex-row px-2">
             <template v-for="(sortValue, index) in sortBy" :key="index + sortValue.label">
-                <AppBadge @click="setSortBy(sortValue)" :action-state="sortValue" :active-state="activeSortBy" />
+                <AppBadge @click="setSortBy(sortValue)" :action-state="sortValue" :active-state="sorting.activeSortBy" />
             </template>
         </div>
         <div v-if="!isLoading" class="px-2 py-2">

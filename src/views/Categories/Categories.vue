@@ -12,7 +12,7 @@ import CuisinesList from './CuisinesList.vue';
 const store = useUserStore();
 const data = useContentStore();
 const api = useApi();
-const { setGroupState, activeGroupBy } = useSortingStore();
+const grouping = useSortingStore();
 const isLoading = ref(false);
 
 onMounted(async () => {
@@ -33,7 +33,7 @@ const groupBy = ref<FilterItem[]>([
 
 
 const setGroupBy = (groupBy: FilterItem) => {
-    setGroupState(groupBy);
+    grouping.setGroupState(groupBy);
 }
 
 </script>
@@ -44,7 +44,7 @@ const setGroupBy = (groupBy: FilterItem) => {
         </AppHeader>
         <div class="flex flex-row px-2">
             <template v-for="(groupValue, index) in groupBy" :key="index + groupValue.label">
-                <AppBadge @click="setGroupBy(groupValue)" :action-state="groupValue" :active-state="activeGroupBy" />
+                <AppBadge @click="setGroupBy(groupValue)" :action-state="groupValue" :active-state="grouping.activeGroupBy" />
             </template>
         </div>
         <div v-if="!isLoading" class="px-2 py-2">

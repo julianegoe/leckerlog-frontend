@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 import { FilterItem } from '../types/types';
 
 export const useSortingStore = defineStore('sorting', () => {
