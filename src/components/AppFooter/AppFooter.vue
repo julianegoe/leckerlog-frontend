@@ -46,7 +46,7 @@ const isUploading = ref(false);
 #add-button,
 #list-button,
 #categories-button {
-  padding-bottom: env(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom) / 2;
 }
 </style>
 
