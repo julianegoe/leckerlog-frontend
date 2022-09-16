@@ -12,7 +12,7 @@ const isUploading = ref(false);
     <router-link :to="{name: 'AddFood'}">
       <button :disabled="isUploading"
         id="add-button"
-        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2"
+        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2 pb-4"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -22,7 +22,7 @@ const isUploading = ref(false);
     </router-link>
     <router-link :to="{name: 'Home'}">
       <button :disabled="isUploading" id="list-button"
-        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2"
+        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2 pb-4"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -32,7 +32,7 @@ const isUploading = ref(false);
     </router-link>
     <router-link :to="{name: 'Categories'}">
       <button :disabled="isUploading" id="categories-button"
-        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2"
+        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2 pb-4"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -43,10 +43,10 @@ const isUploading = ref(false);
   </footer>
 </template>
 <style scroped>
-#add-button,
+/* #add-button,
 #list-button,
 #categories-button {
   padding-bottom: env(safe-area-inset-bottom) / 2;
-}
+} */
 </style>
 
