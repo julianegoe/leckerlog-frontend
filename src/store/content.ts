@@ -70,7 +70,18 @@ export const useContentStore = defineStore('content', () => {
             default:
               return foods.flat();
           }
+    });
+
+    const getTags = computed<string[]>(() => {
+        const tags = leckerlogs.value.flatMap((leckerlog: Leckerlog) => {
+           if (leckerlog.food_ordered) {
+            return leckerlog.food_ordered.flatMap((food) => {
+                return food.tags ? food.tags : []
+            });
+           } else return [];
+        });
+        return Array.from(new Set(tags))
     })
 
-    return { cuisines, leckerlogs, setCuisines, setLeckerlogs, getSortedFoodOrdered }
+    return { cuisines, leckerlogs, setCuisines, setLeckerlogs, getSortedFoodOrdered, getTags }
 })

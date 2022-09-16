@@ -8,6 +8,7 @@ import { onMounted, ref } from 'vue';
 import { useSortingStore } from '../../store/sorting';
 import { useUserStore } from '../../store/user';
 import CuisinesList from './CuisinesList.vue';
+import TagsList from './TagsList.vue';
 
 const store = useUserStore();
 const data = useContentStore();
@@ -29,6 +30,10 @@ const groupBy = ref<FilterItem[]>([
         label: 'Küchen',
         value: 'cuisines',
     },
+    {
+        label: 'Tags',
+        value: 'tags',
+    },
 ]);
 
 
@@ -47,8 +52,11 @@ const setGroupBy = (groupBy: FilterItem) => {
                 <AppBadge @click="setGroupBy(groupValue)" :action-state="groupValue" :active-state="grouping.activeGroupBy" route-name="Categories" />
             </template>
         </div>
-        <div v-if="!isLoading" class="px-2 py-2">
+        <div v-if="!isLoading && grouping.activeGroupBy.value === 'cuisines'" class="px-2 py-2">
             <CuisinesList />
+        </div>
+        <div v-if="!isLoading && grouping.activeGroupBy.value === 'tags'" class="px-2 py-2">
+            <TagsList />
         </div>
         <div v-if="isLoading" class="grid grid-cols-2 gap-2 px-2 py-2">
             <div class="bg-gray-200 animate-pulse w-full aspect-square"></div>
