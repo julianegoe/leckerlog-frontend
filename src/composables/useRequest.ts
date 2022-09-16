@@ -35,7 +35,6 @@ export const useRequest = () => {
 
     const post = async (endpoint: string, body: Record<string, string | number | null | Array<string>>): Promise<[Restaurant, FoodOrdered] | []> => {
         const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
-        console.log(store.userId, store.idToken)
         status.value = 'LOADING';
         try {
             console.log(JSON.stringify(body));
