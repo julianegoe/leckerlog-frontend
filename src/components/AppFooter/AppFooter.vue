@@ -11,7 +11,7 @@ const isUploading = ref(false);
     class="fixed bottom-0 w-full bg-blue-200 flex justify-start items-center ">
     <router-link :to="{name: 'AddFood'}">
       <button :disabled="isUploading" id="list-button"
-        class="group w-24 cursor-pointer grow-1 flex flex-col items-center justify-centerpy-2"
+        class="group w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -21,7 +21,7 @@ const isUploading = ref(false);
     </router-link>
     <router-link :to="{name: 'Home'}">
       <button :disabled="isUploading" id="list-button"
-        class="group w-24 cursor-pointer grow-1 flex flex-col items-center justify-centerpy-2"
+        class="group w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -31,7 +31,7 @@ const isUploading = ref(false);
     </router-link>
     <router-link :to="{name: 'Categories'}">
       <button :disabled="isUploading" id="categories-button"
-        class="group w-24  cursor-pointer grow-1 flex flex-col items-center justify-center py-2"
+        class="group w-24  cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -42,7 +42,7 @@ const isUploading = ref(false);
   </footer>
 </template>
 <style scoped>
-  #add-button, #list-button, #categoried-button {
+  #add-button, #list-button, #categories-button {
     padding-bottom: env(safe-area-inset-bottom);
   }
 </style>
