@@ -34,8 +34,8 @@ const isUploading = ref(false);
   </footer>
 </template>
 <style scroped>
- /*  #bottom-nav {
-    padding-bottom: env(safe-area-inset-bottom);
-  } */
+  #bottom-nav {
+    padding-bottom: env(safe-area-inset-bottom) / 2;
+  }
 </style>
 
