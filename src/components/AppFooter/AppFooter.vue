@@ -42,11 +42,4 @@ const isUploading = ref(false);
     </router-link>
   </footer>
 </template>
-<style scroped>
-/* #add-button,
-#list-button,
-#categories-button {
-  padding-bottom: env(safe-area-inset-bottom) / 2;
-} */
-</style>
 

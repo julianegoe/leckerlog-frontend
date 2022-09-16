@@ -8,12 +8,14 @@ import { useUserStore } from '../../store/user';
 import AppBadge from '../../components/globals/AppBadge.vue';
 import { FilterItem } from '../../types/types';
 import FoodOrderedList from './FoodOrderedList.vue';
+import useDisplayState from '../../composables/useDisplayState';
 
 const store = useUserStore();
 const data = useContentStore();
 const sorting = useSortingStore();
 
 const api = useApi();
+const isLoading = ref(false);
 
 const sortBy = ref<FilterItem[]>([
     {
@@ -31,13 +33,14 @@ const sortBy = ref<FilterItem[]>([
 ])
 
 onMounted(async () => {
+    isLoading.value = true;
     store.getUserId();
     await store.getIdToken();
-    console.log(store.userId, store.idToken)
     const cuisines = await api.getCuisines();
     const leckerlog = await api.getLeckerlog();
     data.setLeckerlogs(leckerlog);
     data.setCuisines(cuisines);
+    isLoading.value = false;
 });
 
 const setSortBy = (sortBy: FilterItem) => {
@@ -55,8 +58,14 @@ const setSortBy = (sortBy: FilterItem) => {
                 <AppBadge @click="setSortBy(sortValue)" :sort-by="sortValue" />
             </template>
         </div>
-        <div class="px-2 py-2">
+        <div v-if="!isLoading" class="px-2 py-2">
             <FoodOrderedList />
+        </div>
+        <div v-if="isLoading" class="flex flex-col gap-2 items-center justify-between m-2">
+            <div class="bg-gray-200 animate-pulse w-full h-40"></div>
+            <div class="bg-gray-200 animate-pulse w-full h-40"></div>
+            <div class="bg-gray-200 animate-pulse w-full h-40"></div>
+            <div class="bg-gray-200 animate-pulse w-full h-40"></div>
         </div>
     </div>
 </template>

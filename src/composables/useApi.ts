@@ -1,3 +1,4 @@
+import { ref, watch } from "vue";
 import { Cuisine, FoodOrdered, Leckerlog, RecordData, Restaurant } from "../types/types";
 import { useRequest } from "./useRequest";
 
@@ -5,7 +6,13 @@ export const useApi = () => {
     const request = useRequest();
 
     const getLeckerlog = async (): Promise<Leckerlog[]> => {
-        return await request.get('leckerlog')
+        try {
+            const result =  await request.get('leckerlog')
+            return result
+        } catch(error) {
+            console.log(error)
+            return []
+        }
     }
 
     const getCuisines = async (): Promise<Cuisine[]> => {
@@ -33,7 +40,6 @@ export const useApi = () => {
 
     return {
         errorMessage: request.errorMessage,
-        status: request.status,
         getLeckerlog,
         getCuisines,
         addRecord,

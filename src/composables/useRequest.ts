@@ -4,15 +4,12 @@ import { useUserStore } from "../store/user";
 import { Leckerlog, Restaurant, FoodOrdered } from "../types/types";
 
 export const useRequest = () => {
-    type UploadStatus = 'LOADING' | 'IDLE' | 'SUCCESS' | 'ERROR';
-    const status = ref<UploadStatus>('IDLE');
     const errorMessage = ref();
 
     const store = useUserStore();
 
     const get = async (endpoint: string): Promise<Leckerlog[] | []> => {
         const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
-        status.value = 'LOADING';
         try {
             const response = await fetch(path, {
                 method: 'GET',
@@ -22,12 +19,10 @@ export const useRequest = () => {
                 },
             });
             const data = await response.json();
-            status.value = 'SUCCESS';
             return data;
 
         }
         catch (error) {
-            status.value = 'ERROR';
             errorMessage.value = error;
             return []
         }
@@ -35,7 +30,6 @@ export const useRequest = () => {
 
     const post = async (endpoint: string, body: Record<string, string | number | null | Array<string>>): Promise<[Restaurant, FoodOrdered] | []> => {
         const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
-        status.value = 'LOADING';
         try {
             console.log(JSON.stringify(body));
             if (store.idToken) {
@@ -48,12 +42,10 @@ export const useRequest = () => {
                     body: JSON.stringify(body),
                 })
                 const data = await response.json();
-                status.value = 'SUCCESS';
                 return data;
             };
         }
         catch (error) {
-            status.value = 'ERROR';
             errorMessage.value = error;
             return []
         }
@@ -63,7 +55,6 @@ export const useRequest = () => {
     const deleteRecord = async (endpoint: string, id: number,): Promise<any> => {
         const idToken = await auth.currentUser?.getIdToken(true);
         const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${auth.currentUser?.uid}/${id}`;
-        status.value = 'LOADING';
         try {
             if (idToken) {
                 const response = await fetch(path, {
@@ -74,12 +65,10 @@ export const useRequest = () => {
                     },
                 });
                 const data = await response.json();
-                status.value = 'SUCCESS';
                 return data;
             };
         }
         catch (error) {
-            status.value = 'ERROR';
             errorMessage.value = error;
             return []
         }
@@ -91,6 +80,5 @@ export const useRequest = () => {
         post,
         deleteRecord,
         errorMessage,
-        status,
     }
 }
