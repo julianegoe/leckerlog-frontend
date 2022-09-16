@@ -10,7 +10,7 @@ const router = useRouter()
 </script>
 
 <template>
-    <main id="scroll-container" class="h-[calc(100vh-4rem)] overflow-y-scroll">
+    <main>
         <router-view v-slot="{ Component }">
             <transition name="fade" mode="out-in">
                 <component :is="Component" />
@@ -31,17 +31,6 @@ const router = useRouter()
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
-
-/* Hide scrollbar for Chrome, Safari and Opera */
-#scroll-container::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-#scroll-container {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 }
 
 </style>
