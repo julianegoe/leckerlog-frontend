@@ -92,7 +92,7 @@ const addFood = async () => {
 
 </script>
 <template>
-  <div>
+  <div class="mb-8">
     <AppHeader>
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>
