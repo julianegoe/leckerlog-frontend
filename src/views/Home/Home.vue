@@ -52,7 +52,7 @@ const setSortBy = (sortBy: FilterItem) => {
         </AppHeader>
         <div class="flex flex-row px-2">
             <template v-for="(sortValue, index) in sortBy" :key="index + sortValue.label">
-                <AppBadge @click="setSortBy(sortValue)" :action-state="sortValue" :active-state="sorting.activeSortBy" />
+                <AppBadge @click="setSortBy(sortValue)" :action-state="sortValue" :active-state="sorting.activeSortBy" route-name="Home" />
             </template>
         </div>
         <div v-if="!isLoading" class="px-2 py-2">

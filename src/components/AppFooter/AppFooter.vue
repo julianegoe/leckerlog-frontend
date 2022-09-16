@@ -21,7 +21,7 @@ const isActive = (name: string) => {
         class="group text-primary-red w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
-          'border-t-2 border-primary-red' : isActive('AddFood'),
+          'border-t-4 border-primary-red' : isActive('AddFood'),
         }">
         <Plus class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs pt-1">Hinzufügen</div>
@@ -32,7 +32,7 @@ const isActive = (name: string) => {
         class="group text-primary-green  w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
-          'border-t-2 border-primary-green' : isActive('Home'),
+          'border-t-4 border-primary-green' : isActive('Home'),
         }">
         <List class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs pt-1">Liste</div>
@@ -43,7 +43,7 @@ const isActive = (name: string) => {
         class="group text-primary-purple  w-24  cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
-          'border-t-2 border-primary-purple' : isActive('Categories'),
+          'border-t-4 border-primary-purple' : isActive('Categories'),
         }">
         <Squares class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs pt-1">Kategorien</div>
@@ -54,7 +54,7 @@ const isActive = (name: string) => {
         class="group text-primary-blue w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
-          'border-t-2 border-primary-blue' : isActive('Stats'),
+          'border-t-4 border-primary-blue' : isActive('Stats'),
         }">
         <Chart class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs pt-1">Statistik</div>
