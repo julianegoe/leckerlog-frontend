@@ -30,10 +30,8 @@ const handleDelete = async (id: number) => {
 <template>
   <div>
     <AppHeader>
-      <div class="pr-2">
-        <RouterLink :to="{ name: 'Home' }">
+      <div @click="$router.back()" class="cursor-pointer pr-2">
           <BackIcon class="hover:transition-transform hover:scale-125 hover:ease-in" />
-        </RouterLink>
       </div>
       <div class="font-bold text-lg">{{ cuisine }}</div>
     </AppHeader>

@@ -16,8 +16,6 @@ const handleDelete = async (id: number) => {
   content.setLeckerlogs(leckerlog);
 };
 
-watch(displayState, () => console.log(displayState.value))
-
 </script>
 <template>
     <div>

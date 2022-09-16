@@ -12,31 +12,31 @@ const isUploading = ref(false);
     <router-link :to="{name: 'AddFood'}">
       <button :disabled="isUploading"
         id="add-button"
-        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2 pb-4"
+        class="group w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2 pb-4"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
-        <Plus />
+        <Plus class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs">Hinzufügen</div>
       </button>
     </router-link>
     <router-link :to="{name: 'Home'}">
       <button :disabled="isUploading" id="list-button"
-        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2 pb-4"
+        class="group w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2 pb-4"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
-        <List />
+        <List class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs">Liste</div>
       </button>
     </router-link>
     <router-link :to="{name: 'Categories'}">
       <button :disabled="isUploading" id="categories-button"
-        class="w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2 pb-4"
+        class="group w-24 border-r border-black cursor-pointer grow-1 flex flex-col items-center justify-center hover:bg-gray-400 pt-2 pb-4"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
-        <Squares />
+        <Squares class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
         <div class="text-xs">Kategorien</div>
       </button>
     </router-link>

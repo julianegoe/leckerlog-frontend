@@ -13,8 +13,8 @@ import useDisplayState from '../../composables/useDisplayState';
 const store = useUserStore();
 const data = useContentStore();
 const { setSortingState, activeSortBy } = useSortingStore();
-
 const api = useApi();
+
 const isLoading = ref(false);
 
 const sortBy = ref<FilterItem[]>([
@@ -36,10 +36,8 @@ onMounted(async () => {
     isLoading.value = true;
     store.getUserId();
     await store.getIdToken();
-    const cuisines = await api.getCuisines();
     const leckerlog = await api.getLeckerlog();
     data.setLeckerlogs(leckerlog);
-    data.setCuisines(cuisines);
     isLoading.value = false;
 });
 
