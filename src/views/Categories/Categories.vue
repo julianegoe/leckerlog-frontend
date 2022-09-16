@@ -42,7 +42,7 @@ const setGroupBy = (groupBy: FilterItem) => {
         <AppHeader>
             <div class="font-bold text-xl">LeckerLog</div>
         </AppHeader>
-        <div class="flex flex-row px-2">
+        <div class="flex flex-row p-2">
             <template v-for="(groupValue, index) in groupBy" :key="index + groupValue.label">
                 <AppBadge @click="setGroupBy(groupValue)" :action-state="groupValue" :active-state="grouping.activeGroupBy" route-name="Categories" />
             </template>

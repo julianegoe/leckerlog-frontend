@@ -50,7 +50,7 @@ const setSortBy = (sortBy: FilterItem) => {
         <AppHeader>
             <div class="font-bold text-xl">LeckerLog</div>
         </AppHeader>
-        <div class="flex flex-row px-2">
+        <div class="flex flex-row p-2">
             <template v-for="(sortValue, index) in sortBy" :key="index + sortValue.label">
                 <AppBadge @click="setSortBy(sortValue)" :action-state="sortValue" :active-state="sorting.activeSortBy" route-name="Home" />
             </template>
