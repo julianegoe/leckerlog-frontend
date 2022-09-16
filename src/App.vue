@@ -10,7 +10,7 @@ const router = useRouter()
 </script>
 
 <template>
-    <main>
+    <main class="mb-20">
         <router-view v-slot="{ Component }">
             <transition name="fade" mode="out-in">
                 <component :is="Component" />
