@@ -16,8 +16,8 @@ const isUploading = ref(false);
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
-        <Plus class="group-hover:transition-transform group-hover:scale-150 group-hover:ease-in" />
-        <div class="text-xs">Hinzufügen</div>
+        <Plus class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
+        <div class="text-xs pt-1">Hinzufügen</div>
       </button>
     </router-link>
     <router-link :to="{name: 'Home'}">
@@ -26,8 +26,8 @@ const isUploading = ref(false);
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
-        <List class="group-hover:transition-transform group-hover:scale-150 group-hover:ease-in" />
-        <div class="text-xs">Liste</div>
+        <List class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
+        <div class="text-xs pt-1">Liste</div>
       </button>
     </router-link>
     <router-link :to="{name: 'Categories'}">
@@ -36,8 +36,8 @@ const isUploading = ref(false);
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
-        <Squares class="group-hover:transition-transform group-hover:scale-150 group-hover:ease-in" />
-        <div class="text-xs">Kategorien</div>
+        <Squares class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
+        <div class="text-xs pt-1">Kategorien</div>
       </button>
     </router-link>
     <router-link :to="{name: 'Stats'}">
@@ -46,8 +46,8 @@ const isUploading = ref(false);
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
-        <Chart class="group-hover:transition-transform group-hover:scale-150 group-hover:ease-in" />
-        <div class="text-xs">Statistik</div>
+        <Chart class="group-hover:transition-transform group-hover:scale-125 group-hover:ease-in" />
+        <div class="text-xs pt-1">Statistik</div>
       </button>
     </router-link>
   </footer>
