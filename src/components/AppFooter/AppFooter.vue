@@ -9,10 +9,10 @@ const isUploading = ref(false);
 </script>
 <template>
   <footer id="bottom-nav"
-    class="fixed bottom-0 w-full bg-black text-white flex justify-start items-center ">
+    class="fixed bottom-0 w-full bg-black flex justify-start items-center ">
     <router-link :to="{name: 'AddFood'}">
       <button :disabled="isUploading" id="list-button"
-        class="group w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
+        class="group text-primary-red w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -22,7 +22,7 @@ const isUploading = ref(false);
     </router-link>
     <router-link :to="{name: 'Home'}">
       <button :disabled="isUploading" id="list-button"
-        class="group w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
+        class="group text-primary-green  w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -32,7 +32,7 @@ const isUploading = ref(false);
     </router-link>
     <router-link :to="{name: 'Categories'}">
       <button :disabled="isUploading" id="categories-button"
-        class="group w-24  cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
+        class="group text-primary-purple  w-24  cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
@@ -42,7 +42,7 @@ const isUploading = ref(false);
     </router-link>
     <router-link :to="{name: 'Stats'}">
       <button :disabled="isUploading" id="categories-button"
-        class="group w-24  cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
+        class="group text-primary-blue w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
         :class="{
           'disabled:text-gray-500 disabled:cursor-default' : isUploading,
         }">
