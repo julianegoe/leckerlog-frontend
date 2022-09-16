@@ -7,7 +7,7 @@ import List from '../../assets/icons/list.svg';
 const isUploading = ref(false);
 </script>
 <template>
-  <footer class="sticky bottom-0 w-full h-16 bg-gray-200 flex justify-start items-center  border border-1 border-black">
+  <footer id="bottom-nav" class="sticky bottom-0 w-full h-16 bg-gray-200 flex justify-start items-center  border border-1 border-black">
     <router-link :to="{name: 'AddFood'}">
       <AddButton :is-uploading="isUploading" />
     </router-link>
@@ -33,3 +33,10 @@ const isUploading = ref(false);
     </router-link>
   </footer>
 </template>
+<style scroped>
+
+#bottom-nav {
+  padding-bottom: env(safe-area-inset-right);
+}
+
+</style>
