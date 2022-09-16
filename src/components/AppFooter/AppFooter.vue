@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import Plus from '../../assets/icons/plus.svg';
 import Squares from '../../assets/icons/squares.svg';
 import List from '../../assets/icons/list.svg';
+import Chart from '../../assets/icons/chart.svg';
 
 const isUploading = ref(false);
 </script>
@@ -37,6 +38,16 @@ const isUploading = ref(false);
         }">
         <Squares class="group-hover:transition-transform group-hover:scale-150 group-hover:ease-in" />
         <div class="text-xs">Kategorien</div>
+      </button>
+    </router-link>
+    <router-link :to="{name: 'Stats'}">
+      <button :disabled="isUploading" id="categories-button"
+        class="group w-24  cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
+        :class="{
+          'disabled:text-gray-500 disabled:cursor-default' : isUploading,
+        }">
+        <Chart class="group-hover:transition-transform group-hover:scale-150 group-hover:ease-in" />
+        <div class="text-xs">Statistik</div>
       </button>
     </router-link>
   </footer>
