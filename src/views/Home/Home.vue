@@ -33,6 +33,7 @@ const sortBy = ref<FilterItem[]>([
 onMounted(async () => {
     store.getUserId();
     await store.getIdToken();
+    console.log(store.userId, store.idToken)
     const cuisines = await api.getCuisines();
     const leckerlog = await api.getLeckerlog();
     data.setLeckerlogs(leckerlog);
