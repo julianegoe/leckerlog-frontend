@@ -4,6 +4,7 @@ import { useRequest } from "./useRequest";
 
 export const useApi = () => {
     const request = useRequest();
+    const isUploading = ref(false);
 
     const getLeckerlog = async (): Promise<Leckerlog[]> => {
         try {
@@ -20,6 +21,7 @@ export const useApi = () => {
     }
 
     const addRecord = async (newRecord: RecordData): Promise<[Restaurant, FoodOrdered] | []> => {
+        isUploading.value = true;
         const leckerlog =  await request.post('leckerlog', {
             restaurantName: newRecord.restaurantName,
             foodName: newRecord.foodName,
@@ -30,7 +32,8 @@ export const useApi = () => {
             ordered_at: newRecord.ordered_at,
             image_path: newRecord.image_path,
             tags: newRecord.tags,
-        })  
+        });
+        isUploading.value = false;  
         return leckerlog;
     };
 
@@ -44,5 +47,6 @@ export const useApi = () => {
         getCuisines,
         addRecord,
         deleteFoodOrdered,
+        isUploading,
     }
 }
