@@ -106,8 +106,7 @@ const addFood = async () => {
         <GooglePlacesTextInput @update:restaurant="(value) => {
           inputValues.restaurantName = value.name;
           inputValues.address = value.address;
-        }" label="Restaurant"
-          input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude"
+        }" label="Restaurant" input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude"
           :latitude-direction="exifGpsData.GPSLatitudeRef" :longitude="exifGpsData.GPSLongitude"
           :longitude-direction="exifGpsData.GPSLongitudeRef" />
         <CuisineInput @update="(value: ListItem) => inputValues.cuisine = value" />
@@ -117,8 +116,9 @@ const addFood = async () => {
           id="date-input" />
         <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
           id="comment-input" type="text" />
+        <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
         <AppStarRatingInput @change:stars="(value) => inputValues.rating = value" />
-          <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
+
         <img v-if="inputValues.image_path" class="mt-4" :src="inputValues.image_path" alt="selected-image" />
 
         <button class="flex justify-center mt-4 p-2 w-32 border border-black active:bg-gray-200" type="submit">

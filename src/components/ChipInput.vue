@@ -36,7 +36,7 @@ const removeTag = (index: number) => {
 
 </script>
 <template>
-    <div>
+    <div class="py-2">
         <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="id">{{ label }}</label>
         <input @keydown.delete="newTag.length || removeTag(tags.length - 1)" @keypress.space="addTag(newTag)"
             @keypress.enter="addTag(newTag)" class="w-full py-2 px-4 border border-black" v-model="newTag" type="text"
