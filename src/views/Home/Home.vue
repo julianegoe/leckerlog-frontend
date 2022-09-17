@@ -58,11 +58,11 @@ const setSortBy = (sortBy: FilterItem) => {
         <div v-if="!isLoading" class="px-2 py-2">
             <FoodOrderedList />
         </div>
-        <div v-if="isLoading" class="flex flex-col gap-2 items-center justify-between m-2">
-            <div class="bg-gray-200 animate-pulse w-full h-40"></div>
-            <div class="bg-gray-200 animate-pulse w-full h-40"></div>
-            <div class="bg-gray-200 animate-pulse w-full h-40"></div>
-            <div class="bg-gray-200 animate-pulse w-full h-40"></div>
+        <div v-if="isLoading" class="flex flex-col gap-4 items-center justify-between m-2">
+            <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
+            <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
+            <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
+            <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
         </div>
     </div>
 </template>
