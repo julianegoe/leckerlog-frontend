@@ -47,8 +47,9 @@ const handleDelete = () => {
       </div>
       <p>"{{ comment }}"</p>
     </div>
-    <img class="rounded-r-md aspect-[3/4] max-h-48 object-scale-down object-center border-l-2 border-black" :src="result.imageUrl.value"
+    <img v-if="result.status.value === 'SUCCESS'" class="rounded-r-md aspect-[3/4] max-h-48 object-scale-down object-center border-l-2 border-black" :src="result.imageUrl.value"
       :alt="menuItem">
+      <div v-else-if="result.status.value === 'LOADING'" class="rounded-r-md aspect-[3/4] h-48 border-l-2 border-black bg-gray-200 animate-pulse"></div>
   </div>
 
 </template>

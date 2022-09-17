@@ -35,7 +35,6 @@ onMounted(async () => {
     isLoading.value = true;
     store.getUserId();
     await store.getIdToken();
-    console.log(store.idToken);
     const leckerlog = await api.getLeckerlog();
     data.setLeckerlogs(leckerlog);
     isLoading.value = false;
