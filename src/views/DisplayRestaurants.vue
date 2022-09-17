@@ -31,20 +31,21 @@ const handleDelete = async (id: number) => {
   <div>
     <AppHeader>
       <div @click="$router.back()" class="cursor-pointer pr-2">
-          <BackIcon class="hover:transition-transform hover:scale-125 hover:ease-in" />
+        <BackIcon class="hover:transition-transform hover:scale-125 hover:ease-in" />
       </div>
       <div class="font-bold text-lg">{{ cuisine }}</div>
     </AppHeader>
+    
     <template v-if="displayRestaurants !== null && displayRestaurants.length > 0">
       <div v-for="restaurant in displayRestaurants" :key="restaurant.restaurant_id"
         class="flex flex-col gap-6 m-auto p-2 mb-8">
         <RestaurantCard v-if="displayRestaurants.length > 0" @delete="handleDelete(restaurant.restaurant_id)"
           :lecker-log="restaurant" />
-        <div v-for="food in restaurant.food_ordered" :key="food.food_id">
+
+        <template v-for="food in restaurant.food_ordered" :key="food.food_id">
           <FoodCard @delete="handleDelete(food.food_id)" :menu-item="food.name" :rating="food.rating"
-            :comment="food.comment" :date="food.ordered_at || new Date().toLocaleDateString()"
-            :file-name="food.image_path" />
-        </div>
+            :comment="food.comment" :date="food.ordered_at" :file-name="food.image_path" />
+        </template>
       </div>
     </template>
   </div>

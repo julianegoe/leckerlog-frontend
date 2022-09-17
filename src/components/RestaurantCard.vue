@@ -21,7 +21,7 @@ const handleDelete = () => {
     </Transition>
       <div>
         <div v-if="leckerLog.date_updated" class="text-xs text-gray-500">zuletzt aktualisiert: {{ new Date(leckerLog.date_updated).toLocaleDateString() }}</div>
-        <h1 class="text-lg font-bold pb-2">{{ leckerLog.name }}</h1>
+        <h1 class="text-3xl font-bold py-2">{{ leckerLog.name }}</h1>
         <div>{{ leckerLog.cuisine }}</div>
       </div>
   </div>
