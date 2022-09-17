@@ -45,8 +45,6 @@ const setSortBy = (sortBy: FilterItem) => {
     sorting.setSortingState(sortBy);
 };
 
-const handleSheet = () => sheetOpen !== sheetOpen;
-
 </script>
 <template>
     <div>

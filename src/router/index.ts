@@ -30,6 +30,12 @@ const routes = [
         props: true,
     },
     {
+        path: '/details/:foodId',
+        name: 'Details',
+        component: () => import(/* webpackChunkName: "output" */ '../views/Details.vue'),
+        props: true,
+    },
+    {
         path: '/add',
         name: 'AddFood',
         component: () => import(/* webpackChunkName: "output" */ '../views/AddFood.vue'),

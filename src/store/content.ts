@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue';
-import { Cuisine, FoodOrdered, LastUpdatedFood, Leckerlog } from '../types/types';
+import { Cuisine, DetailsFoodOrdered, FoodOrdered, LastUpdatedFood, Leckerlog } from '../types/types';
 import { useSortingStore } from './sorting';
 
 export const useContentStore = defineStore('content', () => {
@@ -54,7 +54,7 @@ export const useContentStore = defineStore('content', () => {
                     }
                     return 0
                 }).reverse();
-                case 'alphabetically_asc':
+            case 'alphabetically_asc':
                 return foods.flat().sort((a: LastUpdatedFood, b: LastUpdatedFood) => {
                     if (a.name > b.name) {
                         return 1;
@@ -68,20 +68,37 @@ export const useContentStore = defineStore('content', () => {
                     return 0
                 });
             default:
-              return foods.flat();
-          }
+                return foods.flat();
+        }
     });
+
+    const getFoodById = (foodId: string) => {
+        const foods: DetailsFoodOrdered[][] = [...leckerlogs.value].flatMap((log: Leckerlog) => {
+            if (log.food_ordered !== null) {
+                return log.food_ordered.map((food: FoodOrdered) => {
+                    return [{
+                        ...food,
+                        restaurant_name: log.name,
+                        address: log.address,
+                    }]
+                });
+            } else return []
+        });
+        return foods.flat().filter((food: DetailsFoodOrdered) => {
+            return food.food_id === Number(foodId)
+        })
+    };
 
     const getTags = computed<string[]>(() => {
         const tags = leckerlogs.value.flatMap((leckerlog: Leckerlog) => {
-           if (leckerlog.food_ordered) {
-            return leckerlog.food_ordered.flatMap((food) => {
-                return food.tags ? food.tags : []
-            });
-           } else return [];
+            if (leckerlog.food_ordered) {
+                return leckerlog.food_ordered.flatMap((food) => {
+                    return food.tags ? food.tags : []
+                });
+            } else return [];
         });
         return Array.from(new Set(tags))
     })
 
-    return { cuisines, leckerlogs, setCuisines, setLeckerlogs, getSortedFoodOrdered, getTags }
+    return { cuisines, leckerlogs, setCuisines, setLeckerlogs, getFoodById, getSortedFoodOrdered, getTags }
 })

@@ -37,6 +37,11 @@ export interface LastUpdatedFood extends FoodOrdered {
   restaurant_name: string;
 }
 
+export interface DetailsFoodOrdered extends FoodOrdered {
+  restaurant_name: string;
+  address: string;
+}
+
 export interface Restaurant {
   restaurant_id: number;
   name: string;

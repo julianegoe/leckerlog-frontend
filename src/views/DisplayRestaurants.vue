@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+import { computed } from "vue";
 import BackIcon from '../assets/icons/chevron-left.svg';
 import AppHeader from "../components/AppHeader.vue";
 import RestaurantCard from "../components/RestaurantCard.vue";

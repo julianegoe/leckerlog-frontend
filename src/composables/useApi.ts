@@ -19,6 +19,10 @@ export const useApi = () => {
         return await request.get('cuisines');
     }
 
+    const getOneFoodOrdered = async (): Promise<Cuisine[]> => {
+        return await request.get('cuisines');
+    }
+
     const addRecord = async (newRecord: RecordData): Promise<[Restaurant, FoodOrdered] | []> => {
         const leckerlog =  await request.post('leckerlog', {
             restaurantName: newRecord.restaurantName,
