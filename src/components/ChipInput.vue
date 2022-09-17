@@ -14,7 +14,8 @@ const paddingLeft = ref(10);
 const tagsUl = ref<HTMLDivElement>();
 
 const onTagsChange = () => {
-    const extraCushion = 15
+    const extraCushion = 10;
+    console.log(tagsUl.value?.clientWidth);
     paddingLeft.value = tagsUl.value?.clientWidth || 10 + extraCushion;
     tagsUl.value?.scrollTo(tagsUl.value.scrollWidth, 0);
     emit("update:modelValue", tags.value)
@@ -35,16 +36,17 @@ const removeTag = (index: number) => {
 
 </script>
 <template>
-    <div class="relative py-5">
-        <label class="absolute -translate-y-2.5 translate-x-4 px-1 bg-white text-sm" :for="id">{{ label }}</label>
+    <div>
+        <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="id">{{ label }}</label>
         <input @keydown.delete="newTag.length || removeTag(tags.length - 1)" @keypress.space="addTag(newTag)"
-            @keypress.enter="addTag(newTag)" class="py-3 px-4 border border-black w-full" v-model="newTag" type="text"
-            :style="{ 'padding-left': `${paddingLeft}px` }" :id="id" />
+            @keypress.enter="addTag(newTag)" class="w-full py-2 px-4 border border-black" v-model="newTag" type="text"
+            :id="id" placeholder="Tag hinzufügen" autocomplete=off/>
 
-        <ul ref="tagsUl" class="absolute bottom-0 top-0 pl-2 flex items-center text-sm">
-            <li v-for="tag, index in tags" :key="tag" class="mr-2 px-2 border-2 border-black bg-white rounded-full">
+        <ul v-if="tags.length" ref="tagsUl" class="flex flex-wrap justify-start items-center gap-1 p-2 mt-1">
+            <li v-for="tag, index in tags" :key="tag" class="px-2 mr-1 min-w-max rounded-full border border-black">
                 {{ tag }} <span @click="removeTag(index)" class="cursor-pointer">x</span>
             </li>
         </ul>
+
     </div>
 </template>
