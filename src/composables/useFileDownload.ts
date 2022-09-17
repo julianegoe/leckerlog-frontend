@@ -17,7 +17,6 @@ export const useFileDownload = (fileName: string | null) => {
           status.value = 'SUCCESS';
         })
         .catch((error) => {
-          console.log(error)
           if (error.code === 'storage/object-not-found') {
             getDownloadURL(storageRef(storage, `${fileName.split('.')[0]}_500x500.${fileName.split('.')[1]}`))
               .then((url) => {
@@ -27,7 +26,7 @@ export const useFileDownload = (fileName: string | null) => {
                 console.log(error)
                 status.value = 'ERROR';
               })
-          }
+          } else { console.log(error) }
         });
     }
     status.value = 'SUCCESS'
