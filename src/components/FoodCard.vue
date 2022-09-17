@@ -30,39 +30,27 @@ const handleDelete = () => {
   showModal.value = false;
 }
 
-const handleMove = () => window.alert('move event detected')
 </script>
 <template>
-  <div @touchmove="handleMove" class="flex justify-between items-center rounded-sm gap-4 p-4 border border-black">
-    <Transition name="jump">
-      <AppModal v-if="showModal" @delete="handleDelete" @close="showModal = false"
-        text="Willst du dieses Gericht endgültig löschen?" />
-    </Transition>
+  <Transition name="jump">
+    <AppModal v-if="showModal" @delete="handleDelete" @close="showModal = false"
+      text="Willst du dieses Gericht endgültig löschen?" />
+  </Transition>
+  <div class="flex gap-2 flex-nowrap justify-between border-2 border-black">
+    <div class="flex flex-col gap-2 p-2 w-2/3">
+      <p class="text-xs">{{ localeDateString }}</p>
+      <h1 class="text-xl font-bold">{{ menuItem }}</h1>
+      <p class="text-xs">{{ restaurantName }}</p>
+      <div class="flex gap-1">
+        <StarIcon class="w-6 text-yellow-400" v-for="n in rating" :key="`${n}-star-rating`" />
+      </div>
+      <p>"{{ comment }}"</p>
+    </div>
     <div>
-      <ul>
-        <li>
-          <div v-if="date" class="text-xs">{{ localeDateString }}</div>
-          <div class="font-bold text-lg">{{ menuItem }}</div>
-          <div v-if="restaurantName" class="text-xs">{{ restaurantName }}</div>
-        </li>
-        <li>
-          <div class="flex pt-2">
-            <StarIcon class="w-6" v-for="n in rating" :key="`${n}-star-rating`" />
-          </div>
-        </li>
-        <li>
-          <div v-if="comment" class="pt-2">"{{ comment }}"</div>
-        </li>
-      </ul>
-    </div>
-    <div class="w-1/2">
-      <img v-if="result.status.value === 'SUCCESS' && fileName !== null"  class="object-fill" :src="result.imageUrl.value" :alt="menuItem" />
-      <div v-else-if="result.status.value === 'LOADING'" class="w-32 aspect-square bg-gray-100 animate-pulse"></div>
-    </div>
-    <div class="self-start flex flex-col gap-y-4 cursor-pointer">
-      <TrashIcon @click="showModal = true" class="w-8 text-gray-700" />
+      <img class="object-fit border-l-2 border-black" :src="result.imageUrl.value" :alt="menuItem">
     </div>
   </div>
+
 </template>
 <style scoped>
 .jump-enter-active,
