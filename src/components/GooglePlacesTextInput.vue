@@ -52,6 +52,7 @@ onMounted(async () => {
         googlePredictions.value = [];
       }
     })
+
     watch(() => props.latitude, () => {
       if (hasSelected.value) {
         return;
@@ -71,8 +72,11 @@ onMounted(async () => {
     })
 })
 
-const handleSelection = (value: string) => {
-  emit('update:restaurant', value)
+const handleSelection = (value: any) => {
+  emit('update:restaurant', {
+    name: value.main_text,
+    address: value.secondary_text,
+  })
   googlePredictions.value = [];
   googleNearbySearch.value = [];
   searchQuery.value = value;
@@ -87,7 +91,7 @@ const handleSelection = (value: string) => {
       <div class="text-red-700 text-xs" v-if="!googleLocation">Dieses Bild hat keine EXIF Daten</div>
       <ul v-if="googlePredictions.length > 0" class="border border-black">
             <li class="cursor-pointer hover:bg-gray-200 p-2"
-                @click="handleSelection(prediction.structured_formatting.main_text)"
+                @click="handleSelection(prediction.structured_formatting)"
                 v-for="prediction in googlePredictions" :key="prediction.place_id">
                 <div>{{ prediction.structured_formatting.main_text }}</div>
                 <div class="text-xs text-gray-400">{{ prediction.structured_formatting.secondary_text }}</div>

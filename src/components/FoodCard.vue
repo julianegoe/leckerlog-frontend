@@ -46,9 +46,8 @@ const handleDelete = () => {
       </div>
       <p>"{{ comment }}"</p>
     </div>
-    <div class="">
-      <img class="object-cover object-center max-h-44 aspect-[3/4] border-l-2 border-black" :src="result.imageUrl.value" :alt="menuItem">
-    </div>
+    <img class="aspect-[3/4] max-h-48 object-scale-down object-center border-l-2 border-black" :src="result.imageUrl.value"
+      :alt="menuItem">
   </div>
 
 </template>
