@@ -12,6 +12,7 @@ import { RecordData, ListItem } from '../types/types';
 import SnackBar from '../components/SnackBar.vue';
 import { useApi } from '../composables/useApi';
 import ChipInput from '../components/ChipInput.vue';
+import AppTextarea from '../components/AppTextarea.vue';
 
 const { addRecord } = useApi()
 
@@ -114,7 +115,7 @@ const addFood = async () => {
           id="meal-input" type="text" />
         <AppDateInput v-model="inputValues.ordered_at" :photo-date="inputValues.ordered_at" label="Bestellt am"
           id="date-input" />
-        <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
+        <AppTextarea @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
           id="comment-input" type="text" />
         <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
         <AppStarRatingInput @change:stars="(value) => inputValues.rating = value" />

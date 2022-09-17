@@ -15,6 +15,7 @@ const sorting = useSortingStore();
 const api = useApi();
 
 const isLoading = ref(false);
+const sheetOpen = ref(true);
 
 const sortBy = ref<FilterItem[]>([
     {
@@ -42,7 +43,9 @@ onMounted(async () => {
 
 const setSortBy = (sortBy: FilterItem) => {
     sorting.setSortingState(sortBy);
-}
+};
+
+const handleSheet = () => sheetOpen !== sheetOpen;
 
 </script>
 <template>
