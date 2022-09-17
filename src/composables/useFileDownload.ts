@@ -5,7 +5,7 @@ type UploadStatus = 'LOADING' | 'IDLE' | 'SUCCESS' | 'ERROR';
 
 export const useFileDownload = (fileName: string | null) => {
   const status = ref<UploadStatus>('IDLE');
-  const imageUrl = ref<string>('https://via.placeholder.com/500');
+  const imageUrl = ref<string>('https://via.placeholder.com/200x400');
 
   onMounted(() => {
     status.value = 'LOADING';

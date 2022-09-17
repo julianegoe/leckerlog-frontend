@@ -18,7 +18,7 @@ const handleDelete = async (id: number) => {
 </script>
 <template>
     <div>
-        <div v-if="displayState === 'HAS_DATA'" class="flex flex-col gap-2">
+        <div v-if="displayState === 'HAS_DATA'" class="flex flex-col gap-4">
             <template v-for="(food, index) in content.getSortedFoodOrdered" :key="`${index}-${food.name}`">
                 <FoodCard @delete="handleDelete(food.food_id)" :menu-item="food.name" :rating="food.rating" :file-name="food.image_path"
                     :comment="food.comment" :date="food.ordered_at" :restaurant-name="food.restaurant_name" />

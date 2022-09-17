@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import StarIcon from '../assets/icons/star.svg'
-import { computed, ref, watch } from 'vue';
+import StarIcon from '../assets/icons/star-outline.svg'
+import { computed, ref } from 'vue';
 import TrashIcon from '../assets/icons/trash.svg';
 import AppModal from './AppModal.vue';
 import { useFileDownload } from '../composables/useFileDownload';
@@ -36,18 +36,18 @@ const handleDelete = () => {
     <AppModal v-if="showModal" @delete="handleDelete" @close="showModal = false"
       text="Willst du dieses Gericht endgültig löschen?" />
   </Transition>
-  <div class="flex gap-2 flex-nowrap justify-between border-2 border-black">
+  <div class="flex gap-2 flex-nowrap justify-between border-2 border-black shadow-brutal rounded-md">
     <div class="flex flex-col gap-2 p-2 w-2/3">
       <p class="text-xs">{{ localeDateString }}</p>
       <h1 class="text-xl font-bold">{{ menuItem }}</h1>
       <p class="text-xs">{{ restaurantName }}</p>
       <div class="flex gap-1">
-        <StarIcon class="w-6 text-yellow-400" v-for="n in rating" :key="`${n}-star-rating`" />
+        <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in rating" :key="`${n}-star-rating`" />
       </div>
       <p>"{{ comment }}"</p>
     </div>
     <div>
-      <img class="object-fit border-l-2 border-black" :src="result.imageUrl.value" :alt="menuItem">
+      <img class="object-cover object-center aspect-[3/4] border-l-2 border-black" :src="result.imageUrl.value" :alt="menuItem">
     </div>
   </div>
 
