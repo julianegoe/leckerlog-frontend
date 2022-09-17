@@ -98,7 +98,7 @@ const addFood = async () => {
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>
     <div class="m-auto p-2">
-      <form @submit.enter.prevent="addFood">
+      <form @submit.prevent="addFood">
         <label for="file-upload" class="cursor-pointer p-2 border border-black active:bg-gray-200">Bild
           auswählen</label>
         <input class="hidden" role="button" id="file-upload" type="file" @change="handlePhotoChange"
