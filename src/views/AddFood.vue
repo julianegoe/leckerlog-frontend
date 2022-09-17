@@ -29,7 +29,8 @@ const inputValues = reactive<RecordData>({
   comment: '',
   foodName: '',
   image_path: null,
-  tags: []
+  tags: [],
+  address: '',
 });
 
 const arrayBuffer = ref();
@@ -102,7 +103,10 @@ const addFood = async () => {
           auswählen</label>
         <input class="hidden" role="button" id="file-upload" type="file" @change="handlePhotoChange"
           accept="image/jpeg" />
-        <GooglePlacesTextInput @update:restaurant="(value) => inputValues.restaurantName = value" label="Restaurant"
+        <GooglePlacesTextInput @update:restaurant="(value) => {
+          inputValues.restaurantName = value.name;
+          inputValues.address = value.address;
+        }" label="Restaurant"
           input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude"
           :latitude-direction="exifGpsData.GPSLatitudeRef" :longitude="exifGpsData.GPSLongitude"
           :longitude-direction="exifGpsData.GPSLongitudeRef" />

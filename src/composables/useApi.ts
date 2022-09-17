@@ -25,6 +25,7 @@ export const useApi = () => {
             foodName: newRecord.foodName,
             cuisine: newRecord.cuisine.label,
             cuisine_id: newRecord.cuisine.value,
+            address: newRecord.address,
             comment: newRecord.comment,
             rating: newRecord.rating,
             ordered_at: newRecord.ordered_at,

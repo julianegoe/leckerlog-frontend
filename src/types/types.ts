@@ -17,6 +17,7 @@ export interface RecordData {
   foodName: string;
   image_path: string | null;
   tags: string[];
+  address: string;
 }
 
 export interface FoodOrdered {
@@ -41,6 +42,7 @@ export interface Restaurant {
   name: string;
   cuisine: string;
   cuisine_id: number;
+  address: string;
   date_updated: string;
   date_created: string;
 };
@@ -50,6 +52,7 @@ export interface Leckerlog {
   name: string;
   cuisine: string;
   cuisine_id: number;
+  address: string;
   date_updated: string;
   date_created: string;
   food_ordered: FoodOrdered[];
@@ -58,6 +61,7 @@ export interface Leckerlog {
 
 export const INPUT_DEFAULT_VALUES: RecordData = {
     restaurantName: '',
+    address: '',
     cuisine: {
       value: 0,
       label: '',

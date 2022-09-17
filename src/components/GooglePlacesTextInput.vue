@@ -74,12 +74,12 @@ onMounted(async () => {
 
 const handleSelection = (value: any) => {
   emit('update:restaurant', {
-    name: value.main_text,
-    address: value.secondary_text,
+    name: value.main_text || value.name,
+    address: value.secondary_text || value.vicinity,
   })
   googlePredictions.value = [];
   googleNearbySearch.value = [];
-  searchQuery.value = value;
+  searchQuery.value = value.name || value.main_text;
   hasSelected.value = true;
 };
 </script>
@@ -99,7 +99,7 @@ const handleSelection = (value: any) => {
         </ul>
       <div v-else-if="googleNearbySearch.length > 0" class="border border-black">
         <div class="cursor-pointer hover:bg-gray-200 p-2"
-             @click="handleSelection(place.name)"
+             @click="handleSelection(place)"
              v-for="(place, index) in googleNearbySearch.slice(0, 7)" :key="place.place_id">
           <div>{{ place.name }}</div>
           <div class="text-xs text-gray-400">{{ place.vicinity }}</div>
