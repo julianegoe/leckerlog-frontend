@@ -29,9 +29,11 @@ const handleDelete = () => {
   emits('delete');
   showModal.value = false;
 }
+
+const handleMove = () => window.alert('move event detected')
 </script>
 <template>
-  <div class="flex justify-between items-center rounded-sm gap-4 p-4 border border-black">
+  <div @touchmove="handleMove" class="flex justify-between items-center rounded-sm gap-4 p-4 border border-black">
     <Transition name="jump">
       <AppModal v-if="showModal" @delete="handleDelete" @close="showModal = false"
         text="Willst du dieses Gericht endgültig löschen?" />
