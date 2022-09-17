@@ -1,11 +1,13 @@
 <script lang="ts" setup>
+import gsap from 'gsap'
 import StarIcon from '../assets/icons/star-outline.svg'
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import TrashIcon from '../assets/icons/trash.svg';
 import AppModal from './AppModal.vue';
 import { useFileDownload } from '../composables/useFileDownload';
 
 const props = defineProps<{
+  foodIndex?: number;
   menuItem: string;
   rating: number;
   fileName: string | null;
@@ -36,7 +38,7 @@ const handleDelete = () => {
     <AppModal v-if="showModal" @delete="handleDelete" @close="showModal = false"
       text="Willst du dieses Gericht endgültig löschen?" />
   </Transition>
-  <div class="snap-center snap-always basis-full shrink-0 grow-0 flex gap-2 flex-nowrap justify-between border-2 bg-white border-black shadow-brutal rounded-md">
+  <div :id="'foodcard' + foodIndex" class="snap-center snap-always basis-full shrink-0 grow-0 flex gap-2 flex-nowrap justify-between border-2 bg-white border-black shadow-brutal rounded-md">
     <div class="flex flex-col gap-2 p-2">
       <p class="text-xs">{{ localeDateString }}</p>
       <h1 class="text-xl font-bold">{{ menuItem }}</h1>
