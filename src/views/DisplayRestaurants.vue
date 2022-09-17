@@ -15,13 +15,6 @@ const props = defineProps<{
   cuisine: string;
 }>();
 
-onMounted(() => {
-  const element = document.getElementById('foodcard1')
-  element?.scrollIntoView({
-    behavior: 'smooth',
-  });
-})
-
 const displayRestaurants = computed<Leckerlog[]>(() => {
   return data.leckerlogs.filter((restaurant: Leckerlog) => restaurant.cuisine === props.cuisine);
 })
@@ -47,12 +40,10 @@ const handleDelete = async (id: number) => {
         class="flex flex-col gap-6 m-auto p-2 mb-8">
         <RestaurantCard v-if="displayRestaurants.length > 0" @delete="handleDelete(restaurant.restaurant_id)"
           :lecker-log="restaurant" />
-        <div class="w-full flex flex-row gap-4 overflow-x-scroll snap-x snap-mandatory scroll-smooth">
-          <template v-for="food, index in restaurant.food_ordered" :key="food.food_id">
-            <FoodCard @delete="handleDelete(food.food_id)" :menu-item="food.name" :rating="food.rating"
-              :comment="food.comment" :date="food.ordered_at" :file-name="food.image_path" :food-index="index" />
-          </template>
-        </div>
+        <template v-for="food, index in restaurant.food_ordered" :key="food.food_id">
+          <FoodCard @delete="handleDelete(food.food_id)" :menu-item="food.name" :rating="food.rating"
+            :comment="food.comment" :date="food.ordered_at" :file-name="food.image_path" />
+        </template>
       </div>
     </template>
   </div>
