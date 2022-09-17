@@ -37,7 +37,7 @@ const handleDelete = () => {
       text="Willst du dieses Gericht endgültig löschen?" />
   </Transition>
   <div class="flex gap-2 flex-nowrap justify-between border-2 border-black shadow-brutal rounded-md">
-    <div class="flex flex-col gap-2 p-2 w-2/3">
+    <div class="flex flex-col gap-2 p-2">
       <p class="text-xs">{{ localeDateString }}</p>
       <h1 class="text-xl font-bold">{{ menuItem }}</h1>
       <p class="text-xs">{{ restaurantName }}</p>
@@ -46,8 +46,8 @@ const handleDelete = () => {
       </div>
       <p>"{{ comment }}"</p>
     </div>
-    <div>
-      <img class="object-cover object-center aspect-[3/4] border-l-2 border-black" :src="result.imageUrl.value" :alt="menuItem">
+    <div class="">
+      <img class="object-cover object-center max-h-44 aspect-[3/4] border-l-2 border-black" :src="result.imageUrl.value" :alt="menuItem">
     </div>
   </div>
 
