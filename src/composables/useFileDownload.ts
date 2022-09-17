@@ -5,13 +5,13 @@ type UploadStatus = 'LOADING' | 'IDLE' | 'SUCCESS' | 'ERROR';
 
 export const useFileDownload = (fileName: string | null) => {
   const status = ref<UploadStatus>('IDLE');
-  const imageUrl = ref<string>('https://via.placeholder.com/200');
+  const imageUrl = ref<string>('https://via.placeholder.com/500');
 
   onMounted(() => {
     status.value = 'LOADING';
     const storage = getStorage();
     if (fileName !== null) {
-      getDownloadURL(storageRef(storage, `${fileName.split('.')[0]}_200x200.${fileName.split('.')[1]}`))
+      getDownloadURL(storageRef(storage, `${fileName.split('.')[0]}_500x500.${fileName.split('.')[1]}`))
       .then((url) => {
         imageUrl.value = url;
         status.value = 'SUCCESS';
