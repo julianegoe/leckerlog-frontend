@@ -50,6 +50,10 @@ export const useAuthentication = () => {
           }
 
         }).catch((err: AuthError) => {
+          console.log(err);
+          if (err.code === 'auth/wrong-password') {
+            window.alert('Du hast ein falsches Passwort eingegeben');
+          }
           if (err.code === 'auth/user-not-found') {
             window.alert('Nutzer existiert nicht')
           }
