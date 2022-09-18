@@ -14,7 +14,7 @@ const props = defineProps<{
   restaurantName?: string;
 }>();
 
-const result = useFileDownload(props.fileName);
+const result = useFileDownload(props.fileName, 'thumbnail');
 
 const localeDateString = computed(() => {
   if (props.date) {

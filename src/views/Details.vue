@@ -22,7 +22,7 @@ const props = defineProps<{
 
 const foodOrdered = computed<DetailsFoodOrdered[]>(() => content.getFoodById(props.foodId));
 
-const result = useFileDownload(foodOrdered.value[0].image_path);
+const result = useFileDownload(foodOrdered.value[0].image_path, 'hero');
 
 const localeDateString = computed(() => {
     if (foodOrdered.value.length) {
