@@ -24,8 +24,8 @@ const localeDateString = computed(() => {
 
 </script>
 <template>
-  <div class="flex flex-shrink-1 justify-between border-2 bg-white border-black shadow-brutal rounded-md">
-    <div @click="$router.push({ name: 'Details', params: { foodId } })" class="flex flex-col gap-2 p-2">
+  <div @click="$router.push({ name: 'Details', params: { foodId } })"  class="flex flex-shrink-1 justify-between border-2 bg-white border-black shadow-brutal rounded-md">
+    <div class="flex flex-col gap-2 p-2">
       <p class="text-xs">{{ localeDateString }}</p>
       <h1 class="text-xl font-bold">{{ menuItem }}</h1>
       <p class="text-xs">{{ restaurantName }}</p>

@@ -30,12 +30,23 @@ const localeDateString = computed(() => {
     }
 });
 
+const encodedGoogleQuery =  computed(() => {
+    if (foodOrdered.value[0].address) {
+        return encodeURI(`${foodOrdered.value[0].restaurant_name}, ${foodOrdered.value[0].address}`);
+    }
+    return encodeURI(foodOrdered.value[0].restaurant_name);
+})
+const googleSearchUrl = computed(() => {
+    const googleUrl = 'https://www.google.com/maps/search/?api=1&query=';
+    return `${googleUrl}${encodedGoogleQuery.value}`;
+});
+
 const showModal = ref(false);
-  showModal.value = false;
+showModal.value = false;
 
 const handleDelete = async (id: string) => {
     await api.deleteFoodOrdered(Number(id));
-    router.push({name: 'Home'});
+    router.push({ name: 'Home' });
 }
 
 </script>
@@ -60,22 +71,31 @@ const handleDelete = async (id: string) => {
             <div class="flex flex-col gap-y-4 p-4">
                 <div>{{ localeDateString }}</div>
                 <div class="text-2xl font-black">{{ foodOrdered[0].name }}</div>
-                <div>{{ foodOrdered[0].restaurant_name }}</div>
+                <div class="hover:text-primary-purple">
+                    <a :href="googleSearchUrl" target=”_blank”>
+                        {{ foodOrdered[0].restaurant_name }}
+                    </a>
+                </div>
                 <div>{{ foodOrdered[0].address }}</div>
-                <div>"{{ foodOrdered[0].comment }}""</div>
+                <div>"{{ foodOrdered[0].comment }}"</div>
                 <div class="flex gap-1">
                     <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in foodOrdered[0].rating"
                         :key="`${n}-star-rating`" />
                 </div>
-                <div class="flex gap-1 mt-2">
+                <div class="flex gap-1 gap-y-4 mt-2 flex-wrap">
                     <template v-for="tag in foodOrdered[0].tags" :key="tag">
                         <TagBoxVue :name="tag" />
                     </template>
                 </div>
-                <div class="pt-1 pl-1" @click="() => showModal = true">
-                    <button class="flex items-center border border-black shadow-brutal p-4 hover:bg-primary-red">
+                <div class="flex items-center justify-around gap-2">
+                    <button @click="() => showModal = true"
+                        class="flex items-center border border-black shadow-brutal p-2 hover:bg-primary-red">
                         <TrashIcon class="pr-2" />
-                        <div>Gericht endgültig löschen</div>
+                        <div>Gericht löschen</div>
+                    </button>
+                    <button class="flex items-center border border-black shadow-brutal p-2 hover:bg-primary-red">
+                        <TrashIcon class="pr-2" />
+                        <div>Gericht bearbeiten</div>
                     </button>
                 </div>
             </div>
@@ -83,13 +103,13 @@ const handleDelete = async (id: string) => {
     </div>
 </template>
 <style scoped>
-    .jump-enter-active,
-    .jump-leave-active {
-      transition: transform 0.5s ease;
-    }
-    
-    .jump-enter-from,
-    .jump-leave-to {
-      transform: translateY(200%);
-    }
-    </style>
+.jump-enter-active,
+.jump-leave-active {
+    transition: transform 0.5s ease;
+}
+
+.jump-enter-from,
+.jump-leave-to {
+    transform: translateY(200%);
+}
+</style>
