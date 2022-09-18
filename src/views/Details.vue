@@ -30,7 +30,7 @@ const localeDateString = computed(() => {
     }
 });
 
-const encodedGoogleQuery =  computed(() => {
+const encodedGoogleQuery = computed(() => {
     if (foodOrdered.value[0].address) {
         return encodeURI(`${foodOrdered.value[0].restaurant_name}, ${foodOrdered.value[0].address}`);
     }
@@ -68,39 +68,37 @@ const handleDelete = async (id: string) => {
                 <img class="w-full h-72 object-cover object-center" v-if="result.status.value === 'SUCCESS'"
                     :src="result.imageUrl.value" :alt="foodOrdered[0].name">
             </div>
-            <div class="flex flex-col gap-y-4 p-4">
-                <div>{{ localeDateString }}</div>
-                <div class="text-2xl font-black">{{ foodOrdered[0].name }}</div>
-                <div class="hover:text-primary-purple">
+            <div class="flex flex-col justify-between gap-y-4 p-4">
+                <div class="text-sm text-gray-600">{{ localeDateString }}</div>
+                <div class="text-3xl font-black">{{ foodOrdered[0].name }}</div>
+                <div class=" text-sm hover:text-primary-purple text-gray-600">
                     <a :href="googleSearchUrl" target=”_blank”>
                         {{ foodOrdered[0].restaurant_name }}
+                        <div>{{ foodOrdered[0].address }}</div>
                     </a>
                 </div>
-                <div>{{ foodOrdered[0].address }}</div>
-                <div>"{{ foodOrdered[0].comment }}"</div>
+                <div class="text-lg">"{{ foodOrdered[0].comment }}"</div>
                 <div class="flex gap-1">
                     <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in foodOrdered[0].rating"
                         :key="`${n}-star-rating`" />
                 </div>
-                <div class="flex gap-1 gap-y-4 mt-2 flex-wrap">
+                <div class="flex gap-1 gap-y-4 flex-wrap">
                     <template v-for="tag in foodOrdered[0].tags" :key="tag">
                         <TagBoxVue :name="tag" />
                     </template>
                 </div>
-                <div class="flex items-center justify-around gap-2">
+                <div class="flex items-center justify-start gap-2">
                     <button @click="() => showModal = true"
-                        class="flex items-center border border-black shadow-brutal p-2 hover:bg-primary-red">
+                        class="flex items-center border border-black shadow-brutal py-2 px-2.5 hover:bg-primary-red">
                         <TrashIcon class="pr-2" />
                         <div>Gericht löschen</div>
-                    </button>
-                    <button class="flex items-center border border-black shadow-brutal p-2 hover:bg-primary-red">
-                        <TrashIcon class="pr-2" />
-                        <div>Gericht bearbeiten</div>
                     </button>
                 </div>
             </div>
         </div>
+
     </div>
+
 </template>
 <style scoped>
 .jump-enter-active,
