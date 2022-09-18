@@ -20,11 +20,9 @@ const handleDelete = async (id: number) => {
     <div>
         <div v-if="displayState === 'HAS_DATA'" class="flex flex-col gap-4">
             <template v-for="(food, index) in content.getSortedFoodOrdered" :key="`${index}-${food.name}`">
-                <RouterLink :to="{ name: 'Details', params: { foodId: food.food_id } }">
-                    <FoodCard @delete="handleDelete(food.food_id)" :menu-item="food.name" :rating="food.rating"
-                        :file-name="food.image_path" :comment="food.comment" :date="food.ordered_at"
-                        :restaurant-name="food.restaurant_name" />
-                </RouterLink>
+                <FoodCard @delete="handleDelete(food.food_id)" :menu-item="food.name" :rating="food.rating"
+                    :file-name="food.image_path" :comment="food.comment" :date="food.ordered_at"
+                    :restaurant-name="food.restaurant_name" :food-id="food.food_id" />
             </template>
         </div>
         <AppEmptyState v-else-if="displayState === 'NO_DATA'" />

@@ -42,7 +42,7 @@ const handleDelete = async (id: number) => {
           :lecker-log="restaurant" />
         <template v-for="food, index in restaurant.food_ordered" :key="food.food_id">
           <FoodCard @delete="handleDelete(food.food_id)" :menu-item="food.name" :rating="food.rating"
-            :comment="food.comment" :date="food.ordered_at" :file-name="food.image_path" />
+            :comment="food.comment" :date="food.ordered_at" :file-name="food.image_path" :food-id="food.food_id" />
         </template>
       </div>
     </template>

@@ -7,6 +7,7 @@ import AppModal from './AppModal.vue';
 import { useFileDownload } from '../composables/useFileDownload';
 
 const props = defineProps<{
+  foodId: number;
   menuItem: string;
   rating: number;
   fileName: string | null;
@@ -38,7 +39,10 @@ const handleDelete = () => {
       text="Willst du dieses Gericht endgültig löschen?" />
   </Transition>
   <div class="flex gap-2 flex-nowrap justify-between border-2 bg-white border-black shadow-brutal rounded-md">
-    <div class="flex flex-col gap-2 p-2">
+    <div @click="() => showModal = true">
+      <TrashIcon />
+    </div>
+    <div @click="$router.push({ name: 'Details', params: { foodId } })" class="flex flex-col gap-2 p-2">
       <p class="text-xs">{{ localeDateString }}</p>
       <h1 class="text-xl font-bold">{{ menuItem }}</h1>
       <p class="text-xs">{{ restaurantName }}</p>
@@ -47,9 +51,11 @@ const handleDelete = () => {
       </div>
       <p>"{{ comment }}"</p>
     </div>
-    <img v-if="result.status.value === 'SUCCESS'" class="rounded-r-md aspect-[3/4] max-h-48 object-scale-down object-center border-l-2 border-black" :src="result.imageUrl.value"
-      :alt="menuItem">
-      <div v-else-if="result.status.value === 'LOADING'" class="rounded-r-md aspect-[3/4] h-48 border-l-2 border-black bg-gray-200 animate-pulse"></div>
+    <img v-if="result.status.value === 'SUCCESS'"
+      class="rounded-r-md aspect-[3/4] max-h-48 object-scale-down object-center border-l-2 border-black"
+      :src="result.imageUrl.value" :alt="menuItem">
+    <div v-else-if="result.status.value === 'LOADING'"
+      class="rounded-r-md aspect-[3/4] h-48 border-l-2 border-black bg-gray-200 animate-pulse"></div>
   </div>
 
 </template>
