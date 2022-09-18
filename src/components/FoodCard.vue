@@ -38,16 +38,16 @@ const handleDelete = () => {
     <AppModal v-if="showModal" @delete="handleDelete" @close="showModal = false"
       text="Willst du dieses Gericht endgültig löschen?" />
   </Transition>
-  <div class="flex gap-2 flex-nowrap justify-between border-2 bg-white border-black shadow-brutal rounded-md">
-    <div @click="() => showModal = true">
-      <TrashIcon />
+  <div class="flex flex-shrink-1 justify-between border-2 bg-white border-black shadow-brutal rounded-md">
+    <div class="pt-1 pl-1" @click="() => showModal = true">
+      <TrashIcon class="w-4 h-4" />
     </div>
     <div @click="$router.push({ name: 'Details', params: { foodId } })" class="flex flex-col gap-2 p-2">
       <p class="text-xs">{{ localeDateString }}</p>
       <h1 class="text-xl font-bold">{{ menuItem }}</h1>
       <p class="text-xs">{{ restaurantName }}</p>
       <div class="flex gap-1">
-        <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in rating" :key="`${n}-star-rating`" />
+        <StarIcon fill="#8affdc" class="h-6 w-6" v-for="n in rating" :key="`${n}-star-rating`" />
       </div>
       <p>"{{ comment }}"</p>
     </div>
