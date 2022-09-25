@@ -9,7 +9,7 @@ export const useFileDownload = (fileName: string | null, imageSize: ImageSize) =
   const imageUrl = ref<string>('https://via.placeholder.com/300x400');
 
   const sizeLookUp = new Map([
-    ['thumbnail', '200x200'],
+    ['thumbnail', '500x500'],
     ['hero', '1500x1500'],
     ['fallback', '200x200'],
   ]);
