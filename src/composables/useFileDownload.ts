@@ -33,7 +33,6 @@ export const useFileDownload = (fileName: string | null, imageSize: ImageSize) =
 
   return {
     status,
-    imageUrl,
     getImage,
   }
 }

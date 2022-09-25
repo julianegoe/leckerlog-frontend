@@ -18,7 +18,7 @@ const { getImage } = useFileDownload(props.fileName, 'thumbnail');
 const url = ref();
 
 onMounted(async () => {
-   url.value = await getImage();
+  url.value = await getImage();
 })
 
 const localeDateString = computed(() => {
@@ -29,7 +29,8 @@ const localeDateString = computed(() => {
 
 </script>
 <template>
-  <div @click="$router.push({ name: 'Details', params: { foodId } })"  class="grid grid-cols-3 border-2 bg-white border-black shadow-brutal rounded-md">
+  <div @click="$router.push({ name: 'Details', params: { foodId } })"
+    class="grid grid-cols-3 border-2 bg-white border-black shadow-brutal rounded-md">
     <div class="col-span-2 flex flex-col gap-2 p-2">
       <p class="text-xs">{{ localeDateString }}</p>
       <h1 class="text-xl font-bold">{{ menuItem }}</h1>
@@ -39,11 +40,10 @@ const localeDateString = computed(() => {
       </div>
       <p class="line-clamp-2">"{{ comment }}"</p>
     </div>
-    <img v-if="url"
-      class="col-span-1 rounded-r-md h-full object-cover object-center border-l-2 border-black"
-      :src="url" :alt="menuItem">
-    <div v-else-if="!url"
-      class="rounded-r-md aspect-[3/4] h-48 border-l-2 border-black bg-gray-200 animate-pulse"></div>
+    <div  v-if="url" class="col-span-1 h-full rounded-r-md object-cover object-center">
+      <img :src="url" :alt="menuItem">
+    </div>
+    <div v-else-if="!url" class="rounded-r-md col-span-1 border-l-2 border-black bg-gray-200 animate-pulse"></div>
   </div>
 
 </template>
