@@ -14,7 +14,12 @@ const props = defineProps<{
   restaurantName?: string;
 }>();
 
-const result = useFileDownload(props.fileName, 'thumbnail');
+const { getImage } = useFileDownload(props.fileName, 'thumbnail');
+const url = ref();
+
+onMounted(async () => {
+   url.value = await getImage();
+})
 
 const localeDateString = computed(() => {
   if (props.date) {
@@ -34,10 +39,10 @@ const localeDateString = computed(() => {
       </div>
       <p class="line-clamp-2">"{{ comment }}"</p>
     </div>
-    <img v-if="result.status.value === 'SUCCESS'"
+    <img v-if="url"
       class="col-span-1 rounded-r-md h-full object-cover object-center border-l-2 border-black"
-      :src="result.imageUrl.value" :alt="menuItem">
-    <div v-else-if="result.status.value === 'LOADING'"
+      :src="url" :alt="menuItem">
+    <div v-else-if="!url"
       class="rounded-r-md aspect-[3/4] h-48 border-l-2 border-black bg-gray-200 animate-pulse"></div>
   </div>
 

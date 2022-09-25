@@ -4,7 +4,7 @@ import BackIcon from '../assets/icons/chevron-left.svg';
 import StarIcon from '../assets/icons/star-outline.svg'
 import TrashIcon from '../assets/icons/trash.svg';
 import AppModal from '../components/AppModal.vue';
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useContentStore } from "../store/content";
 import { DetailsFoodOrdered } from "../types/types";
 import { useFileDownload } from "../composables/useFileDownload";
@@ -22,7 +22,12 @@ const props = defineProps<{
 
 const foodOrdered = computed<DetailsFoodOrdered[]>(() => content.getFoodById(props.foodId));
 
-const result = useFileDownload(foodOrdered.value[0].image_path, 'hero');
+const { getImage } = useFileDownload(foodOrdered.value[0].image_path, 'hero');
+const url = ref();
+
+onMounted(async () => {
+   url.value = await getImage();
+})
 
 const localeDateString = computed(() => {
     if (foodOrdered.value.length) {
@@ -64,9 +69,9 @@ const handleDelete = async (id: string) => {
                 text="Willst du dieses Gericht endgültig löschen?" />
         </Transition>
         <div v-if="foodOrdered.length">
-            <div class="border-2 border-black">
-                <img class="w-full h-72 object-cover object-center" v-if="result.status.value === 'SUCCESS'"
-                    :src="result.imageUrl.value" :alt="foodOrdered[0].name">
+            <div class="border-b-2 border-black">
+                <img class="w-full h-72 object-cover object-center" v-if="url"
+                    :src="url" :alt="foodOrdered[0].name">
             </div>
             <div class="flex flex-col justify-between gap-y-4 p-4">
                 <div class="text-sm text-gray-600">{{ localeDateString }}</div>
