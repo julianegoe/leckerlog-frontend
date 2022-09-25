@@ -26,7 +26,7 @@ const { getImage } = useFileDownload(foodOrdered.value[0].image_path, 'hero');
 const url = ref();
 
 onMounted(async () => {
-   url.value = await getImage();
+    url.value = await getImage();
 })
 
 const localeDateString = computed(() => {
@@ -46,8 +46,8 @@ const googleSearchUrl = computed(() => {
     return `${googleUrl}${encodedGoogleQuery.value}`;
 });
 
-const showModal = ref(false);
-showModal.value = false;
+const showdDeleteModal = ref(false);
+const showdEditModal = ref(false);
 
 const handleDelete = async (id: string) => {
     await api.deleteFoodOrdered(Number(id));
@@ -65,13 +65,27 @@ const handleDelete = async (id: string) => {
             <div v-if="foodOrdered.length" class="font-bold text-lg">{{ foodOrdered[0].name }}</div>
         </AppHeader>
         <Transition name="jump">
-            <AppModal v-if="showModal" @delete="handleDelete(foodId)" @close="showModal = false"
-                text="Willst du dieses Gericht endgültig löschen?" />
+            <AppModal v-if="showdDeleteModal"
+                text="Willst du dieses Gericht endgültig löschen?">
+                <div class="text-sm pb-2">Willst du dieses Gericht endgültig löschen?</div>
+                <div class="flex justify-between">
+                    <button class="font-bold" @click="handleDelete(foodId)">Ja</button>
+                    <button class="font-bold" @click="showdDeleteModal = false">Abbrechen</button>
+                </div>
+            </AppModal>
+        </Transition>
+
+        <Transition name="jump">
+            <AppModal v-if="showdEditModal"
+                text="Willst du dieses Gericht endgültig löschen?">
+                <div class="text-md font-bold pb-2">{{foodOrdered[0].name}} bearbeiten</div>
+                <div class="text-sm"> hier wirst du bald Gerichte beareiten können.</div>
+                <button class="font-bold" @click="showdEditModal = false">Schließen</button>
+            </AppModal>
         </Transition>
         <div v-if="foodOrdered.length">
             <div class="border-b-2 border-black">
-                <img class="w-full h-72 object-cover object-center" v-if="url"
-                    :src="url" :alt="foodOrdered[0].name">
+                <img class="w-full h-72 object-cover object-center" v-if="url" :src="url" :alt="foodOrdered[0].name">
             </div>
             <div class="flex flex-col justify-between gap-y-4 p-4">
                 <div class="text-sm text-gray-600">{{ localeDateString }}</div>
@@ -93,10 +107,15 @@ const handleDelete = async (id: string) => {
                     </template>
                 </div>
                 <div class="flex items-center justify-start gap-2">
-                    <button @click="() => showModal = true"
+                    <button @click="showdDeleteModal = true"
                         class="flex items-center border border-black shadow-brutal py-2 px-2.5 hover:bg-primary-red">
                         <TrashIcon class="pr-2" />
                         <div>Gericht löschen</div>
+                    </button>
+                    <button @click="showdEditModal = true"
+                        class="flex items-center border border-black shadow-brutal py-2 px-2.5 hover:bg-primary-red">
+                        <TrashIcon class="pr-2" />
+                        <div>Gericht bearbeiten</div>
                     </button>
                 </div>
             </div>

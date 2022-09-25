@@ -15,7 +15,6 @@ const sorting = useSortingStore();
 const api = useApi();
 
 const isLoading = ref(false);
-const sheetOpen = ref(true);
 
 const sortBy = ref<FilterItem[]>([
     {
