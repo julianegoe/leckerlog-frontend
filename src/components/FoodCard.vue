@@ -40,10 +40,8 @@ const localeDateString = computed(() => {
       </div>
       <p class="line-clamp-2">"{{ comment }}"</p>
     </div>
-    <div  v-if="url" class="col-span-1 h-full rounded-r-md object-cover object-center">
-      <img :src="url" :alt="menuItem">
-    </div>
-    <div v-else-if="!url" class="rounded-r-md col-span-1 border-l-2 border-black bg-gray-200 animate-pulse"></div>
+      <img class="col-span-1" v-if="url" :src="url" :alt="menuItem">
+    <div v-else-if="!url" class="rounded-r-md col-span-1 h-48 border-l-2 border-black bg-gray-200 animate-pulse"></div>
   </div>
 
 </template>
