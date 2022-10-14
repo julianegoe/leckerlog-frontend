@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import StarIconOutline from '../assets/icons/star-outline.svg';
-import StarIcon from '../assets/icons/star.svg';
+/// <reference types="vite-svg-loader" />
+import StarIconOutline from '../assets/icons/star-outline.svg?component';
+import StarIcon from '../assets/icons/star.svg?component';
 import {ref} from "vue";
 
 const emit = defineEmits(['change:stars']);
