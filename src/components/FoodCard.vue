@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import gsap from 'gsap'
-import StarIcon from '../assets/icons/star-outline.svg'
+/// <reference types="vite-svg-loader" />
+import StarIcon from '../assets/icons/star-outline.svg?component'
 import { computed, onMounted, ref } from 'vue';
 import { useFileDownload } from '../composables/useFileDownload';
 
