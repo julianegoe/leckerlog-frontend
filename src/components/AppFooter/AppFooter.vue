@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+/// <reference types="vite-svg-loader" />
 import { ref } from 'vue';
-import Plus from '../../assets/icons/plus.svg';
-import Squares from '../../assets/icons/squares.svg';
+import Plus from '../../assets/icons/plus.svg?component';
+import Squares from '../../assets/icons/squares.svg?component';
 import List from '../../assets/icons/list.svg';
 import Chart from '../../assets/icons/chart.svg';
-import { routerKey, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 

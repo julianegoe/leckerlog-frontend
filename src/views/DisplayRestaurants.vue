@@ -1,6 +1,7 @@
 <script lang="ts" setup>
+/// <reference types="vite-svg-loader" />
 import { computed } from "vue";
-import BackIcon from '../assets/icons/chevron-left.svg';
+import BackIcon from '../assets/icons/chevron-left.svg?component';
 import AppHeader from "../components/AppHeader.vue";
 import RestaurantCard from "../components/RestaurantCard.vue";
 import FoodCard from "../components/FoodCard.vue";
