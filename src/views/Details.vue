@@ -31,6 +31,7 @@ const props = defineProps<{
 
 const foodOrdered = computed<DetailsFoodOrdered[]>(() => content.getFoodById(props.foodId));
 const inputValues = reactive<any>({
+    restaurantName : foodOrdered.value[0].restaurant_name,
     foodName: foodOrdered.value[0].name || '',
     cuisine: {
         value: foodOrdered.value[0].cuisine_id || 0,

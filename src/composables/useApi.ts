@@ -38,6 +38,7 @@ export const useApi = () => {
 
     const updateFoodOrdered = async (foodId: string, alteredRecord: Partial<RecordData>) => {
         return await request.post(`food/${foodId}`, {
+            restaurantName: alteredRecord.restaurantName || '',
             name: alteredRecord.foodName || '',
             cuisine_id: alteredRecord.cuisine?.value || 1,
             rating: alteredRecord.rating || 0,

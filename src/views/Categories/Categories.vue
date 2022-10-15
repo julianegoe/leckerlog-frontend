@@ -11,7 +11,7 @@ import CuisinesList from './CuisinesList.vue';
 import TagsList from './TagsList.vue';
 
 const store = useUserStore();
-const data = useContentStore();
+const content = useContentStore();
 const api = useApi();
 const grouping = useSortingStore();
 const isLoading = ref(false);
@@ -21,7 +21,7 @@ onMounted(async () => {
     store.getUserId();
     await store.getIdToken();
     const cuisines = await api.getCuisines();
-    data.setCuisines(cuisines);
+    content.setCuisines(cuisines);
     isLoading.value = false;
 });
 
