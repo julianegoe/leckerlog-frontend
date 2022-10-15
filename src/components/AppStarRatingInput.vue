@@ -4,12 +4,15 @@ import StarIconOutline from '../assets/icons/star-outline.svg?component';
 import StarIcon from '../assets/icons/star.svg?component';
 import {ref} from "vue";
 
-const emit = defineEmits(['change:stars']);
+const emit = defineEmits(['update:modelValue'])
+const props = defineProps<{
+  modelValue: number;
+}>();
 
-const rating = ref<number>(0)
+const rating = ref<number>(props.modelValue)
 const setStarRating = (e: any) => {
   rating.value = e.target.value;
-  emit('change:stars', Number(rating.value))
+  emit('update:modelValue', Number(rating.value))
 };
 </script>
 <template>

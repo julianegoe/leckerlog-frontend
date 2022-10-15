@@ -110,7 +110,7 @@ const addFood = async () => {
         }" label="Restaurant" input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude"
           :latitude-direction="exifGpsData.GPSLatitudeRef" :longitude="exifGpsData.GPSLongitude"
           :longitude-direction="exifGpsData.GPSLongitudeRef" />
-        <CuisineInput @update="(value: ListItem) => inputValues.cuisine = value" />
+        <CuisineInput v-model="inputValues.cuisine" />
         <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
           id="meal-input" type="text" />
         <AppDateInput v-model="inputValues.ordered_at" :photo-date="inputValues.ordered_at" label="Bestellt am"
@@ -118,7 +118,7 @@ const addFood = async () => {
         <AppTextarea @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
           id="comment-input" type="text" />
         <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
-        <AppStarRatingInput @change:stars="(value) => inputValues.rating = value" />
+        <AppStarRatingInput v-model="inputValues.rating" />
 
         <img v-if="inputValues.image_path" class="mt-4" :src="inputValues.image_path" alt="selected-image" />
 
