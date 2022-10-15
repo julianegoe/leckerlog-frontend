@@ -3,8 +3,8 @@
 import { ref } from 'vue';
 import Plus from '../../assets/icons/plus.svg?component';
 import Squares from '../../assets/icons/squares.svg?component';
-import List from '../../assets/icons/list.svg';
-import Chart from '../../assets/icons/chart.svg';
+import List from '../../assets/icons/list.svg?component';
+import Chart from '../../assets/icons/chart.svg?component';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
