@@ -15,11 +15,9 @@ import TagBoxVue from "../components/globals/TagBox.vue";
 import { useRouter } from "vue-router";
 import { useApi } from "../composables/useApi";
 import AppStarRatingInput from "../components/AppStarRatingInput.vue";
-import AppDateInput from "../components/AppDateInput.vue";
 import AppTextarea from "../components/AppTextarea.vue";
 import ChipInput from "../components/ChipInput.vue";
 import CuisineInput from "../components/CuisineInput.vue";
-import { useFileUpload } from "../composables/useFileUpload";
 import AppTextInput from "../components/AppTextInput.vue";
 
 const content = useContentStore();
@@ -106,7 +104,7 @@ const updateFood = async () => {
         <AppModal v-if="showEditModal" text="Willst du dieses Gericht endgültig löschen?">
             <div class="text-md font-bold pb-2">{{foodOrdered[0].name}} bearbeiten</div>
             <div class="text-sm">
-                <form @submit.prevent="addFood">
+                <form @submit.prevent="updateFood">
                     <AppTextInput v-model="inputValues.foodName" id="foodName" label="Gericht" type="text" />
                     <CuisineInput v-model="inputValues.cuisine" />
                     <AppTextarea v-model="inputValues.comment" label="Kommentar" id="comment-input" type="text" />
