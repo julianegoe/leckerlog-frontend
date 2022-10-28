@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {ref} from "vue";
 import { Leckerlog } from "../types/types";
-import AppModal from './AppModal.vue';
+import AppModal from './modals/AppModal.vue';
 
 const emits = defineEmits(['delete']);
 const props = defineProps<{

@@ -4,7 +4,7 @@ export interface ListItem {
 }
 
 export interface Cuisine {
-  cuisine_id: number;
+  cuisine_id: string;
   name: string;
 }
 
@@ -21,9 +21,9 @@ export interface RecordData {
 }
 
 export interface FoodOrdered {
-  food_id: number;
+  food_id: string;
   name: string;
-  cuisine_id: number;
+  cuisine_id: string;
   ordered_at: string;
   rating: number;
   comment: string;
@@ -33,30 +33,21 @@ export interface FoodOrdered {
   date_created: string;
 }
 
-export interface LastUpdatedFood extends FoodOrdered {
-  restaurant_name: string;
-}
-
-export interface DetailsFoodOrdered extends FoodOrdered {
-  restaurant_name: string;
-  address: string;
-}
-
 export interface Restaurant {
-  restaurant_id: number;
+  restaurant_id: string;
   name: string;
   cuisine: string;
-  cuisine_id: number;
+  cuisine_id: string;
   address: string;
   date_updated: string;
   date_created: string;
 };
 
 export interface Leckerlog {
-  restaurant_id: number;
+  restaurant_id: string;
   name: string;
   cuisine: string;
-  cuisine_id: number;
+  cuisine_id: string;
   address: string;
   date_updated: string;
   date_created: string;

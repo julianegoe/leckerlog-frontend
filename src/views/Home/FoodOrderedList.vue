@@ -2,7 +2,6 @@
 import { useContentStore } from '../../store/content';
 import FoodCard from '../../components/FoodCard.vue';
 import AppEmptyState from '../../components/AppEmptyState.vue';
-import { useApi } from '../../composables/useApi';
 import useDisplayState from '../../composables/useDisplayState';
 
 const content = useContentStore();

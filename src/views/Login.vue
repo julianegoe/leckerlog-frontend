@@ -14,7 +14,6 @@ const handleRegister = () => {
   createUserWithEmailAndPassword(auth, email.value, password.value).then(async (response) => {
     if (response.user) {
       window.alert('Du bist registriert.');
-      console.log(response.user);
     }
   }).catch((error) => {
     if (error.code === 'auth/email-already-in-use') {

@@ -20,9 +20,9 @@ const displayRestaurants = computed<Leckerlog[]>(() => {
   return data.leckerlogs.filter((restaurant: Leckerlog) => restaurant.cuisine === props.cuisine);
 })
 
-const handleDelete = async (id: number) => {
+const handleDelete = async (id: string) => {
   await api.deleteFoodOrdered(id);
-  const leckerlog = await api.getLeckerlog();
+  const leckerlog = await api.getLeckerlogs();
   data.setLeckerlogs(leckerlog);
 };
 

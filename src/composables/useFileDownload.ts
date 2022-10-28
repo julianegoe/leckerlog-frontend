@@ -4,7 +4,7 @@ import { computed, onMounted, ref } from "vue";
 type UploadStatus = 'LOADING' | 'IDLE' | 'SUCCESS' | 'ERROR';
 type ImageSize = 'thumbnail' | 'hero' | 'fallback';
 
-export const useFileDownload = (fileName: string | null, imageSize: ImageSize) => {
+export const useFileDownload = (fileName: string | null | undefined, imageSize: ImageSize) => {
   const status = ref<UploadStatus>('IDLE');
 
   const sizeLookUp = new Map([
@@ -13,7 +13,7 @@ export const useFileDownload = (fileName: string | null, imageSize: ImageSize) =
   ]);
 
   const imagePath = computed(() => {
-    if (fileName !== null) {
+    if (fileName) {
       return `${fileName.split('.')[0]}_${sizeLookUp.get(imageSize)}.${fileName.split('.')[1]}`
     } return '';
   });

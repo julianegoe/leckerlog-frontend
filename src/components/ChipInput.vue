@@ -15,7 +15,6 @@ const tagsUl = ref<HTMLDivElement>();
 
 const onTagsChange = () => {
     const extraCushion = 10;
-    console.log(tagsUl.value?.clientWidth);
     paddingLeft.value = tagsUl.value?.clientWidth || 10 + extraCushion;
     tagsUl.value?.scrollTo(tagsUl.value.scrollWidth, 0);
     emit("update:modelValue", tags.value)

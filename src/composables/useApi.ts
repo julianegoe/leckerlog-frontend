@@ -4,20 +4,29 @@ import {useRequest} from "./useRequest";
 export const useApi = () => {
     const request = useRequest();
 
-    const getLeckerlog = async (): Promise<Leckerlog[]> => {
+    const getLeckerlogs = async (): Promise<Leckerlog[]> => {
         try {
-            return await request.get('leckerlog')
+            return await request.getAll('leckerlog')
         } catch(error) {
             console.log(error)
             return []
         }
     }
 
-    const getCuisines = async (): Promise<Cuisine[]> => {
-        return await request.get('cuisines');
+    const getLeckerlogById = async (foodId: string): Promise<Leckerlog | undefined> => {
+        try {
+            return await request.getOne(`food/${foodId}`)
+        } catch(error) {
+            console.log(error)
+            return undefined
+        }
     }
 
-    const addRecord = async (newRecord: RecordData): Promise<[Restaurant, FoodOrdered] | []> => {
+    const getCuisines = async (): Promise<Cuisine[]> => {
+        return await request.getAll('cuisines');
+    }
+
+    const addRecord = async (newRecord: RecordData): Promise<Leckerlog | undefined> => {
         return await request.post('leckerlog', {
             restaurantName: newRecord.restaurantName,
             foodName: newRecord.foodName,
@@ -32,15 +41,15 @@ export const useApi = () => {
         });
     };
 
-    const deleteFoodOrdered = async (foodId: number): Promise<FoodOrdered> => {
+    const deleteFoodOrdered = async (foodId: string): Promise<FoodOrdered> => {
         return await request.deleteRecord('food', foodId)
     }
 
-    const updateFoodOrdered = async (foodId: string, alteredRecord: Partial<RecordData>) => {
+    const updateFoodOrdered = async (foodId: string, alteredRecord: Partial<RecordData>): Promise<Leckerlog | undefined> => {
         return await request.post(`food/${foodId}`, {
             restaurantName: alteredRecord.restaurantName || '',
             name: alteredRecord.foodName || '',
-            cuisine_id: alteredRecord.cuisine?.value || 1,
+            cuisine_id: alteredRecord.cuisine?.value || '1',
             rating: alteredRecord.rating || 0,
             comment: alteredRecord.comment || '',
             tags: alteredRecord.tags || '',
@@ -49,7 +58,8 @@ export const useApi = () => {
 
     return {
         errorMessage: request.errorMessage,
-        getLeckerlog,
+        getLeckerlogs,
+        getLeckerlogById,
         getCuisines,
         addRecord,
         deleteFoodOrdered,

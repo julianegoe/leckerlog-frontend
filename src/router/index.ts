@@ -40,10 +40,19 @@ const routes = [
         name: 'AddFood',
         component: () => import(/* webpackChunkName: "output" */ '../views/AddFood.vue'),
     },
+    {
+        path: '/edit',
+        name: 'EditFood',
+        component: () => import(/* webpackChunkName: "output" */ '../views/EditFood.vue'),
+    },
 ]
 const router = createRouter({
     history: createWebHistory(),
     routes,
+    scrollBehavior(to, from, savedPosition) {
+        // always scroll to top
+        return { top: 0 }
+      },
 });
 
 router.beforeEach((to, from) => {

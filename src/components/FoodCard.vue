@@ -5,7 +5,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useFileDownload } from '../composables/useFileDownload';
 
 const props = defineProps<{
-  foodId: number;
+  foodId: string;
   menuItem: string;
   rating: number;
   fileName: string | null;

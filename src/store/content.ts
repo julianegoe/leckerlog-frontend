@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue';
-import { Cuisine, DetailsFoodOrdered, FoodOrdered, LastUpdatedFood, Leckerlog } from '../types/types';
+import { Cuisine, FoodOrdered, Leckerlog } from '../types/types';
 import { useSortingStore } from './sorting';
 
 export const useContentStore = defineStore('content', () => {
     const sorting = useSortingStore();
     const cuisines = ref<Cuisine[]>([]);
-    const leckerlogs = ref<Leckerlog[]>([])
+    const leckerlogs = ref<Leckerlog[]>([]);
+    const currentFoodOrdered = ref<Leckerlog | undefined>(undefined);
 
     function setCuisines(cuisinesData: Cuisine[]) {
         cuisines.value = cuisinesData
@@ -14,6 +15,10 @@ export const useContentStore = defineStore('content', () => {
 
     function setLeckerlogs(leckerlogdata: Leckerlog[]) {
         leckerlogs.value = leckerlogdata
+    }
+
+    function setCurrentFoodOrdered(foodOrdered: Leckerlog | undefined) {
+        currentFoodOrdered.value = foodOrdered;
     }
 
     const getSortedFoodOrdered = computed(() => {
@@ -29,7 +34,7 @@ export const useContentStore = defineStore('content', () => {
         });
         switch (sorting.activeSortBy.value) {
             case 'last_ordered':
-                return foods.flat().sort((a: LastUpdatedFood, b: LastUpdatedFood) => {
+                return foods.flat().sort((a: FoodOrdered, b: FoodOrdered) => {
                     if (new Date(a.ordered_at) > new Date(b.ordered_at)) {
                         return 1;
                     }
@@ -42,7 +47,7 @@ export const useContentStore = defineStore('content', () => {
                     return 0
                 }).reverse();
             case 'best_rated':
-                return foods.flat().sort((a: LastUpdatedFood, b: LastUpdatedFood) => {
+                return foods.flat().sort((a: FoodOrdered, b: FoodOrdered) => {
                     if (a.rating > b.rating) {
                         return 1;
                     }
@@ -55,7 +60,7 @@ export const useContentStore = defineStore('content', () => {
                     return 0
                 }).reverse();
             case 'alphabetically_asc':
-                return foods.flat().sort((a: LastUpdatedFood, b: LastUpdatedFood) => {
+                return foods.flat().sort((a: FoodOrdered, b: FoodOrdered) => {
                     if (a.name > b.name) {
                         return 1;
                     }
@@ -72,23 +77,6 @@ export const useContentStore = defineStore('content', () => {
         }
     });
 
-    const getFoodById = (foodId: string) => {
-        const foods: DetailsFoodOrdered[][] = [...leckerlogs.value].flatMap((log: Leckerlog) => {
-            if (log.food_ordered !== null) {
-                return log.food_ordered.map((food: FoodOrdered) => {
-                    return [{
-                        ...food,
-                        restaurant_name: log.name,
-                        address: log.address,
-                    }]
-                });
-            } else return []
-        });
-        return foods.flat().filter((food: DetailsFoodOrdered) => {
-            return food.food_id === Number(foodId)
-        })
-    };
-
     const getTags = computed<string[]>(() => {
         const tags = leckerlogs.value.flatMap((leckerlog: Leckerlog) => {
             if (leckerlog.food_ordered) {
@@ -100,5 +88,5 @@ export const useContentStore = defineStore('content', () => {
         return Array.from(new Set(tags))
     })
 
-    return { cuisines, leckerlogs, setCuisines, setLeckerlogs, getFoodById, getSortedFoodOrdered, getTags }
+    return { cuisines, leckerlogs, currentFoodOrdered, setCuisines, setLeckerlogs, setCurrentFoodOrdered, getSortedFoodOrdered, getTags }
 })

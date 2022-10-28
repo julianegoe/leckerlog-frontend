@@ -82,7 +82,6 @@ const addFood = async () => {
     }
     if (result.status.value === 'SUCCESS') {
       const addedRecord = await addRecord(inputValues);
-      console.log(addedRecord)
       if (addedRecord.length) {
         loading.value = false
         showSnackbar.value = true;

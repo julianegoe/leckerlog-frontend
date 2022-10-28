@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
 import { useUserStore } from "./store/user";
+import EditFood from "./views/EditFood.vue";
 
 const store = useUserStore();
 const router = useRouter()
@@ -30,6 +31,19 @@ const router = useRouter()
 
 .fade-enter-from,
 .fade-leave-to {
+  opacity: 0;
+}
+
+.test-enter-active {
+  transition: all 0.4s ease-out;
+}
+
+.test-leave-active {
+  transition: all 1s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.test-enter-from,
+.test-leave-to {
   opacity: 0;
 }
 
