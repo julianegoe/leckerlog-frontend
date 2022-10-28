@@ -1,5 +1,5 @@
 export interface ListItem {
-    value: number,
+    value: string,
     label: string,
 }
 
@@ -59,7 +59,7 @@ export const INPUT_DEFAULT_VALUES: RecordData = {
     restaurantName: '',
     address: '',
     cuisine: {
-      value: 0,
+      value: '0',
       label: '',
     },
     ordered_at: '',

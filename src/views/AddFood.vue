@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import GooglePlacesTextInput from '../components/GooglePlacesTextInput.vue';
 import AppHeader from "../components/AppHeader.vue";
 import AppStarRatingInput from "../components/AppStarRatingInput.vue";
@@ -8,7 +8,7 @@ import AppDateInput from '../components/AppDateInput.vue';
 import exifr from 'exifr';
 import { useFileUpload } from '../composables/useFileUpload';
 import CuisineInput from '../components/CuisineInput.vue';
-import { RecordData, ListItem } from '../types/types';
+import { RecordData } from '../types/types';
 import SnackBar from '../components/SnackBar.vue';
 import { useApi } from '../composables/useApi';
 import ChipInput from '../components/ChipInput.vue';
@@ -22,7 +22,7 @@ const showSnackbar = ref(false);
 const inputValues = reactive<RecordData>({
   restaurantName: '',
   cuisine: {
-    value: 0,
+    value: '0',
     label: '',
   },
   ordered_at: '',
@@ -82,7 +82,7 @@ const addFood = async () => {
     }
     if (result.status.value === 'SUCCESS') {
       const addedRecord = await addRecord(inputValues);
-      if (addedRecord.length) {
+      if (addedRecord) {
         loading.value = false
         showSnackbar.value = true;
         setTimeout(() => showSnackbar.value = false, 2000)
