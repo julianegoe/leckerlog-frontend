@@ -38,8 +38,8 @@ const removeTag = (index: number) => {
     <div class="py-2">
         <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="id">{{ label }}</label>
         <input @keydown.delete="newTag.length || removeTag(tags.length - 1)" @keypress.space="addTag(newTag)"
-            @keypress.enter="addTag(newTag)" class="w-full py-2 px-4 border border-black" v-model="newTag" type="text"
-            :id="id" placeholder="Tag hinzufügen" autocomplete=off/>
+            @keypress.,="addTag(newTag)" @keypress.enter.prevent class="w-full py-2 px-4 border border-black"
+            v-model="newTag" type="text" :id="id" placeholder="Tag hinzufügen" autocomplete=off />
 
         <ul v-if="tags.length" ref="tagsUl" class="flex flex-wrap justify-start items-center gap-1 p-2 mt-1">
             <li v-for="tag, index in tags" :key="tag" class="px-2 mr-1 min-w-max rounded-full border border-black">

@@ -17,7 +17,7 @@ const props = defineProps<{
 }>();
 
 const displayRestaurants = computed<Leckerlog[]>(() => {
-  return data.leckerlogs.filter((restaurant: Leckerlog) => restaurant.cuisine === props.cuisine);
+  return data.leckerlogs.filter((restaurant: Leckerlog) => restaurant.cuisine === props.cuisine && restaurant.food_ordered !== null);
 })
 
 const handleDelete = async (id: string) => {

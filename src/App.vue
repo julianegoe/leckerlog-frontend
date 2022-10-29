@@ -22,28 +22,15 @@ const router = useRouter()
 </template>
 <style scoped>
 .fade-enter-active {
-  transition: all 0.4s ease-out;
+  transition: all 0.25s ease-out;
 }
 
 .fade-leave-active {
-  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.25s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .fade-enter-from,
 .fade-leave-to {
-  opacity: 0;
-}
-
-.test-enter-active {
-  transition: all 0.4s ease-out;
-}
-
-.test-leave-active {
-  transition: all 1s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.test-enter-from,
-.test-leave-to {
   opacity: 0;
 }
 

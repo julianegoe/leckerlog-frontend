@@ -23,15 +23,15 @@ watchEffect(() => {
 <template>
     <div class="py-2">
         <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="id">{{ label }}</label>
-        <input @change="updateInput(inputValue)" v-model="inputValue" :id="id" :name="id"
+        <input @keydown.enter.prevent @change.prevent="updateInput(inputValue)" v-model="inputValue" :id="id" :name="id"
             class="py-2 px-4 border border-black w-full" type="date" placeholder="dd-mm-yyyy" />
     </div>
 </template>
 <style scoped>
-input[type="date"] {
+/* input[type="date"] {
     display: block;
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     min-height: 2.75em;
-}
+} */
 </style>
