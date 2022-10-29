@@ -125,17 +125,30 @@ onUnmounted(() => {
                 }}</p>
             </div>
         </div>
+        <div class="animate-pulse" v-else>
+            <div class="w-full h-72 bg-gray-300"></div>
+            <div class="mt-8 mx-2">
+                <div class="w-5/6 h-4 mb-4 bg-gray-300"></div>
+                <div class="w-4/6 h-3 mb-1 bg-gray-300"></div>
+                <div class="w-2/6 h-3 bg-gray-300"></div>
+                <div class="flex gap-2 mt-4">
+                    <StarIcon fill="rgb(209 213 219" class="text-gray-300 h-8 w-8"></StarIcon>
+                    <StarIcon fill="rgb(209 213 219" class="text-gray-300  h-8 w-8"></StarIcon>
+                    <StarIcon fill="rgb(209 213 219" class="text-gray-300 h-8 w-8"></StarIcon>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>
 <style scoped>
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.25s ease-in-out;
+    transition: opacity 0.25s ease-in-out;
 }
 
 .v-enter-from,
 .v-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
 </style>
