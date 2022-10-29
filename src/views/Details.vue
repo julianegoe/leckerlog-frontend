@@ -24,6 +24,7 @@ const props = defineProps<{
 const leckerlog = computed(() => content.currentFoodOrdered);
 const url = ref('https://via.placeholder.com/500');
 onMounted(async () => {
+    content.setCurrentFoodOrdered(undefined);
     const response = await api.getLeckerlogById(props.foodId)
     content.setCurrentFoodOrdered(response);
     const { getImage } = useFileDownload(leckerlog.value?.food_ordered[0].image_path, 'hero');
@@ -55,11 +56,6 @@ const handleDelete = async (foodId: string) => {
     await api.deleteFoodOrdered(foodId);
     await router.push({ name: 'Home' });
 };
-
-onUnmounted(() => {
-    content.setCurrentFoodOrdered(undefined);
-})
-
 </script>
 
 <template>
