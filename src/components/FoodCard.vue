@@ -38,7 +38,7 @@ const localeDateString = computed(() => {
       <div class="flex gap-1">
         <StarIcon fill="#8affdc" class="h-6 w-6" v-for="n in rating" :key="`${n}-star-rating`" />
       </div>
-      <p class="line-clamp-2">"{{ comment }}"</p>
+      <p class="text-xs line-clamp-2">"{{ comment }}"</p>
     </div>
       <img class="h-48 col-span-1 object-cover object-center" v-if="url" :src="url" :alt="menuItem">
     <div v-else-if="!url" class="rounded-r-md col-span-1 h-48 border-l-2 border-black bg-gray-200 animate-pulse"></div>
