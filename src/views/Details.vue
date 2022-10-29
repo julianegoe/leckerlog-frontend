@@ -50,7 +50,7 @@ const googleSearchUrl = computed(() => {
     }
 });
 
-const showDeleteModal = ref(true);
+const showDeleteModal = ref(false);
 
 const handleDelete = async (foodId: string) => {
     await api.deleteFoodOrdered(foodId);
