@@ -6,13 +6,12 @@ import StarIcon from '../assets/icons/star-outline.svg?component'
 import TrashIcon from '../assets/icons/trash.svg?component';
 import EditIcon from '../assets/icons/edit.svg?component';
 import AppModal from '../components/modals/AppModal.vue';
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useContentStore } from "../store/content";
 import { useFileDownload } from "../composables/useFileDownload";
 import TagBoxVue from "../components/globals/TagBox.vue";
 import { useRouter } from "vue-router";
 import { useApi } from "../composables/useApi";
-import { watchEffect } from "vue";
 
 const content = useContentStore();
 const router = useRouter();
@@ -56,6 +55,10 @@ const handleDelete = async (foodId: string) => {
     await api.deleteFoodOrdered(foodId);
     await router.push({ name: 'Home' });
 };
+
+onUnmounted(() => {
+    content.setCurrentFoodOrdered(undefined);
+})
 
 </script>
 
