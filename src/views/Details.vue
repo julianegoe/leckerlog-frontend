@@ -71,7 +71,7 @@ const handleDelete = async (foodId: string) => {
         </AppHeader>
         <Transition>
             <AppModal v-if="showDeleteModal">
-                <div class="text-sm pb-2">Willst du dieses Gericht endgültig löschen?</div>
+                <div class="pb-2">Willst du dieses Gericht endgültig löschen?</div>
                 <div class="flex justify-between">
                     <button class="font-bold" @click="handleDelete(foodId)">Ja</button>
                     <button class="font-bold" @click="showDeleteModal = false">Abbrechen</button>
