@@ -50,7 +50,7 @@ const googleSearchUrl = computed(() => {
     }
 });
 
-const showDeleteModal = ref(false);
+const showDeleteModal = ref(true);
 
 const handleDelete = async (foodId: string) => {
     await api.deleteFoodOrdered(foodId);
@@ -62,20 +62,22 @@ const handleDelete = async (foodId: string) => {
 <template>
     <div>
         <AppHeader>
-            <RouterLink :to="{name: 'Home'}">
+            <RouterLink :to="{ name: 'Home' }">
                 <div class="cursor-pointer pr-2">
                     <BackIcon class="hover:transition-transform hover:scale-125 hover:ease-in" />
                 </div>
             </RouterLink>
             <div v-if="leckerlog" class="font-bold text-lg">{{ leckerlog?.name }}</div>
         </AppHeader>
-        <AppModal v-if="showDeleteModal" text="Willst du dieses Gericht endgültig löschen?">
-            <div class="text-sm pb-2">Willst du dieses Gericht endgültig löschen?</div>
-            <div class="flex justify-between">
-                <button class="font-bold" @click="handleDelete(foodId)">Ja</button>
-                <button class="font-bold" @click="showDeleteModal = false">Abbrechen</button>
-            </div>
-        </AppModal>
+        <Transition>
+            <AppModal v-if="showDeleteModal">
+                <div class="text-sm pb-2">Willst du dieses Gericht endgültig löschen?</div>
+                <div class="flex justify-between">
+                    <button class="font-bold" @click="handleDelete(foodId)">Ja</button>
+                    <button class="font-bold" @click="showDeleteModal = false">Abbrechen</button>
+                </div>
+            </AppModal>
+        </Transition>
         <div v-if="leckerlog">
             <div class="border-b-2 border-black">
                 <img class="w-full h-72 object-cover object-center" v-if="url" :src="url" :alt="leckerlog?.name">
@@ -124,13 +126,13 @@ const handleDelete = async (foodId: string) => {
 
 </template>
 <style scoped>
-.jump-enter-active,
-.jump-leave-active {
-    transition: transform 0.5s ease;
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.25s ease-in-out;
 }
 
-.jump-enter-from,
-.jump-leave-to {
-    transform: translateY(200%);
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
