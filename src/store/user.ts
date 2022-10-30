@@ -1,12 +1,12 @@
 import { User } from '@firebase/auth';
 import { defineStore } from 'pinia'
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { auth } from '../firebase/firebase'
 
 export const useUserStore = defineStore('user', () => {
     const userId = ref();
     const idToken = ref();
-    const isAuthenticated = ref(false);
+    /* const isAuthenticated = ref(false); */
 
     async function refreshIdToken(user: User) {
         idToken.value = await user.getIdToken(true);
@@ -24,9 +24,13 @@ export const useUserStore = defineStore('user', () => {
         userId.value = uid
     }
 
-    function setIsAuthenticated(authenticated: boolean) {
+    /* function setIsAuthenticated(authenticated: boolean) {
         isAuthenticated.value = authenticated;
-    }
+    } */
 
-    return { userId, idToken, isAuthenticated, getIdToken, getUserId, refreshIdToken, updateUserId, setIsAuthenticated }
+    const isAuthenticated = computed(() => {
+        return auth.currentUser ? true : false
+    })
+
+    return { userId, idToken, isAuthenticated, getIdToken, getUserId, refreshIdToken, updateUserId }
 })

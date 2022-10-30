@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import AppHeader from '../../components/AppHeader.vue';
 import { useApi } from '../../composables/useApi';
 import { useContentStore } from '../../store/content';
@@ -8,6 +8,7 @@ import { useUserStore } from '../../store/user';
 import AppBadge from '../../components/globals/AppBadge.vue';
 import { FilterItem } from '../../types/types';
 import FoodOrderedList from './FoodOrderedList.vue';
+import { auth } from '../../firebase/firebase';
 
 const store = useUserStore();
 const data = useContentStore();
@@ -31,12 +32,13 @@ const sortBy = ref<FilterItem[]>([
     },
 ]);
 
-onMounted(async () => {
+onBeforeMount(async () => {
     isLoading.value = true;
     store.getUserId();
-    await store.getIdToken();
-    const leckerlog = await api.getLeckerlogs();
-    data.setLeckerlogs(leckerlog);
+    if (auth.currentUser) {
+        const leckerlog = await api.getLeckerlogs();
+        data.setLeckerlogs(leckerlog);
+    }
     isLoading.value = false;
 });
 
@@ -52,7 +54,8 @@ const setSortBy = (sortBy: FilterItem) => {
         </AppHeader>
         <div class="flex flex-row p-2">
             <template v-for="(sortValue, index) in sortBy" :key="index + sortValue.label">
-                <AppBadge @click="setSortBy(sortValue)" :action-state="sortValue" :active-state="sorting.activeSortBy" route-name="Home" />
+                <AppBadge @click="setSortBy(sortValue)" :action-state="sortValue" :active-state="sorting.activeSortBy"
+                    route-name="Home" />
             </template>
         </div>
         <div v-if="!isLoading" class="px-2 py-2">

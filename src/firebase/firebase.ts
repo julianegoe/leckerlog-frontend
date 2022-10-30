@@ -1,6 +1,6 @@
 import { getStorage } from "@firebase/storage";
 import { getApp, getApps, initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 
 
 const firebaseConfig = {
@@ -14,9 +14,11 @@ const firebaseConfig = {
 
 getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
-
 const auth = getAuth();
 const storage = getStorage();
+
+setPersistence(auth, browserLocalPersistence).then(() => {
+}).catch((e) => console.log(e))
 
 export {
     auth, storage
