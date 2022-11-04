@@ -10,7 +10,7 @@ import { FilterItem } from '../../types/types';
 import FoodOrderedList from './FoodOrderedList.vue';
 import { auth } from '../../firebase/firebase';
 
-const store = useUserStore();
+const userStore = useUserStore();
 const data = useContentStore();
 const sorting = useSortingStore();
 const api = useApi();
@@ -34,7 +34,7 @@ const sortBy = ref<FilterItem[]>([
 
 onBeforeMount(async () => {
     isLoading.value = true;
-    store.getUserId();
+    userStore.getUserId();
     if (auth.currentUser) {
         const leckerlog = await api.getLeckerlogs();
         data.setLeckerlogs(leckerlog);

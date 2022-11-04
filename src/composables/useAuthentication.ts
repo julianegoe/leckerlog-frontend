@@ -16,21 +16,6 @@ export const useAuthentication = () => {
   const loginStatus = ref('IDLE');
   const isEmailVerified = ref(false);
 
-  const authListener = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      store.updateUserId(user.uid)
-      store.refreshIdToken(user)
-      if (user.emailVerified) {
-        isEmailVerified.value = true;
-      }
-    } else {
-      console.log('logged out')
-      store.updateUserId('');
-      router.replace({ name: 'Login' });
-    }
-  })
-
-  onBeforeUnmount(() => authListener())
 
   const signIn = (email: string, password: string) => {
     loginStatus.value = 'LOADING';

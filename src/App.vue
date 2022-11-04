@@ -1,12 +1,26 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { onAuthStateChanged } from "firebase/auth";
+import { computed, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
+import { auth } from "./firebase/firebase";
 import { useUserStore } from "./store/user";
-import EditFood from "./views/EditFood.vue";
 
 const store = useUserStore();
 const router = useRouter()
+
+const authListener = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      store.updateUserId(user.uid)
+      store.refreshIdToken(user)
+    } else {
+      console.log('logged out')
+      store.updateUserId('');
+      router.replace({ name: 'Login' });
+    }
+  })
+
+  onBeforeUnmount(() => authListener())
 
 </script>
 

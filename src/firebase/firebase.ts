@@ -2,7 +2,6 @@ import { getStorage } from "@firebase/storage";
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
 
-
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -17,8 +16,10 @@ getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth();
 const storage = getStorage();
 
+
 setPersistence(auth, browserLocalPersistence).then(() => {
-}).catch((e) => console.log(e))
+}).catch((e) => console.log(e));
+
 
 export {
     auth, storage
