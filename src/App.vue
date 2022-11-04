@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onAuthStateChanged } from "firebase/auth";
-import { computed, onBeforeUnmount } from "vue";
+import { onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
 import { auth } from "./firebase/firebase";
@@ -32,7 +32,7 @@ const authListener = onAuthStateChanged(auth, (user) => {
             </transition>
         </router-view>
     </main>
-    <AppFooter v-if="router.currentRoute.value.name !== 'Login'" />
+    <AppFooter v-if="router.currentRoute.value.name !== 'Login' && router.currentRoute.value.name !== 'Signup'" />
 </template>
 <style scoped>
 .fade-enter-active {

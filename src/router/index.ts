@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { auth } from '../firebase/firebase';
-import { useUserStore } from '../store/user';
 import Home from '/src/views/Home/Home.vue';
 
 const routes = [
@@ -23,6 +21,11 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: () => import(/* webpackChunkName: "output" */ '../views/Login.vue'),
+    },
+    {
+        path: '/signup',
+        name: 'Signup',
+        component: () => import(/* webpackChunkName: "output" */ '../views/Signup.vue'),
     },
     {
         path: '/food/:cuisine',
