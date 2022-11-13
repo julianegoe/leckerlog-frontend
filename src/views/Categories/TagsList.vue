@@ -12,7 +12,7 @@ const { getTags } = useContentStore()
     <p class="text-xs">(Info: Filter-Funktion noch nicht vorhanden.)</p>
     <div class="flex flex-wrap gap-2 pt-4">
         <div v-for="tag, index in getTags" :key="tag + index">
-            <TagBox class="hover:bg-primary-purple" :name="tag" />
+            <TagBox :is-active="false" class="hover:bg-primary-purple" :name="tag" />
         </div>
     </div>
 </template>
