@@ -103,7 +103,6 @@ export const useRequest = () => {
                 },
             });
             const data = await response.json();
-            console.log(path, data)
             return data;
 
         }

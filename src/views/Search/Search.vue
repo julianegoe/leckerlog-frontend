@@ -46,31 +46,32 @@ watch(queryUrl, async () => {
         </AppHeader>
         <AppSearchBar v-model="searchQuery" />
         <Transition name="slide" mode="out-in">
-            <SearchPlacesMenu class="absolute top-32 left-0 right-0" v-show="searchQuery.length > 0"
-                v-model="searchPlaces" />
+            <SearchPlacesMenu v-show="searchQuery.length > 0" v-model="searchPlaces" />
         </Transition>
-        <template v-if="searchResults.length > 0">
-            <div class="relative top-40" v-for="result in searchResults" :key="result.restaurant_id + '-search'">
-                <span>{{ result.name }}</span>
-                <div v-for="food in result.food_ordered" :key="food.food_id + '-search'">
-                    <span>{{ food.name }}</span>
+        <div class="p-2 mt-10">
+            <template v-if="searchResults.length > 0">
+                <div class="" v-for="result in searchResults" :key="result.restaurant_id + '-search'">
+                    <span>{{ result.name }}</span>
+                    <div v-for="food in result.food_ordered" :key="food.food_id + '-search'">
+                        <span>{{ food.name }}</span>
+                    </div>
                 </div>
-            </div>
-        </template>
-        <div class="relative top-40" v-else>Keine Suchergebnisse</div>
+            </template>
+            <div v-else>Keine Suchergebnisse</div>
+        </div>
     </div>
 </template>
 <style scoped>
 .slide-enter-active {
-    transition: top 0.25s ease-out;
+    transition: opacity 0.25s ease-out;
 }
 
 .slide-leave-active {
-    transition: top 0.25s cubic-bezier(1, 0.5, 0.8, 1);
+    transition: opacity 0.25s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-enter-from,
 .slide-leave-to {
-    top: 2.5rem;
+    opacity: 0
 }
 </style>
