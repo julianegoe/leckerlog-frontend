@@ -85,6 +85,7 @@ export const useContentStore = defineStore('content', () => {
                 });
             } else return [];
         });
+        console.log(tags)
         return Array.from(new Set(tags))
     })
 

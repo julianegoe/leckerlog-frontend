@@ -8,24 +8,18 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue']);
 
-const newQuery = ref();
-const searchQueries = ref(props.modelValue);
+const searchQuery = ref(props.modelValue);
 
-/* const addSearchQuery = () => {
-    searchQueries.value.push(newQuery.value)
-}; */
-
-watch(newQuery, () => {
-    emit("update:modelValue", newQuery.value)
+watch(searchQuery, () => {
+    emit("update:modelValue", searchQuery.value)
 })
 </script>
 <template>
     <div class="bg-primary-purple px-2 py-2">
         <div>
             <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" for="search">Suche</label>
-            <input v-model="newQuery" id="search"
-                name="search" autocomplete="off" class="py-2 px-4 border border-black w-full" type="text"
-                placeholder="Suche" />
+            <input v-model="searchQuery" id="search" name="search" autocomplete="off"
+                class="py-2 px-4 border border-black w-full" type="text" placeholder="Suche" />
         </div>
     </div>
 </template>

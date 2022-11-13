@@ -3,26 +3,36 @@
 import { computed, ref, Transition, watch } from 'vue';
 import { RouterLink } from 'vue-router';
 import BackIcon from '../../assets/icons/chevron-left.svg?component';
-import AppDateInput from '../../components/AppDateInput.vue';
 import AppHeader from '../../components/AppHeader.vue';
 import AppSearchBar from '../../components/AppSearchBar.vue';
+import FoodCard from '../../components/FoodCard.vue';
 import SearchPlacesMenu from '../../components/SearchPlacesMenu.vue';
 import { useApi } from '../../composables/useApi';
 import { useUserStore } from '../../store/user';
 import { Leckerlog } from '../../types/types';
+import TagsList from '../Categories/TagsList.vue';
 
 const { userId } = useUserStore();
 const { queryFood } = useApi();
 
 const searchQuery = ref('');
 const searchPlaces = ref('food')
+const searchTags = ref<string[]>([]);
 
 const queryUrl = computed(() => {
     const url = new URL(import.meta.env.VITE_BASE_API_URL);
-    const searchPhrases = searchQuery.value.split(' ');
-    searchPhrases.forEach((word) => {
-        url.searchParams.append(searchPlaces.value, word)
-    })
+    if (searchQuery.value) {
+        const searchPhrases = searchQuery.value.split(' ');
+        searchPhrases.forEach((word) => {
+            url.searchParams.append(searchPlaces.value, word)
+        });
+    }
+    if (searchTags.value.length) {
+        searchPlaces.value = 'tag';
+        searchTags.value.forEach((tag) => {
+            url.searchParams.append('tag', tag)
+        })
+    }
     url.pathname = `${searchPlaces.value}/${userId}`
     return url;
 })
@@ -30,8 +40,8 @@ const queryUrl = computed(() => {
 const searchResults = ref<Leckerlog[]>([]);
 
 watch(queryUrl, async () => {
-    if (searchQuery.value) {
-        searchResults.value = await queryFood(queryUrl.value.href)
+    if (searchQuery.value || searchTags.value) {
+        searchResults.value = await queryFood(queryUrl.value.href);
     } else { searchResults.value = [] };
 })
 
@@ -50,12 +60,14 @@ watch(queryUrl, async () => {
         <Transition name="slide" mode="out-in">
             <SearchPlacesMenu v-show="searchQuery.length > 0" v-model="searchPlaces" />
         </Transition>
+        <TagsList v-model="searchTags" />
         <div class="p-2 mt-10">
             <template v-if="searchResults.length > 0">
                 <div class="" v-for="result in searchResults" :key="result.restaurant_id + '-search'">
                     <span>{{ result.name }}</span>
                     <div v-for="food in result.food_ordered" :key="food.food_id + '-search'">
-                        <span>{{ food.name }}</span>
+                        <FoodCard :food-id="food.food_id" :comment="food.comment" :file-name="food.image_path"
+                            :date="food.date_updated" :menu-item="food.name" :rating="food.rating" />
                     </div>
                 </div>
             </template>

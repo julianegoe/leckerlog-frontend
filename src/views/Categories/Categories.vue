@@ -29,11 +29,7 @@ const groupBy = ref<FilterItem[]>([
     {
         label: 'Küchen',
         value: 'cuisines',
-    },
-    {
-        label: 'Tags',
-        value: 'tags',
-    },
+    }
 ]);
 
 
@@ -54,9 +50,6 @@ const setGroupBy = (groupBy: FilterItem) => {
         </div>
         <div v-if="!isLoading && grouping.activeGroupBy.value === 'cuisines'" class="px-2 py-2">
             <CuisinesList />
-        </div>
-        <div v-if="!isLoading && grouping.activeGroupBy.value === 'tags'" class="px-2 py-2">
-            <TagsList />
         </div>
         <div v-if="isLoading" class="grid grid-cols-2 gap-6 px-2 py-2">
             <div class="bg-gray-200 animate-pulse w-full rounded-md aspect-square"></div>

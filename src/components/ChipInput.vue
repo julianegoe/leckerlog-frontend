@@ -17,7 +17,6 @@ const onTagsChange = () => {
     const extraCushion = 10;
     paddingLeft.value = tagsUl.value?.clientWidth || 10 + extraCushion;
     tagsUl.value?.scrollTo(tagsUl.value.scrollWidth, 0);
-    console.log(tags.value);
     emit("update:modelValue", tags.value)
 }
 
