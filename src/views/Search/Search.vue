@@ -6,6 +6,7 @@ import BackIcon from '../../assets/icons/chevron-left.svg?component';
 import AppHeader from '../../components/AppHeader.vue';
 import AppSearchBar from '../../components/AppSearchBar.vue';
 import FoodCard from '../../components/FoodCard.vue';
+import MiniFoodCard from '../../components/MiniFoodCard.vue';
 import SearchPlacesMenu from '../../components/SearchPlacesMenu.vue';
 import { useApi } from '../../composables/useApi';
 import { useUserStore } from '../../store/user';
@@ -64,10 +65,9 @@ watch(queryUrl, async () => {
         <div class="p-2 mt-10">
             <template v-if="searchResults.length > 0">
                 <div class="" v-for="result in searchResults" :key="result.restaurant_id + '-search'">
-                    <span>{{ result.name }}</span>
+                    <div class="font-bold text-lg py-2">{{ result.name }}</div>
                     <div v-for="food in result.food_ordered" :key="food.food_id + '-search'">
-                        <FoodCard :food-id="food.food_id" :comment="food.comment" :file-name="food.image_path"
-                            :date="food.date_updated" :menu-item="food.name" :rating="food.rating" />
+                        <MiniFoodCard :food-ordered="food" />
                     </div>
                 </div>
             </template>

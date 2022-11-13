@@ -61,11 +61,9 @@ const handleDelete = async (foodId: string) => {
 <template>
     <div>
         <AppHeader>
-            <RouterLink :to="{ name: 'Home' }">
-                <div class="cursor-pointer pr-2">
-                    <BackIcon class="hover:transition-transform hover:scale-125 hover:ease-in" />
-                </div>
-            </RouterLink>
+            <div @click="$router.back()" class="cursor-pointer pr-2">
+                <BackIcon class="hover:transition-transform hover:scale-125 hover:ease-in" />
+            </div>
             <div v-if="leckerlog" class="font-bold text-lg">{{ leckerlog?.name }}</div>
         </AppHeader>
         <Transition>
