@@ -17,6 +17,7 @@ const onTagsChange = () => {
     const extraCushion = 10;
     paddingLeft.value = tagsUl.value?.clientWidth || 10 + extraCushion;
     tagsUl.value?.scrollTo(tagsUl.value.scrollWidth, 0);
+    console.log(tags.value);
     emit("update:modelValue", tags.value)
 }
 
@@ -37,8 +38,8 @@ const removeTag = (index: number) => {
 <template>
     <div class="py-2">
         <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="id">{{ label }}</label>
-        <input @keydown.delete="newTag.length || removeTag(tags.length - 1)" @keypress.space="addTag(newTag)"
-            @keypress.,="addTag(newTag)" @keypress.enter.prevent class="w-full py-2 px-4 border border-black"
+        <input @keydown.delete="newTag.length || removeTag(tags.length - 1)" @keypress.space.prevent="addTag(newTag)"
+            @keypress.,.prevent="addTag(newTag)" @keypress.enter.prevent class="w-full py-2 px-4 border border-black"
             v-model="newTag" type="text" :id="id" placeholder="Tag hinzufügen" autocomplete=off />
 
         <ul v-if="tags.length" ref="tagsUl" class="flex flex-wrap justify-start items-center gap-1 p-2 mt-1">

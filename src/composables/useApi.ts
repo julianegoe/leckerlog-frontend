@@ -56,6 +56,10 @@ export const useApi = () => {
         })
     }
 
+    const queryFood = async (path: string) => {
+        return await request.queryAll(path);
+    }
+
     return {
         errorMessage: request.errorMessage,
         getLeckerlogs,
@@ -64,5 +68,6 @@ export const useApi = () => {
         addRecord,
         deleteFoodOrdered,
         updateFoodOrdered,
+        queryFood,
     }
 }

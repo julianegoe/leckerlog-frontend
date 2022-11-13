@@ -94,9 +94,29 @@ export const useRequest = () => {
         return [];
     };
 
+    const queryAll = async (path: string) => {
+        try {
+            const response = await fetch(path, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const data = await response.json();
+            console.log(path, data)
+            return data;
+
+        }
+        catch (error) {
+            errorMessage.value = error;
+            return []
+        }
+    }
+
     return {
         getAll,
         getOne,
+        queryAll,
         post,
         deleteRecord,
         errorMessage,

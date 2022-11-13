@@ -49,6 +49,11 @@ const routes = [
         name: 'EditFood',
         component: () => import(/* webpackChunkName: "output" */ '../views/EditFood.vue'),
     },
+    {
+        path: '/search',
+        name: 'Search',
+        component: () => import(/* webpackChunkName: "output" */ '../views/Search/Search.vue'),
+    },
 ]
 const router = createRouter({
     history: createWebHistory(),

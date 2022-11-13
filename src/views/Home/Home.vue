@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onBeforeMount, onMounted, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import AppHeader from '../../components/AppHeader.vue';
 import { useApi } from '../../composables/useApi';
 import { useContentStore } from '../../store/content';

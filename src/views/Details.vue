@@ -98,7 +98,7 @@ const handleDelete = async (foodId: string) => {
                 </div>
                 <div class="flex gap-1 gap-y-4 flex-wrap">
                     <template v-for="tag in leckerlog?.food_ordered[0].tags" :key="tag">
-                        <TagBoxVue :name="tag" />
+                        <TagBoxVue :is-active="false" :name="tag" />
                     </template>
                 </div>
                 <div class="flex items-center justify-between gap-2 text-xs">
