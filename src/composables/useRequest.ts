@@ -99,6 +99,7 @@ export const useRequest = () => {
             const response = await fetch(path, {
                 method: 'GET',
                 headers: {
+                    'AuthToken': store.idToken || '',
                     'Content-Type': 'application/json',
                 },
             });
