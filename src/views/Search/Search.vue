@@ -30,7 +30,9 @@ const queryUrl = computed(() => {
 const searchResults = ref<Leckerlog[]>([]);
 
 watch(queryUrl, async () => {
-    searchResults.value = await queryFood(queryUrl.value.href)
+    if (searchQuery.value) {
+        searchResults.value = await queryFood(queryUrl.value.href)
+    } else { searchResults.value = [] };
 })
 
 </script>

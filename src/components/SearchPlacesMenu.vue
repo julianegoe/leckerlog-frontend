@@ -26,7 +26,7 @@ const setSearchPlace = () => {
 
 </script>
 <template>
-    <div class="z-10 fixed w-full flex gap-2 bg-gray-600 py-2">
+    <div class="z-10 fixed w-full flex gap-2 bg-primary-purple shadow-brutal py-2">
         <label for="food">
             <TagBox @click="setSearchPlace" :is-active="nameCheckbox?.checked || false" name="Suche in: Namen" />
         </label>

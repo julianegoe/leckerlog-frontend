@@ -20,7 +20,7 @@ watch(newQuery, () => {
 })
 </script>
 <template>
-    <div class="bg-white">
+    <div class="bg-primary-purple px-2 py-2">
         <div>
             <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" for="search">Suche</label>
             <input v-model="newQuery" id="search"
