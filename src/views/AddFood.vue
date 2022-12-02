@@ -80,7 +80,8 @@ const addFood = async () => {
     if (result.imagePath) {
       inputValues.image_path = result.imagePath.value;
     }
-    if (result.status.value === 'SUCCESS') {
+    // if (result.status.value === 'SUCCESS' || result.status.value === 'IDLE') {
+    if(['SUCCESS', 'IDLE'].includes(result.status.value)){
       const addedRecord = await addRecord(inputValues);
       if (addedRecord) {
         loading.value = false
@@ -88,6 +89,8 @@ const addFood = async () => {
         setTimeout(() => showSnackbar.value = false, 2000)
       }
     }
+  } else {
+    console.log('not valid')
   }
 };
 
