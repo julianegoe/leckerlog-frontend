@@ -30,7 +30,6 @@ export const useApi = () => {
         return await request.post('leckerlog', {
             restaurantName: newRecord.restaurantName,
             foodName: newRecord.foodName,
-            cuisine: newRecord.cuisine.label,
             cuisine_id: newRecord.cuisine.value,
             address: newRecord.address,
             comment: newRecord.comment,
