@@ -8,7 +8,6 @@ import { onMounted, ref } from 'vue';
 import { useSortingStore } from '../../store/sorting';
 import { useUserStore } from '../../store/user';
 import CuisinesList from './CuisinesList.vue';
-import TagsList from './TagsList.vue';
 
 const store = useUserStore();
 const content = useContentStore();
