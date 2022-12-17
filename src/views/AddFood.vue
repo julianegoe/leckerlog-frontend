@@ -90,7 +90,7 @@ const addFood = async () => {
       }
     }
   } else {
-    console.log('not valid')
+    console.log('not valid.')
   }
 };
 
