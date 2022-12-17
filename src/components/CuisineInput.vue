@@ -12,7 +12,7 @@ const searchQuery = ref(props.modelValue.label);
 const cuisines = ref<Cuisine[]>([]);
 onMounted(async () => {
     try {
-        const response = await fetch(import.meta.env.VITE_BASE_API_URL + '/cuisines', {
+        const response = await fetch( process.env.VITE_BASE_API_URL + '/cuisines', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

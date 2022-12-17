@@ -16,7 +16,7 @@ self.addEventListener("activate", () => {
 });
 
 registerRoute(
-    new RegExp(`${import.meta.env.VITE_BASE_API_URL}/cuisines`),
+    new RegExp(`${ process.env.VITE_BASE_API_URL}/cuisines`),
     new NetworkFirst({
         cacheName: 'cuisines',
         plugins: [
@@ -31,7 +31,7 @@ registerRoute(
 );
 
 registerRoute(
-    new RegExp(`${import.meta.env.VITE_BASE_API_URL}/leckerlog`),
+    new RegExp(`${ process.env.VITE_BASE_API_URL}/leckerlog`),
     new NetworkFirst({
         cacheName: 'cuisines',
         plugins: [
