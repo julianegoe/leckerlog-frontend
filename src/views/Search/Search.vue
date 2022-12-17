@@ -21,7 +21,7 @@ const searchPlaces = ref('food')
 const searchTags = ref<string[]>([]);
 
 const queryUrl = computed(() => {
-    const url = new URL( process.env.VITE_BASE_API_URL);
+    const url = new URL( import.meta.env.VITE_BASE_API_URL);
     if (searchQuery.value) {
         const searchPhrases = searchQuery.value.split(' ');
         searchPhrases.forEach((word) => {

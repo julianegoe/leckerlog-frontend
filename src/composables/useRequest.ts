@@ -9,7 +9,7 @@ export const useRequest = () => {
     const store = useUserStore();
 
     const getAll = async (endpoint: string): Promise<Leckerlog[] | []> => {
-        const path = `${ process.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
+        const path = `${ import.meta.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
         try {
             const response = await fetch(path, {
                 method: 'GET',
@@ -29,7 +29,7 @@ export const useRequest = () => {
     };
 
     const getOne = async (endpoint: string): Promise<Leckerlog | undefined> => {
-        const path = `${ process.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
+        const path = `${ import.meta.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
         try {
             const response = await fetch(path, {
                 method: 'GET',
@@ -49,7 +49,7 @@ export const useRequest = () => {
     };
 
     const post = async (endpoint: string, body: Record<string, string | number | null | Array<string>>): Promise<Leckerlog | undefined> => {
-        const path = `${ process.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
+        const path = `${ import.meta.env.VITE_BASE_API_URL}/${endpoint}/${store.userId}`;
         try {
             if (store.idToken) {
                 const response = await fetch(path, {
@@ -73,7 +73,7 @@ export const useRequest = () => {
 
     const deleteRecord = async (endpoint: string, id: string,): Promise<any> => {
         const idToken = await auth.currentUser?.getIdToken(true);
-        const path = `${ process.env.VITE_BASE_API_URL}/${endpoint}/${auth.currentUser?.uid}/${id}`;
+        const path = `${ import.meta.env.VITE_BASE_API_URL}/${endpoint}/${auth.currentUser?.uid}/${id}`;
         try {
             if (idToken) {
                 const response = await fetch(path, {

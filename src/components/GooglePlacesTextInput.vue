@@ -35,7 +35,7 @@ const googleLocation = computed(() => {
 })
 
 onMounted(async () => {
-    await loadScript(`https://maps.googleapis.com/maps/api/js?key=${ process.env.VITE_GOOGLE_API}&libraries=places`)
+    await loadScript(`https://maps.googleapis.com/maps/api/js?key=${ import.meta.env.VITE_GOOGLE_API}&libraries=places`)
     const autocompleteService = new google.maps.places.AutocompleteService();
     const placesService = new google.maps.places.PlacesService(nearbyRef.value);
     

@@ -26,7 +26,7 @@ export const useAuthentication = () => {
           router.push({ name: 'Home' });
         } else {
           sendEmailVerification(response.user, {
-            url:  process.env.VITE_BASE_URL,
+            url:  import.meta.env.VITE_BASE_URL,
             handleCodeInApp: true
           })
             .then(() => {
