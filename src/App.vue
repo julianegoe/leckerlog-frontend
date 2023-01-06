@@ -28,7 +28,7 @@ const authListener = onAuthStateChanged(auth, (user) => {
 
 <template>
     <main class="mb-24">
-      {{ helloWorld }}
+     Say what:  {{ helloWorld }}
         <router-view v-slot="{ Component }">
             <transition name="fade" mode="out-in">
                 <component :is="Component" />
