@@ -1,7 +1,9 @@
 import { getStorage } from "@firebase/storage";
 import { getApp, getApps, initializeApp } from "firebase/app";
 import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
-console.log('say what: ', import.meta.env.VITE_TEST)
+
+console.log('say what: ', process.env.VITE_TEST);
+
 const firebaseConfig = {
   apiKey:  import.meta.env.VITE_API_KEY,
   authDomain:  import.meta.env.VITE_AUTH_DOMAIN,
