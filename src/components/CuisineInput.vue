@@ -21,7 +21,7 @@ onMounted(async () => {
         if (response.status === 200) {
           cuisines.value = await response.json();
         } else {
-            console.log(response);
+            console.log('cuisine response: ', response);
         }
     } catch (error) {
         console.log(error);
