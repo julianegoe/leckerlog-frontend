@@ -5,7 +5,6 @@ import { VitePWA } from "vite-plugin-pwa"
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  envPrefix: 'VITE_',
   plugins: [vue(), svgLoader({
     defaultImport: 'component'
   }), VitePWA({

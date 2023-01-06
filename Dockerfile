@@ -1,5 +1,8 @@
 FROM node:lts-alpine
 
+ARG VITE_TEST=${VITE_TEST}
+ENV VITE_TEST=${VITE_TEST}
+
 # install simple http server for serving static content
 RUN npm install -g http-server
 
