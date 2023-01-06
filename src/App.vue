@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onAuthStateChanged } from "firebase/auth";
-import { onBeforeUnmount, ref, vari } from "vue";
+import { onBeforeUnmount, ref, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
 import { auth } from "./firebase/firebase";
@@ -27,6 +27,7 @@ const authListener = onAuthStateChanged(auth, (user) => {
 
 <template>
     <main class="mb-24">
+      {{ vari }}
         <router-view v-slot="{ Component }">
             <transition name="fade" mode="out-in">
                 <component :is="Component" />
