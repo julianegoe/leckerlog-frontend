@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onAuthStateChanged } from "firebase/auth";
-import { onBeforeUnmount } from "vue";
+import { onBeforeUnmount, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
 import { auth } from "./firebase/firebase";
@@ -8,6 +8,8 @@ import { useUserStore } from "./store/user";
 
 const store = useUserStore();
 const router = useRouter()
+
+const helloWorld = ref(import.meta.env.VITE_TEST)
 
 const authListener = onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -26,6 +28,7 @@ const authListener = onAuthStateChanged(auth, (user) => {
 
 <template>
     <main class="mb-24">
+      {{ helloWorld }}
         <router-view v-slot="{ Component }">
             <transition name="fade" mode="out-in">
                 <component :is="Component" />
