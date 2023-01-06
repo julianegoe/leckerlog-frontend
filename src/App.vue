@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onAuthStateChanged } from "firebase/auth";
-import { onBeforeUnmount, ref, ref } from "vue";
+import { onBeforeUnmount, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
 import { auth } from "./firebase/firebase";
