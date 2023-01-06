@@ -9,8 +9,6 @@ import { useUserStore } from "./store/user";
 const store = useUserStore();
 const router = useRouter()
 
-const helloWorld = ref(import.meta.env.VITE_TEST)
-
 const authListener = onAuthStateChanged(auth, (user) => {
     if (user) {
       store.updateUserId(user.uid)
@@ -28,7 +26,6 @@ const authListener = onAuthStateChanged(auth, (user) => {
 
 <template>
     <main class="mb-24">
-     Say what:  {{ helloWorld }}
         <router-view v-slot="{ Component }">
             <transition name="fade" mode="out-in">
                 <component :is="Component" />
