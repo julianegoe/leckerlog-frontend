@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     env_file: .env
+    environment:
+            VITE_TEST: $$VITE_TEST
     volumes: 
       - .:/app
       - node_modules:/app/node_modules
