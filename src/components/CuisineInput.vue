@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import {computed, onMounted, ref} from 'vue';
+import {computed, ref} from 'vue';
+import { useFetch } from '@vueuse/core';
 import {Cuisine, ListItem} from '../types/types';
 
 const emit = defineEmits(['update:modelValue'])
@@ -7,27 +8,10 @@ const props = defineProps<{
   modelValue: ListItem;
 }>();
 
-const isOpen = ref(false);
+const { data, error } = useFetch(`${import.meta.env.VITE_BASE_API_URL}/cuisines`).get().json();
+const cuisines = computed<Cuisine[]>(() => data.value);
 const searchQuery = ref(props.modelValue.label);
-const cuisines = ref<Cuisine[]>([]);
-onMounted(async () => {
-    try {
-        const response = await fetch( import.meta.env.VITE_BASE_API_URL + '/cuisines', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response.status === 200) {
-          cuisines.value = await response.json();
-        } else {
-            console.log('cuisine response: ', response);
-        }
-    } catch (error) {
-        console.log(error);
-    }
-    searchQuery.value = cuisines.value.find((cuisine) => cuisine.cuisine_id === props.modelValue.value)?.name || '';
-})
+const isOpen = ref(false);
 
 const selectableCuisines = computed<ListItem[]>(() => {
     return cuisines.value.filter((cuisine: Cuisine) => {
@@ -57,6 +41,7 @@ const handleSelection = (cuisine: ListItem) => {
                     <div>{{ cuisine.label }}</div>
                 </li>
             </ul>
+            <div v-if="error">{{ error }}</div>
         </div>
     </div>
 </template>
