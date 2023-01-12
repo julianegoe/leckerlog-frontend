@@ -1,33 +1,15 @@
 <script setup lang="ts">
-import { onAuthStateChanged } from "firebase/auth";
-import { onBeforeUnmount, ref } from "vue";
 import { useRouter } from "vue-router";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
-import { auth } from "./firebase/firebase";
-import { useUserStore } from "./store/user";
 
-const store = useUserStore();
+
 const router = useRouter()
-const vari = ref(import.meta.env.VITE_BASE_API_URL)
 
-const authListener = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      store.updateUserId(user.uid)
-      store.refreshIdToken(user)
-    } else {
-      console.log('logged out')
-      store.updateUserId('');
-      router.replace({ name: 'Login' });
-    }
-  })
-
-  onBeforeUnmount(() => authListener())
 
 </script>
 
 <template>
     <main class="mb-24">
-      {{ vari }}
         <router-view v-slot="{ Component }">
             <transition name="fade" mode="out-in">
                 <component :is="Component" />

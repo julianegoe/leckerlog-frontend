@@ -2,10 +2,9 @@
 /// <reference types="vite-svg-loader" />
 import StarIcon from '../assets/icons/star-outline.svg?component'
 import { computed, onMounted, ref } from 'vue';
-import { useFileDownload } from '../composables/useFileDownload';
 
 const props = defineProps<{
-  foodId: string;
+  foodId: number;
   menuItem: string;
   rating: number;
   fileName: string | null;
@@ -14,12 +13,8 @@ const props = defineProps<{
   restaurantName?: string;
 }>();
 
-const { getImage } = useFileDownload(props.fileName, 'thumbnail');
 const url = ref();
 
-onMounted(async () => {
-  url.value = await getImage();
-})
 
 const localeDateString = computed(() => {
   if (props.date) {
@@ -40,8 +35,8 @@ const localeDateString = computed(() => {
       </div>
       <p class="text-xs line-clamp-2">"{{ comment }}"</p>
     </div>
-      <img class="h-48 col-span-1 object-cover object-center" v-if="url" :src="url" :alt="menuItem">
-    <div v-else-if="!url" class="rounded-r-md col-span-1 h-48 border-l-2 border-black bg-gray-200 animate-pulse"></div>
+      <!-- <img class="h-48 col-span-1 object-cover object-center" v-if="url" :src="url" :alt="menuItem">
+      <div v-else-if="!url" class="rounded-r-md col-span-1 h-48 border-l-2 border-black bg-gray-200 animate-pulse"></div> -->
   </div>
 
 </template>

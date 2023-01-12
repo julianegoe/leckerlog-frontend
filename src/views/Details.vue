@@ -6,9 +6,8 @@ import StarIcon from '../assets/icons/star-outline.svg?component'
 import TrashIcon from '../assets/icons/trash.svg?component';
 import EditIcon from '../assets/icons/edit.svg?component';
 import AppModal from '../components/modals/AppModal.vue';
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useContentStore } from "../store/content";
-import { useFileDownload } from "../composables/useFileDownload";
 import TagBoxVue from "../components/globals/TagBox.vue";
 import { useRouter } from "vue-router";
 import { useApi } from "../composables/useApi";
@@ -18,7 +17,7 @@ const router = useRouter();
 const api = useApi();
 
 const props = defineProps<{
-    foodId: string;
+    foodId: number;
 }>();
 
 const leckerlog = computed(() => content.currentFoodOrdered);
@@ -27,8 +26,6 @@ onMounted(async () => {
     content.setCurrentFoodOrdered(undefined);
     const response = await api.getLeckerlogById(props.foodId)
     content.setCurrentFoodOrdered(response);
-    const { getImage } = useFileDownload(leckerlog.value?.food_ordered[0].image_path, 'hero');
-    if (leckerlog.value?.food_ordered[0].image_path) { url.value = await getImage() || '' }
 })
 
 const toLocaleDateString = (dateString: string) => {
@@ -52,7 +49,7 @@ const googleSearchUrl = computed(() => {
 
 const showDeleteModal = ref(false);
 
-const handleDelete = async (foodId: string) => {
+const handleDelete = async (foodId: number) => {
     await api.deleteFoodOrdered(foodId);
     await router.push({ name: 'Home' });
 };
@@ -76,9 +73,9 @@ const handleDelete = async (foodId: string) => {
             </AppModal>
         </Transition>
         <div v-if="leckerlog">
-            <div class="border-b-2 border-black">
+            <!-- <div class="border-b-2 border-black">
                 <img class="w-full h-72 object-cover object-center" v-if="url" :src="url" :alt="leckerlog?.name">
-            </div>
+            </div> -->
             <div class="flex flex-col justify-between gap-y-4 p-4">
                 <div class="text-sm text-gray-600">{{ toLocaleDateString(leckerlog?.food_ordered[0].ordered_at) }}
                 </div>

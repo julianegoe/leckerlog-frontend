@@ -6,10 +6,9 @@ import AppStarRatingInput from "../components/AppStarRatingInput.vue";
 import AppTextInput from '../components/AppTextInput.vue';
 import AppDateInput from '../components/AppDateInput.vue';
 import exifr from 'exifr';
-import { useFileUpload } from '../composables/useFileUpload';
 import CuisineInput from '../components/CuisineInput.vue';
 import { RecordData } from '../types/types';
-import SnackBar from '../components/SnackBar.vue';
+import SnackBar from '../components/globals/SnackBar.vue';
 import { useApi } from '../composables/useApi';
 import ChipInput from '../components/ChipInput.vue';
 import AppTextarea from '../components/AppTextarea.vue';
@@ -17,7 +16,6 @@ import AppTextarea from '../components/AppTextarea.vue';
 const { addRecord } = useApi()
 
 const loading = ref(false);
-const showSnackbar = ref(false);
 
 const inputValues = reactive<RecordData>({
   restaurantName: '',
@@ -34,8 +32,6 @@ const inputValues = reactive<RecordData>({
   address: '',
 });
 
-const arrayBuffer = ref();
-const fileName = ref(null);
 let exifGpsData = ref({
   GPSLatitude: [52, 31, 12.0288] as [number, number, number],
   GPSLatitudeRef: 'N',
@@ -55,42 +51,16 @@ const handlePhotoChange = (e: any) => {
       exifGpsData.value.GPSLongitudeRef = output.GPSLongitudeRef;
       inputValues.ordered_at = new Date(output.CreateDate).toISOString().split('T')[0];
     });
-  inputValues.image_path = URL.createObjectURL(fileList[0]);
-  fileName.value = fileList[0].name;
-  // Check if the file is an image.
-  if (fileList[0].type && !fileList[0].type.startsWith('image/')) {
-    console.log('File is not an image.', fileList[0].type, fileList[0]);
-    return;
-  }
-  const reader = new FileReader();
-  reader.readAsArrayBuffer(fileList[0])
-  reader.addEventListener('load', (event) => {
-    arrayBuffer.value = event.target?.result;
-  });
 };
 
-const result = useFileUpload(fileName, arrayBuffer);
-
+const showSnackbar = ref(false);
 const isValid = ref(false);
 const addFood = async () => {
-  showSnackbar.value = false;
-  if (isValid.value) {
-    loading.value = true;
-    await result.uploadImage();
-    if (result.imagePath) {
-      inputValues.image_path = result.imagePath.value;
-    }
-    // if (result.status.value === 'SUCCESS' || result.status.value === 'IDLE') {
-    if(['SUCCESS', 'IDLE'].includes(result.status.value)){
-      const addedRecord = await addRecord(inputValues);
-      if (addedRecord) {
-        loading.value = false
-        showSnackbar.value = true;
-        setTimeout(() => showSnackbar.value = false, 2000)
-      }
-    }
-  } else {
-    console.log('not valid')
+  console.log('image upload is not implemented yet.');
+  const result = await addRecord(inputValues);
+  if (result) {
+    showSnackbar.value = true;
+    setTimeout(() => { showSnackbar.value = false}, 500)
   }
 };
 

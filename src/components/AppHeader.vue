@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 /// <reference types="vite-svg-loader" />
 import SearchIcon from '../assets/icons/search.svg?component'
-import { useAuthentication } from '../composables/useAuthentication';
 import { useRoute } from 'vue-router';
 
-const { signOut, error } = useAuthentication();
+
+
 const route = useRoute();
 </script>
 <template>
@@ -17,7 +17,7 @@ const route = useRoute();
           <SearchIcon />
         </div>
       </RouterLink>
-      <button class="px-2 border border-black cursor-pointer" @click="signOut">Logout</button>
+      <!-- <button class="px-2 border border-black cursor-pointer">Logout</button> -->
     </div>
   </header>
 </template>

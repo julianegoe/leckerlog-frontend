@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '/src/views/Home/Home.vue';
 
+
 const routes = [
     {
         path: '/',
@@ -63,7 +64,6 @@ const router = createRouter({
         return { top: 0 }
       },
 });
-
 
 
 

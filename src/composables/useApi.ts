@@ -13,7 +13,7 @@ export const useApi = () => {
         }
     }
 
-    const getLeckerlogById = async (foodId: string): Promise<Leckerlog | undefined> => {
+    const getLeckerlogById = async (foodId: number): Promise<Leckerlog | undefined> => {
         try {
             return await request.getOne(`food/${foodId}`)
         } catch(error) {
@@ -40,11 +40,11 @@ export const useApi = () => {
         });
     };
 
-    const deleteFoodOrdered = async (foodId: string): Promise<FoodOrdered> => {
+    const deleteFoodOrdered = async (foodId: number): Promise<FoodOrdered> => {
         return await request.deleteRecord('food', foodId)
     }
 
-    const updateFoodOrdered = async (foodId: string, alteredRecord: Partial<RecordData>): Promise<Leckerlog | undefined> => {
+    const updateFoodOrdered = async (foodId: number, alteredRecord: Partial<RecordData>): Promise<Leckerlog | undefined> => {
         return await request.post(`food/${foodId}`, {
             restaurantName: alteredRecord.restaurantName || '',
             name: alteredRecord.foodName || '',

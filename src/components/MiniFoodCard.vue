@@ -2,7 +2,7 @@
 /// <reference types="vite-svg-loader" />
 import StarIcon from '../assets/icons/star-outline.svg?component'
 import { FoodOrdered } from '../types/types';
-import Box from './Box.vue';
+import Box from './globals/Box.vue';
 
 defineProps<{
     foodOrdered: FoodOrdered;

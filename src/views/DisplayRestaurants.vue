@@ -20,7 +20,7 @@ const displayRestaurants = computed<Leckerlog[]>(() => {
   return data.leckerlogs.filter((restaurant: Leckerlog) => restaurant.cuisine === props.cuisine && restaurant.food_ordered !== null);
 })
 
-const handleDelete = async (id: string) => {
+const handleDelete = async (id: number) => {
   await api.deleteFoodOrdered(id);
   const leckerlog = await api.getLeckerlogs();
   data.setLeckerlogs(leckerlog);

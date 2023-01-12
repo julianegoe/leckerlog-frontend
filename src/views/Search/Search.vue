@@ -5,15 +5,12 @@ import { RouterLink } from 'vue-router';
 import BackIcon from '../../assets/icons/chevron-left.svg?component';
 import AppHeader from '../../components/AppHeader.vue';
 import AppSearchBar from '../../components/AppSearchBar.vue';
-import FoodCard from '../../components/FoodCard.vue';
 import MiniFoodCard from '../../components/MiniFoodCard.vue';
 import SearchPlacesMenu from '../../components/SearchPlacesMenu.vue';
 import { useApi } from '../../composables/useApi';
-import { useUserStore } from '../../store/user';
 import { Leckerlog } from '../../types/types';
 import TagsList from '../Categories/TagsList.vue';
 
-const { userId } = useUserStore();
 const { queryFood } = useApi();
 
 const searchQuery = ref('');
@@ -34,7 +31,7 @@ const queryUrl = computed(() => {
             url.searchParams.append('tag', tag)
         })
     }
-    url.pathname = `${searchPlaces.value}/${userId}`
+    url.pathname = `${searchPlaces.value}`
     return url;
 })
 

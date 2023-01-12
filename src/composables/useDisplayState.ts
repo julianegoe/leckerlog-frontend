@@ -1,4 +1,4 @@
-import { computed, ref, watch } from "vue";
+import { computed } from "vue";
 import { useContentStore } from "../store/content";
 import { useApi } from "./useApi";
 

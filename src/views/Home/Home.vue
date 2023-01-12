@@ -4,13 +4,10 @@ import AppHeader from '../../components/AppHeader.vue';
 import { useApi } from '../../composables/useApi';
 import { useContentStore } from '../../store/content';
 import { useSortingStore } from '../../store/sorting';
-import { useUserStore } from '../../store/user';
 import AppBadge from '../../components/globals/AppBadge.vue';
 import { FilterItem } from '../../types/types';
 import FoodOrderedList from './FoodOrderedList.vue';
-import { auth } from '../../firebase/firebase';
 
-const userStore = useUserStore();
 const data = useContentStore();
 const sorting = useSortingStore();
 const api = useApi();
@@ -34,11 +31,8 @@ const sortBy = ref<FilterItem[]>([
 
 onBeforeMount(async () => {
     isLoading.value = true;
-    userStore.getUserId();
-    if (auth.currentUser) {
-        const leckerlog = await api.getLeckerlogs();
-        data.setLeckerlogs(leckerlog);
-    }
+    const leckerlog = await api.getLeckerlogs();
+    data.setLeckerlogs(leckerlog);
     isLoading.value = false;
 });
 

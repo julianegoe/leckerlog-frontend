@@ -1,10 +1,10 @@
 export interface ListItem {
-    value: string,
+    value: string | number,
     label: string,
 }
 
 export interface Cuisine {
-  cuisine_id: string;
+  cuisine_id: number;
   name: string;
 }
 
@@ -21,9 +21,9 @@ export interface RecordData {
 }
 
 export interface FoodOrdered {
-  food_id: string;
+  food_id: number;
   name: string;
-  cuisine_id: string;
+  cuisine_id: number;
   ordered_at: string;
   rating: number;
   comment: string;
@@ -34,20 +34,20 @@ export interface FoodOrdered {
 }
 
 export interface Restaurant {
-  restaurant_id: string;
+  restaurant_id: number;
   name: string;
   cuisine: string;
-  cuisine_id: string;
+  cuisine_id: number;
   address: string;
   date_updated: string;
   date_created: string;
 };
 
 export interface Leckerlog {
-  restaurant_id: string;
+  restaurant_id: number;
   name: string;
   cuisine: string;
-  cuisine_id: string;
+  cuisine_id: number;
   address: string;
   date_updated: string;
   date_created: string;
