@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import AppTextInput from '../components/AppTextInput.vue';
-import router from '../router';
 
 const router = useRouter()
 
