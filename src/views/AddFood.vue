@@ -50,7 +50,6 @@ const addFood = async () => {
     <div class="m-auto p-2">
       <ImageUploadForm />
       <form @submit.prevent="addFood">
-        <ImageUploadForm />
         <!-- <GooglePlacesTextInput @update:restaurant="(value) => {
           inputValues.restaurantName = value.name;
           inputValues.address = value.address;

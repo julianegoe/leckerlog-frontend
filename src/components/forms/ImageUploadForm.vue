@@ -51,7 +51,6 @@ const uploadImage = async () => {
         <input class="hidden" role="button" id="file-upload" type="file" name="file" @change="handlePhotoChange"
             accept="image/jpeg" />
         <button class="flex justify-center mt-4 p-2 w-32 border border-black active:bg-gray-200" type="submit">Image Submit</button>
-        <button type="submit">Image Submit</button>
     </form>
     <img v-if="imagePath" class="mt-4" :src="imagePath" alt="selected-image" />
 </template>
