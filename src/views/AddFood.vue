@@ -1,17 +1,16 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue';
-import GooglePlacesTextInput from '../components/GooglePlacesTextInput.vue';
 import AppHeader from "../components/AppHeader.vue";
 import AppStarRatingInput from "../components/AppStarRatingInput.vue";
 import AppTextInput from '../components/AppTextInput.vue';
 import AppDateInput from '../components/AppDateInput.vue';
-import exifr from 'exifr';
 import CuisineInput from '../components/CuisineInput.vue';
 import { RecordData } from '../types/types';
 import SnackBar from '../components/globals/SnackBar.vue';
 import { useApi } from '../composables/useApi';
 import ChipInput from '../components/ChipInput.vue';
 import AppTextarea from '../components/AppTextarea.vue';
+import ImageUploadForm from '../components/forms/ImageUploadForm.vue';
 
 const { addRecord } = useApi()
 
@@ -32,27 +31,6 @@ const inputValues = reactive<RecordData>({
   address: '',
 });
 
-let exifGpsData = ref({
-  GPSLatitude: [52, 31, 12.0288] as [number, number, number],
-  GPSLatitudeRef: 'N',
-  GPSLongitude: [13, 24, 17.8344] as [number, number, number],
-  GPSLongitudeRef: 'E',
-})
-const handlePhotoChange = (e: any) => {
-  const fileList = e.target?.files;
-  exifr.parse(fileList[0])
-    .then(output => {
-      if (!output) {
-        return
-      }
-      exifGpsData.value.GPSLatitude = output.GPSLatitude;
-      exifGpsData.value.GPSLatitudeRef = output.GPSLatitudeRef;
-      exifGpsData.value.GPSLongitude = output.GPSLongitude;
-      exifGpsData.value.GPSLongitudeRef = output.GPSLongitudeRef;
-      inputValues.ordered_at = new Date(output.CreateDate).toISOString().split('T')[0];
-    });
-};
-
 const showSnackbar = ref(false);
 const isValid = ref(false);
 const addFood = async () => {
@@ -71,17 +49,14 @@ const addFood = async () => {
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>
     <div class="m-auto p-2">
+      <ImageUploadForm />
       <form @submit.prevent="addFood">
-        <label for="file-upload" class="cursor-pointer p-2 border border-black active:bg-gray-200">Bild
-          auswählen</label>
-        <input class="hidden" role="button" id="file-upload" type="file" @change="handlePhotoChange"
-          accept="image/jpeg" />
-        <GooglePlacesTextInput @update:restaurant="(value) => {
+        <!-- <GooglePlacesTextInput @update:restaurant="(value) => {
           inputValues.restaurantName = value.name;
           inputValues.address = value.address;
         }" label="Restaurant" input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude"
           :latitude-direction="exifGpsData.GPSLatitudeRef" :longitude="exifGpsData.GPSLongitude"
-          :longitude-direction="exifGpsData.GPSLongitudeRef" />
+          :longitude-direction="exifGpsData.GPSLongitudeRef" /> -->
         <CuisineInput v-model="inputValues.cuisine" />
         <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
           id="meal-input" type="text" />
