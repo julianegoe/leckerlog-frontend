@@ -12,6 +12,7 @@ import SnackBar from '../components/globals/SnackBar.vue';
 import { useApi } from '../composables/useApi';
 import ChipInput from '../components/ChipInput.vue';
 import AppTextarea from '../components/AppTextarea.vue';
+import ImageUploadForm from '../components/forms/ImageUploadForm.vue';
 
 const { addRecord } = useApi()
 
@@ -56,7 +57,6 @@ const handlePhotoChange = (e: any) => {
 const showSnackbar = ref(false);
 const isValid = ref(false);
 const addFood = async () => {
-  console.log('image upload is not implemented yet.');
   const result = await addRecord(inputValues);
   if (result) {
     showSnackbar.value = true;
@@ -72,16 +72,13 @@ const addFood = async () => {
     </AppHeader>
     <div class="m-auto p-2">
       <form @submit.prevent="addFood">
-        <label for="file-upload" class="cursor-pointer p-2 border border-black active:bg-gray-200">Bild
-          auswählen</label>
-        <input class="hidden" role="button" id="file-upload" type="file" @change="handlePhotoChange"
-          accept="image/jpeg" />
-        <GooglePlacesTextInput @update:restaurant="(value) => {
+        <ImageUploadForm />
+        <!-- <GooglePlacesTextInput @update:restaurant="(value) => {
           inputValues.restaurantName = value.name;
           inputValues.address = value.address;
         }" label="Restaurant" input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude"
           :latitude-direction="exifGpsData.GPSLatitudeRef" :longitude="exifGpsData.GPSLongitude"
-          :longitude-direction="exifGpsData.GPSLongitudeRef" />
+          :longitude-direction="exifGpsData.GPSLongitudeRef" /> -->
         <CuisineInput v-model="inputValues.cuisine" />
         <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
           id="meal-input" type="text" />
@@ -91,9 +88,6 @@ const addFood = async () => {
           id="comment-input" type="text" />
         <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
         <AppStarRatingInput v-model="inputValues.rating" />
-
-        <img v-if="inputValues.image_path" class="mt-4" :src="inputValues.image_path" alt="selected-image" />
-
         <button class="flex justify-center mt-4 p-2 w-32 border border-black active:bg-gray-200" type="submit">
           <div v-if="!loading">Hinzufügen</div>
           <div v-else-if="loading"

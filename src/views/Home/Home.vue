@@ -1,19 +1,15 @@
 <script lang="ts" setup>
-import { onBeforeMount, ref } from 'vue';
+import { computed, ref } from 'vue';
 import AppHeader from '../../components/AppHeader.vue';
-import { useApi } from '../../composables/useApi';
 import { useContentStore } from '../../store/content';
 import { useSortingStore } from '../../store/sorting';
 import AppBadge from '../../components/globals/AppBadge.vue';
-import { FilterItem } from '../../types/types';
-import FoodOrderedList from './FoodOrderedList.vue';
+import { FilterItem, Leckerlog } from '../../types/types';
+import { useFetch } from "@vueuse/core";
 
-const data = useContentStore();
+const contentStore = useContentStore();
+
 const sorting = useSortingStore();
-const api = useApi();
-
-const isLoading = ref(false);
-
 const sortBy = ref<FilterItem[]>([
     {
         label: 'Zuletzt bestellt',
@@ -29,12 +25,10 @@ const sortBy = ref<FilterItem[]>([
     },
 ]);
 
-onBeforeMount(async () => {
-    isLoading.value = true;
-    const leckerlog = await api.getLeckerlogs();
-    data.setLeckerlogs(leckerlog);
-    isLoading.value = false;
-});
+const path = `${import.meta.env.VITE_BASE_API_URL}/leckerlog/test`;
+const { isFetching, data, error } = useFetch(path).get().json();
+const leckerlogs = computed<Leckerlog[]>(() => data.value);
+contentStore.setLeckerlogs(leckerlogs.value);
 
 const setSortBy = (sortBy: FilterItem) => {
     sorting.setSortingState(sortBy);
@@ -52,10 +46,11 @@ const setSortBy = (sortBy: FilterItem) => {
                     route-name="Home" />
             </template>
         </div>
-        <div v-if="!isLoading" class="px-2 py-2">
-            <FoodOrderedList />
+        <div v-if="!isFetching" class="px-2 py-2">
+            <pre>{{  data  }}</pre>
+            <div>{{ error }}</div>
         </div>
-        <div v-if="isLoading" class="flex flex-col gap-4 items-center justify-between m-2">
+        <div v-if="isFetching" class="flex flex-col gap-4 items-center justify-between m-2">
             <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
             <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
             <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>

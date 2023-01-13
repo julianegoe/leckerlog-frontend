@@ -2,23 +2,12 @@
 import { FilterItem } from '../../types/types';
 import AppHeader from '../../components/AppHeader.vue';
 import AppBadge from '../../components/globals/AppBadge.vue';
-import { useContentStore } from '../../store/content';
-import { useApi } from '../../composables/useApi';
-import { onMounted, ref } from 'vue';
 import { useSortingStore } from '../../store/sorting';
 import CuisinesList from './CuisinesList.vue';
+import { ref } from 'vue';
 
-const content = useContentStore();
-const api = useApi();
 const grouping = useSortingStore();
 const isLoading = ref(false);
-
-onMounted(async () => {
-    isLoading.value = true;
-    const cuisines = await api.getCuisines();
-    content.setCuisines(cuisines);
-    isLoading.value = false;
-});
 
 const groupBy = ref<FilterItem[]>([
     {

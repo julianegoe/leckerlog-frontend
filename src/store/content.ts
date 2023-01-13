@@ -21,7 +21,7 @@ export const useContentStore = defineStore('content', () => {
         currentFoodOrdered.value = foodOrdered;
     }
 
-    const getSortedFoodOrdered = computed(() => {
+    const sortedFoodOrdered = computed(() => {
         const foods = [...leckerlogs.value].flatMap((log: Leckerlog) => {
             if (log.food_ordered !== null) {
                 return log.food_ordered.map((food: FoodOrdered) => {
@@ -88,5 +88,5 @@ export const useContentStore = defineStore('content', () => {
         return Array.from(new Set(tags))
     })
 
-    return { cuisines, leckerlogs, currentFoodOrdered, setCuisines, setLeckerlogs, setCurrentFoodOrdered, getSortedFoodOrdered, getTags }
+    return { cuisines, leckerlogs, currentFoodOrdered, setCuisines, setLeckerlogs, setCurrentFoodOrdered, sortedFoodOrdered, getTags }
 })

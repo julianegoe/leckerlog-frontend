@@ -1,28 +1,9 @@
 import { ref } from "vue";
 import { Leckerlog } from "../types/types";
+import { useFetch } from "@vueuse/core";
 
 export const useRequest = () => {
     const errorMessage = ref();
-
-
-    const getAll = async (endpoint: string): Promise<Leckerlog[] | []> => {
-        const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}`;
-        try {
-            const response = await fetch(path, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await response.json();
-            return data;
-
-        }
-        catch (error) {
-            errorMessage.value = error;
-            return []
-        }
-    };
 
     const getOne = async (endpoint: string): Promise<Leckerlog | undefined> => {
         const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}`;
@@ -99,7 +80,6 @@ export const useRequest = () => {
     }
 
     return {
-        getAll,
         getOne,
         queryAll,
         post,
