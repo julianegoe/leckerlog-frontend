@@ -1,17 +1,8 @@
-import {Cuisine, FoodOrdered, Leckerlog, RecordData, Restaurant} from "../types/types";
+import { FoodOrdered, Leckerlog, RecordData } from "../types/types";
 import {useRequest} from "./useRequest";
 
 export const useApi = () => {
     const request = useRequest();
-
-    const getLeckerlogs = async (): Promise<Leckerlog[]> => {
-        try {
-            return await request.getAll('leckerlog')
-        } catch(error) {
-            console.log(error)
-            return []
-        }
-    }
 
     const getLeckerlogById = async (foodId: number): Promise<Leckerlog | undefined> => {
         try {
@@ -20,10 +11,6 @@ export const useApi = () => {
             console.log(error)
             return undefined
         }
-    }
-
-    const getCuisines = async (): Promise<Cuisine[]> => {
-        return await request.getAll('cuisines');
     }
 
     const addRecord = async (newRecord: RecordData): Promise<Leckerlog | undefined> => {
@@ -61,9 +48,7 @@ export const useApi = () => {
 
     return {
         errorMessage: request.errorMessage,
-        getLeckerlogs,
         getLeckerlogById,
-        getCuisines,
         addRecord,
         deleteFoodOrdered,
         updateFoodOrdered,
