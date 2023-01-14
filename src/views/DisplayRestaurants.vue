@@ -22,8 +22,6 @@ const displayRestaurants = computed<Leckerlog[]>(() => {
 
 const handleDelete = async (id: number) => {
   await api.deleteFoodOrdered(id);
-  const leckerlog = await api.getLeckerlogs();
-  data.setLeckerlogs(leckerlog);
 };
 
 </script>
