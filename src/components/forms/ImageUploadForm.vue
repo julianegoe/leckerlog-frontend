@@ -39,7 +39,7 @@ const uploadImage = async () => {
     const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/image/upload`, {
         method: 'POST',
         body: formData,
-    })
+    });
     console.log(response)
 }
 
