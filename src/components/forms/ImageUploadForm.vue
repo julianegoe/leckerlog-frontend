@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useFetch } from '@vueuse/core';
 import exifr from 'exifr';
 import { computed, ref } from 'vue';
 
@@ -36,7 +35,7 @@ const handlePhotoChange = (e: any) => {
 const uploadImage = async () => {
     const formData = new FormData();
     formData.append('file', imageFile.value)
-    const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/image/upload`, {
+    const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/upload`, {
         method: 'POST',
         body: formData,
     });

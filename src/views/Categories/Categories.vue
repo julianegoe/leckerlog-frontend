@@ -4,7 +4,7 @@ import AppHeader from '../../components/AppHeader.vue';
 import AppBadge from '../../components/globals/AppBadge.vue';
 import { useSortingStore } from '../../store/sorting';
 import CuisinesList from './CuisinesList.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const grouping = useSortingStore();
 const isLoading = ref(false);
@@ -21,6 +21,17 @@ const setGroupBy = (groupBy: FilterItem) => {
     grouping.setGroupState(groupBy);
 }
 
+const imageUrl = ref('');
+const filename = ref('IMG_6323.JPG');
+onMounted(async () => {
+    const response = await fetch(`http://localhost:3000/download/?filename=${filename.value}`, {
+        method: 'GET',
+    });
+    const blob = await response.blob();
+    console.log(typeof blob)
+    imageUrl.value = URL.createObjectURL(blob)
+    console.log(imageUrl.value)
+})
 </script>
 <template>
     <div>
@@ -32,6 +43,7 @@ const setGroupBy = (groupBy: FilterItem) => {
                 <AppBadge @click="setGroupBy(groupValue)" :action-state="groupValue" :active-state="grouping.activeGroupBy" route-name="Categories" />
             </template>
         </div>
+        <img :src="imageUrl" alt="image">
         <div v-if="!isLoading && grouping.activeGroupBy.value === 'cuisines'" class="px-2 py-2">
             <CuisinesList />
         </div>
