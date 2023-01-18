@@ -24,13 +24,11 @@ const setGroupBy = (groupBy: FilterItem) => {
 const imageUrl = ref('');
 const filename = ref('IMG_6323.JPG');
 onMounted(async () => {
-    const response = await fetch(`http://localhost:3000/download/?filename=${filename.value}`, {
+    const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/download/?filename=${filename.value}`, {
         method: 'GET',
     });
     const blob = await response.blob();
-    console.log(typeof blob)
     imageUrl.value = URL.createObjectURL(blob)
-    console.log(imageUrl.value)
 })
 </script>
 <template>
