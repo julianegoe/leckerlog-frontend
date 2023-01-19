@@ -22,14 +22,18 @@ const setGroupBy = (groupBy: FilterItem) => {
 }
 
 const imageUrl = ref('');
-const filename = ref('IMG_6323.JPG');
+const filename = ref('IMG_6338_small.JPG');
 onMounted(async () => {
-    console.log(import.meta.env.VITE_IMAGE_API_URL)
-    const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/download/?filename=${filename.value}`, {
-        method: 'GET',
-    });
-    const blob = await response.blob();
-    imageUrl.value = URL.createObjectURL(blob)
+    try {
+        const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/download/?filename=${filename.value}`, {
+            method: 'GET',
+        });
+        const blob = await response.blob();
+        console.log(blob)
+        imageUrl.value = URL.createObjectURL(blob)
+    } catch (error) {
+        console.log(error)
+    }
 })
 </script>
 <template>
@@ -39,7 +43,8 @@ onMounted(async () => {
         </AppHeader>
         <div class="flex flex-row p-2">
             <template v-for="(groupValue, index) in groupBy" :key="index + groupValue.label">
-                <AppBadge @click="setGroupBy(groupValue)" :action-state="groupValue" :active-state="grouping.activeGroupBy" route-name="Categories" />
+                <AppBadge @click="setGroupBy(groupValue)" :action-state="groupValue"
+                    :active-state="grouping.activeGroupBy" route-name="Categories" />
             </template>
         </div>
         <img :src="imageUrl" alt="image">
