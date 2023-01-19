@@ -24,6 +24,7 @@ const setGroupBy = (groupBy: FilterItem) => {
 const imageUrl = ref('');
 const filename = ref('IMG_6323.JPG');
 onMounted(async () => {
+    console.log(import.meta.env.VITE_IMAGE_API_URL)
     const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/download/?filename=${filename.value}`, {
         method: 'GET',
     });
