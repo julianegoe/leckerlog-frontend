@@ -25,7 +25,7 @@ const imageUrl = ref('');
 const filename = ref('IMG_6338_small.jpg');
 onMounted(async () => {
     try {
-        const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/download/?filename=${filename.value}`, {
+        const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/download/?filename=${filename.value}`, {
             method: 'GET',
         });
         const blob = await response.blob();

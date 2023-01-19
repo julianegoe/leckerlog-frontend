@@ -35,7 +35,7 @@ const handlePhotoChange = (e: any) => {
 const uploadImage = async () => {
     const formData = new FormData();
     formData.append('file', imageFile.value)
-    const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/upload`, {
+    const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/upload`, {
         method: 'POST',
         body: formData,
     });
