@@ -22,7 +22,7 @@ const setGroupBy = (groupBy: FilterItem) => {
 }
 
 const imageUrl = ref('');
-const filename = ref('IMG_6338_small.JPG');
+const filename = ref('IMG_6338_small.jpg');
 onMounted(async () => {
     try {
         const response = await fetch(`${import.meta.env.VITE_IMAGE_API_URL}/download/?filename=${filename.value}`, {
