@@ -1,3 +1,4 @@
+import { computed } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '/src/views/Home/Home.vue';
 
@@ -65,16 +66,14 @@ const router = createRouter({
       },
 });
 
-const auth = localStorage.getItem('auth');
-router.beforeEach((to, _) => {
-    if (to.name === 'Signup') return true;
-    if (to.name !== 'Login' && !auth) {
-        console.log('hää')
-        return {
-            name: 'Login',
-          };      
-    }
-    return true
+const isAuthenticated = computed(() => localStorage.getItem('auth'));
+router.beforeEach(async (to, from) => {
+    if (
+      !isAuthenticated.value &&
+      to.name !== 'Login'
+    ) {
+      return { name: 'Login' }
+    } return true
   })
 
 

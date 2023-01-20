@@ -1,15 +1,13 @@
 <script lang="ts" setup>
+import { useStorage } from '@vueuse/core';
 import exifr from 'exifr';
 import { computed, ref } from 'vue';
 
-const orderedAt = ref('')
+const emit = defineEmits(['update:modelValue'])
 
-const exifGpsData = ref({
-    GPSLatitude: [52, 31, 12.0288] as [number, number, number],
-    GPSLatitudeRef: 'N',
-    GPSLongitude: [13, 24, 17.8344] as [number, number, number],
-    GPSLongitudeRef: 'E',
-})
+const orderedAt = ref('');
+const jwtToken = useStorage('auth', '', localStorage);
+
 const imageFile = ref();
 const imagePath = computed(() => {
     if (imageFile.value) {
@@ -23,11 +21,11 @@ const handlePhotoChange = (e: any) => {
             if (!output) {
                 return
             }
-            exifGpsData.value.GPSLatitude = output.GPSLatitude;
-            exifGpsData.value.GPSLatitudeRef = output.GPSLatitudeRef;
-            exifGpsData.value.GPSLongitude = output.GPSLongitude;
-            exifGpsData.value.GPSLongitudeRef = output.GPSLongitudeRef;
             orderedAt.value = new Date(output.CreateDate).toISOString().split('T')[0];
+            emit('update:modelValue', {
+                output: output,
+                imagePath: imagePath.value,
+                orderedAt: orderedAt.value})
         });
     imageFile.value = fileList[0]
 };
@@ -38,6 +36,9 @@ const uploadImage = async () => {
     const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/upload`, {
         method: 'POST',
         body: formData,
+        headers: {
+            'Authorization': `Bearer ${jwtToken.value}`
+        }
     });
     console.log(response)
 }

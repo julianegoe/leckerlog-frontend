@@ -16,6 +16,7 @@ const { addRecord } = useApi()
 
 const loading = ref(false);
 
+const photoData = ref();
 const inputValues = reactive<RecordData>({
   restaurantName: '',
   cuisine: {
@@ -26,7 +27,7 @@ const inputValues = reactive<RecordData>({
   rating: 0,
   comment: '',
   foodName: '',
-  image_path: null,
+  image_path: '',
   tags: [],
   address: '',
 });
@@ -48,14 +49,14 @@ const addFood = async () => {
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>
     <div class="m-auto p-2">
-      <ImageUploadForm />
+      <ImageUploadForm v-model="photoData" />
       <form @submit.prevent="addFood">
-        <!-- <GooglePlacesTextInput @update:restaurant="(value) => {
+        <GooglePlacesTextInput @update:restaurant="(value: any) => {
           inputValues.restaurantName = value.name;
           inputValues.address = value.address;
-        }" label="Restaurant" input-id="restaurant-input" :latitude="exifGpsData.GPSLatitude"
-          :latitude-direction="exifGpsData.GPSLatitudeRef" :longitude="exifGpsData.GPSLongitude"
-          :longitude-direction="exifGpsData.GPSLongitudeRef" /> -->
+        }" label="Restaurant" input-id="restaurant-input" :latitude="photoData.output.GPSLatitude"
+          :latitude-direction="photoData.output.GPSLatitudeRef" :longitude="photoData.output.GPSLongitude"
+          :longitude-direction="photoData.output.GPSLongitudeRef" />
         <CuisineInput v-model="inputValues.cuisine" />
         <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
           id="meal-input" type="text" />

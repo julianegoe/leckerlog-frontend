@@ -5,9 +5,11 @@ import AppBadge from '../../components/globals/AppBadge.vue';
 import { useSortingStore } from '../../store/sorting';
 import CuisinesList from './CuisinesList.vue';
 import { onMounted, ref } from 'vue';
+import { useStorage } from '@vueuse/core';
 
 const grouping = useSortingStore();
 const isLoading = ref(false);
+const jwtToken = useStorage('auth', '', localStorage);
 
 const groupBy = ref<FilterItem[]>([
     {
@@ -15,7 +17,6 @@ const groupBy = ref<FilterItem[]>([
         value: 'cuisines',
     }
 ]);
-
 
 const setGroupBy = (groupBy: FilterItem) => {
     grouping.setGroupState(groupBy);
@@ -27,9 +28,12 @@ onMounted(async () => {
     try {
         const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/download/?filename=${filename.value}`, {
             method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken.value}`
+        }
         });
         const blob = await response.blob();
-        console.log(blob)
         imageUrl.value = URL.createObjectURL(blob)
     } catch (error) {
         console.log(error)

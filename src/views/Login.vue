@@ -4,10 +4,10 @@ import { useRouter } from 'vue-router';
 import { useFetch } from '@vueuse/core';
 import AppTextInput from '../components/AppTextInput.vue';
 
-const router = useRouter()
+const router = useRouter();
 
-const email = ref('user');
-const password = ref('password');
+const email = ref('');
+const password = ref('');
 
 async function login() {
   localStorage.setItem("auth", 'testest');
@@ -16,9 +16,9 @@ async function login() {
     password: password.value,
   }).json()
   if (data.value.token) {
-    console.log(data.value.token)
     localStorage.setItem("auth", data.value.token);
-    router.push({ name: 'Home' })
+    localStorage.setItem("user", JSON.stringify(data.value.user));
+    router.push({ name: 'Home' });
   }
 }
 
