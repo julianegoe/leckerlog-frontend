@@ -65,6 +65,17 @@ const router = createRouter({
       },
 });
 
+const auth = localStorage.getItem('auth');
+router.beforeEach((to, _) => {
+    if (to.name === 'Signup') return true;
+    if (to.name !== 'Login' && !auth) {
+        console.log('hää')
+        return {
+            name: 'Login',
+          };      
+    }
+    return true
+  })
 
 
 export default router
