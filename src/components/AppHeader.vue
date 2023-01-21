@@ -2,13 +2,17 @@
 /// <reference types="vite-svg-loader" />
 import SearchIcon from '../assets/icons/search.svg?component'
 import { useRouter } from 'vue-router';
+import { useUiStore } from '../store/ui';
 
 const router = useRouter();
+const ui = useUiStore()
 
 const logout = () => {
   localStorage.removeItem('auth');
   localStorage.removeItem("user");
-  router.push({ name: 'Login'})
+  router.push({ name: 'Login'});
+  ui.openSnackBar('Logout erfolgreich.');
+
 }
 
 </script>

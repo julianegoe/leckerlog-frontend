@@ -12,17 +12,16 @@ const email = ref('');
 const password = ref('');
 
 async function login() {
-  const { data, error } = await useFetch(`${import.meta.env.VITE_BASE_API_URL}/login`).post({
+  const { data } = await useFetch(`${import.meta.env.VITE_BASE_API_URL}/login`).post({
     email: email.value, 
     password: password.value,
   }).json()
   if (data.value.token) {
     localStorage.setItem("auth", data.value.token);
     localStorage.setItem("user", JSON.stringify(data.value.user));
-    router.push({ name: 'Home' });
+    router.push({ name: 'Home'})
     ui.openSnackBar('Login erfolgreich.')
   }
-  console.log(error)
 }
 
 </script>
