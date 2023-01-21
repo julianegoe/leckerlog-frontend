@@ -2,16 +2,23 @@
 import AppTextInput from '../components/AppTextInput.vue';
 import { ref } from 'vue';
 import { useFetch } from '@vueuse/core';
+import { useUiStore } from '../store/ui';
+import { useRouter } from 'vue-router';
+
+const ui = useUiStore();
+const router = useRouter();
 
 const email = ref('');
 const password = ref('');
 
-const register = () => {
-  const { data } = useFetch(`${import.meta.env.VITE_BASE_API_URL}/register`).post({
+const register = async () => {
+  const { data } = await useFetch(`${import.meta.env.VITE_BASE_API_URL}/register`).post({
     email: email.value, 
     password: password.value,
   }).json()
-  console.log(data.value);
+  router.push({ name: 'Login'});
+  ui.openSnackBar(data.value.message);
+
 };
 
 </script>
