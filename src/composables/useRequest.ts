@@ -26,7 +26,7 @@ export const useRequest = () => {
         }
     };
 
-    const deleteRecord = async (endpoint: string, id: number,): Promise<any> => {
+    const deleteRecord = async (endpoint: string, id: string,): Promise<any> => {
         const path = `${import.meta.env.VITE_BASE_API_URL}${endpoint}/${id}`;
         try {
             const response = await fetch(path, {

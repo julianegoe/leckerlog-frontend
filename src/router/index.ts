@@ -47,9 +47,10 @@ const routes = [
         component: () => import(/* webpackChunkName: "output" */ '../views/AddFood.vue'),
     },
     {
-        path: '/edit',
+        path: '/edit/:foodId',
         name: 'EditFood',
         component: () => import(/* webpackChunkName: "output" */ '../views/EditFood.vue'),
+        props: true,
     },
     {
         path: '/search',

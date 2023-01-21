@@ -4,7 +4,7 @@ import {useRequest} from "./useRequest";
 export const useApi = () => {
     const request = useRequest();
 
-    const deleteFoodOrdered = async (foodId: number): Promise<FoodOrdered> => {
+    const deleteFoodOrdered = async (foodId: string): Promise<FoodOrdered> => {
         return await request.deleteRecord('food', foodId)
     }
 

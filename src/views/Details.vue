@@ -6,36 +6,73 @@ import StarIcon from '../assets/icons/star-outline.svg?component'
 import TrashIcon from '../assets/icons/trash.svg?component';
 import EditIcon from '../assets/icons/edit.svg?component';
 import AppModal from '../components/modals/AppModal.vue';
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watchEffect } from "vue";
 import { useContentStore } from "../store/content";
 import TagBoxVue from "../components/globals/TagBox.vue";
 import { useRouter } from "vue-router";
 import { useApi } from "../composables/useApi";
+import { useStorage } from "@vueuse/core";
+import { FoodOrderedExtended } from "../types/types";
 
-const content = useContentStore();
 const router = useRouter();
 const api = useApi();
 
+const jwtToken = useStorage('auth', '', localStorage);
+
 const props = defineProps<{
-    foodId: number;
+    foodId: string;
 }>();
 
-const leckerlog = computed(() => content.currentFoodOrdered);
-const url = ref('https://via.placeholder.com/500');
+const imageUrl = ref('');
+const isLoading = ref(true);
+
+const food = ref<FoodOrderedExtended>();
+const path = `${import.meta.env.VITE_BASE_API_URL}/food/details/?foodId=${props.foodId}`;
 onMounted(async () => {
-    content.setCurrentFoodOrdered(undefined);
+    try {
+        const response = await fetch(path, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jwtToken.value}`,
+            }
+        });
+        const json = await response.json();
+        food.value = json;
+        console.log(json)
+        isLoading.value = false;
+    } catch (err) {
+        console.log(err)
+    };
 })
 
 const toLocaleDateString = (dateString: string) => {
-    if (leckerlog.value) {
+    if (dateString) {
         return new Date(dateString).toLocaleDateString();
-    }
+    } return 'keine Zeit verfügbar.'
 };
 
+watchEffect(async () => {
+    if (food.value?.image_path) {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/download/?filename=${food.value?.image_path}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken.value}`
+                }
+            });
+            const blob = await response.blob();
+            imageUrl.value = URL.createObjectURL(blob)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+})
+
 const encodedGoogleQuery = computed(() => {
-    if (leckerlog.value && leckerlog.value.address) {
-        return encodeURI(`${leckerlog.value?.name}, ${leckerlog.value?.address}`);
-    } else if (leckerlog.value) return encodeURI(leckerlog.value?.name || '');
+    if (food.value && food.value.address) {
+        return encodeURI(`${food.value.name}, ${food.value.address}`);
+    } else if (food.value && !food.value?.address) return encodeURI(food.value.name || '');
 })
 
 const googleSearchUrl = computed(() => {
@@ -47,7 +84,7 @@ const googleSearchUrl = computed(() => {
 
 const showDeleteModal = ref(false);
 
-const handleDelete = async (foodId: number) => {
+const handleDelete = async (foodId: string) => {
     await api.deleteFoodOrdered(foodId);
     await router.push({ name: 'Home' });
 };
@@ -59,7 +96,7 @@ const handleDelete = async (foodId: number) => {
             <div @click="$router.back()" class="cursor-pointer pr-2">
                 <BackIcon class="hover:transition-transform hover:scale-125 hover:ease-in" />
             </div>
-            <div v-if="leckerlog" class="font-bold text-lg">{{ leckerlog?.name }}</div>
+            <div v-if="food" class="font-bold text-lg">{{ food?.name }}</div>
         </AppHeader>
         <Transition>
             <AppModal v-if="showDeleteModal">
@@ -70,27 +107,26 @@ const handleDelete = async (foodId: number) => {
                 </div>
             </AppModal>
         </Transition>
-        <div v-if="leckerlog">
-            <!-- <div class="border-b-2 border-black">
-                <img class="w-full h-72 object-cover object-center" v-if="url" :src="url" :alt="leckerlog?.name">
-            </div> -->
+        <div v-if="food">
+            <div class="border-b-2 border-black">
+                <img class="w-full h-72 object-cover object-center" v-if="imageUrl" :src="imageUrl" :alt="food?.name">
+            </div>
             <div class="flex flex-col justify-between gap-y-4 p-4">
-                <div class="text-sm text-gray-600">{{ toLocaleDateString(leckerlog?.food_ordered[0].ordered_at) }}
+                <div class="text-sm text-gray-600">{{ toLocaleDateString(food.ordered_at) }}
                 </div>
-                <div class="text-3xl font-black">{{ leckerlog?.food_ordered[0].name }}</div>
+                <div class="text-3xl font-black">{{ food.name }}</div>
                 <div class=" text-sm hover:text-primary-purple text-gray-600">
                     <a :href="googleSearchUrl" target=”_blank”>
-                        {{ leckerlog?.name }}
-                        <div>{{ leckerlog?.address }}</div>
+                        {{ food.restaurant_name }}
+                        <div>{{ food.address }}</div>
                     </a>
                 </div>
-                <div class="text-lg">"{{ leckerlog?.food_ordered[0].comment }}"</div>
+                <div class="text-lg">"{{ food.comment }}"</div>
                 <div class="flex gap-1">
-                    <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in leckerlog?.food_ordered[0].rating"
-                        :key="`${n}-star-rating`" />
+                    <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in food.rating" :key="`${n}-star-rating`" />
                 </div>
                 <div class="flex gap-1 gap-y-4 flex-wrap">
-                    <template v-for="tag in leckerlog?.food_ordered[0].tags" :key="tag">
+                    <template v-for="tag in food.tags" :key="tag">
                         <TagBoxVue :is-active="false" :name="tag" />
                     </template>
                 </div>
@@ -100,7 +136,7 @@ const handleDelete = async (foodId: number) => {
                         <TrashIcon class="pr-1" />
                         <div>Gericht löschen</div>
                     </button>
-                    <RouterLink :to="{ name: 'EditFood' }">
+                    <RouterLink :to="{ name: 'EditFood', params: { foodId } }">
                         <button
                             class="flex items-center border border-black shadow-brutal py-1.5 px-1.5 hover:bg-primary-red">
                             <EditIcon class="pr-1" />
@@ -110,7 +146,7 @@ const handleDelete = async (foodId: number) => {
 
                 </div>
                 <p class="text-xs text-gray-500">zuletzt aktualisiert: {{
-                        toLocaleDateString(leckerlog?.food_ordered[0].date_updated || '')
+                    toLocaleDateString(food.date_updated || '')
                 }}</p>
             </div>
         </div>

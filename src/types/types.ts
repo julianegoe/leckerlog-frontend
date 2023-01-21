@@ -32,13 +32,15 @@ export interface RecordData {
 }
 
 export interface FoodOrdered {
-  food_id: number;
+  food_id: string;
   user_id: string;
+  restaurant_id: number;
   name: string;
   cuisine_id: number;
   ordered_at: string;
   rating: number;
   comment: string;
+  address: string;
   image_path: string | null;
   tags: string[];
   date_updated: string;

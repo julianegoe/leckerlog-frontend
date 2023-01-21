@@ -38,7 +38,7 @@ onMounted(async () => {
 </script>
 <template>
   <div @click="$router.push({ name: 'Details', params: { foodId: food.food_id } })"
-    class="grid grid-cols-3 border-2 bg-white border-black shadow-brutal rounded-md">
+    class="grid grid-cols-3 border-2 bg-white border-black shadow-brutal rounded-md cursor-pointer">
     <div class="h-48 col-span-2 flex flex-col gap-2 p-2">
       <p class="text-xs">{{ localeDateString }}</p>
       <h1 class="text-lg font-bold">{{ food.name }}</h1>

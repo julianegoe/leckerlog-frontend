@@ -6,50 +6,88 @@ import AppTextarea from "../components/AppTextarea.vue";
 import ChipInput from "../components/ChipInput.vue";
 import CuisineInput from "../components/CuisineInput.vue";
 import AppTextInput from "../components/AppTextInput.vue";
-import { reactive, ref } from "vue";
-import { useContentStore } from "../store/content";
+import { onBeforeMount, onMounted, reactive, ref } from "vue";
+import { FoodOrderedExtended, ListItem } from '../types/types';
+import { useStorage } from '@vueuse/core';
+import { classBody } from '@babel/types';
+import { useRequest } from '../composables/useRequest';
 
-const { currentFoodOrdered } = useContentStore()
+const props = defineProps<{
+    foodId: string;
+}>();
 
-const loading = ref(false);
+const { post } = useRequest();
+const jwtToken = useStorage('auth', '', localStorage);
 
-const inputValues = reactive<any>({
-    restaurantName: currentFoodOrdered?.name,
-    foodName: currentFoodOrdered?.food_ordered[0].name || '',
-    cuisine: {
-        value: currentFoodOrdered?.cuisine_id || 0,
-        label: '',
-    },
-    rating: currentFoodOrdered?.food_ordered[0].rating || 0,
-    comment: currentFoodOrdered?.food_ordered[0].comment || '',
-    tags: currentFoodOrdered?.food_ordered[0].tags || [],
+const isLoading = ref(true);
+const food = ref<FoodOrderedExtended>();
+const cuisine = ref<ListItem>({
+    value: 0,
+    label: '',
+});
+
+const path = `${import.meta.env.VITE_BASE_API_URL}/food/details/?foodId=${props.foodId}`;
+onBeforeMount(async () => {
+    try {
+        const response = await fetch(path, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jwtToken.value}`,
+            }
+        });
+        const json = await response.json();
+        food.value = json;
+        cuisine.value = {
+            value: food.value?.cuisine_id ?? 1,
+            label: food.value?.cuisine ?? '',
+        }
+
+        isLoading.value = false;
+    } catch (err) {
+        console.log(err)
+    };
 })
 
 const updateFood = async () => {
-
+    console.log(cuisine.value.value)
+    const path = `/food/update/${props.foodId}`;
+    try {
+        const response: any = await post(path, {
+            name: food.value?.name ?? '',
+            rating: food.value?.rating ?? 0,
+            comment: food.value?.comment ?? '',
+            cuisine_id: cuisine.value?.value ?? 1,
+            tags: food.value?.tags ?? [],
+            restaurantName: food.value?.restaurant_name ?? '',
+        });
+        const data = await response.json();
+        console.log(data)
+    } catch (error) {
+        console.log(error)
+    }
 };
 
 </script>
 <template>
     <div>
         <div class="p-4 flex justify-between text-md font-bold bg-primary-red border border-b-2 border-black">
-            <span>{{ currentFoodOrdered?.name }} bearbeiten</span>
-            <RouterLink :to="{ name: 'Details', params: { foodId: currentFoodOrdered?.food_ordered[0].food_id } }">
+            <span>{{ food?.name }} bearbeiten</span>
+            <RouterLink :to="{ name: 'Details', params: { foodId } }">
                 <CancelIcon />
             </RouterLink>
         </div>
         <div class="p-4">
-            <div class="text-sm">
+            <div v-if="food" class="text-sm">
                 <form @submit.prevent="updateFood">
-                    <AppTextInput v-model="inputValues.foodName" id="foodName" label="Gericht" type="text" />
-                    <CuisineInput v-model="inputValues.cuisine" />
-                    <AppTextarea v-model="inputValues.comment" label="Kommentar" id="comment-input" type="text" />
-                    <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
-                    <AppStarRatingInput v-model="inputValues.rating" />
+                    <AppTextInput v-model="food.name" id="foodName" label="Gericht" type="text" />
+                    <CuisineInput v-model="cuisine" />
+                    <AppTextarea v-model="food.comment" label="Kommentar" id="comment-input" type="text" />
+                    <ChipInput label="Tags" id="tag-input" v-model="food.tags" />
+                    <AppStarRatingInput v-model="food.rating" />
+                    <button class="font-bold mr-2" type="submit">Ändern</button>
                 </form>
             </div>
-            <button class="font-bold mr-2" @click="updateFood" type="submit">Ändern</button>
-            <RouterLink :to="{ name: 'Details', params: { foodId: currentFoodOrdered?.food_ordered[0].food_id } }">
+            <RouterLink :to="{ name: 'Details', params: { foodId } }">
                 <button class="font-bold" @click="$emit('close', false)">Abbrechen</button>
             </RouterLink>
         </div>
