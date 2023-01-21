@@ -66,7 +66,7 @@ const router = createRouter({
       },
 });
 
-const isAuthenticated = computed(() => localStorage.getItem('auth'));
+/* const isAuthenticated = computed(() => localStorage.getItem('auth'));
 router.beforeEach(async (to, from) => {
     if (to.name === 'Signup') return true;
     if (
@@ -75,7 +75,7 @@ router.beforeEach(async (to, from) => {
     ) {
       return { name: 'Login' }
     } return true
-  })
+  }) */
 
 
 export default router
