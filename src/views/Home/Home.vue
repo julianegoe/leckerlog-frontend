@@ -5,10 +5,9 @@ import { useSortingStore } from '../../store/sorting';
 import AppBadge from '../../components/globals/AppBadge.vue';
 import { FilterItem, FoodOrderedExtended } from '../../types/types';
 import { useStorage } from "@vueuse/core";
-import { useUiStore } from '../../store/ui';
 import FoodCard from '../../components/FoodCard.vue';
+import AppEmptyState from '../../components/AppEmptyState.vue';
 
-const ui = useUiStore();
 const jwtToken = useStorage('auth', '', localStorage);
 const user = useStorage('user', {
     user_id: '',
@@ -45,7 +44,6 @@ onMounted(async () => {
         });
         const json = await response.json();
         foods.value = json;
-        console.log(json)
         isLoading.value = false;
     } catch (err) {
         console.log(err)
@@ -113,6 +111,7 @@ const setSortBy = (sortBy: FilterItem) => {
             <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
             <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
         </div>
+        <AppEmptyState class="m-2" v-else-if="!isLoading && !sortedFood.length" />
     </div>
 </template>
 <style scoped>

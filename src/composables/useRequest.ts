@@ -33,6 +33,7 @@ export const useRequest = () => {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken.value}`
                 },
             });
             const data = await response.json();
@@ -50,6 +51,7 @@ export const useRequest = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken.value}`
                 },
             });
             return response

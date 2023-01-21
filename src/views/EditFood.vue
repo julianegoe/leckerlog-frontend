@@ -11,12 +11,14 @@ import { FoodOrderedExtended, ListItem } from '../types/types';
 import { useStorage } from '@vueuse/core';
 import { classBody } from '@babel/types';
 import { useRequest } from '../composables/useRequest';
+import { useRouter } from 'vue-router';
 
 const props = defineProps<{
     foodId: string;
 }>();
 
 const { post } = useRequest();
+const router = useRouter();
 const jwtToken = useStorage('auth', '', localStorage);
 
 const isLoading = ref(true);
@@ -61,7 +63,7 @@ const updateFood = async () => {
             restaurantName: food.value?.restaurant_name ?? '',
         });
         const data = await response.json();
-        console.log(data)
+        router.push({ name: 'Home'})
     } catch (error) {
         console.log(error)
     }

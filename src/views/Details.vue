@@ -13,9 +13,10 @@ import { useRouter } from "vue-router";
 import { useApi } from "../composables/useApi";
 import { useStorage } from "@vueuse/core";
 import { FoodOrderedExtended } from "../types/types";
+import { useUiStore } from "../store/ui";
 
 const router = useRouter();
-const api = useApi();
+const ui = useUiStore()
 
 const jwtToken = useStorage('auth', '', localStorage);
 
@@ -27,10 +28,10 @@ const imageUrl = ref('');
 const isLoading = ref(true);
 
 const food = ref<FoodOrderedExtended>();
-const path = `${import.meta.env.VITE_BASE_API_URL}/food/details/?foodId=${props.foodId}`;
+const getPath = `${import.meta.env.VITE_BASE_API_URL}/food/details/?foodId=${props.foodId}`;
 onMounted(async () => {
     try {
-        const response = await fetch(path, {
+        const response = await fetch(getPath, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${jwtToken.value}`,
@@ -38,7 +39,6 @@ onMounted(async () => {
         });
         const json = await response.json();
         food.value = json;
-        console.log(json)
         isLoading.value = false;
     } catch (err) {
         console.log(err)
@@ -84,9 +84,24 @@ const googleSearchUrl = computed(() => {
 
 const showDeleteModal = ref(false);
 
-const handleDelete = async (foodId: string) => {
-    await api.deleteFoodOrdered(foodId);
-    await router.push({ name: 'Home' });
+const handleDelete = async () => {
+    const deletePath = `${import.meta.env.VITE_BASE_API_URL}/food/delete/?foodId=${props.foodId}&imagePath=${food.value?.image_path}`;
+    try {
+        const response = await fetch(deletePath, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken.value}`
+            },
+        });
+        showDeleteModal.value = false;
+        router.push({ name: 'Home' });
+        ui.openSnackBar('Erfolgreich gelöscht.')
+
+    }
+    catch (error) {
+        console.log(error)
+    }
 };
 </script>
 
@@ -102,7 +117,7 @@ const handleDelete = async (foodId: string) => {
             <AppModal v-if="showDeleteModal">
                 <div class="pb-2">Willst du dieses Gericht endgültig löschen?</div>
                 <div class="flex justify-between">
-                    <button class="font-bold" @click="handleDelete(foodId)">Ja</button>
+                    <button class="font-bold" @click="handleDelete">Ja</button>
                     <button class="font-bold" @click="showDeleteModal = false">Abbrechen</button>
                 </div>
             </AppModal>
