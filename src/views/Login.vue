@@ -10,7 +10,6 @@ const email = ref('');
 const password = ref('');
 
 async function login() {
-  localStorage.setItem("auth", 'testest');
   const { data } = await useFetch(`${import.meta.env.VITE_BASE_API_URL}/login`).post({
     email: email.value, 
     password: password.value,
