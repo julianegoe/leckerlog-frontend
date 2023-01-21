@@ -3,8 +3,10 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useFetch } from '@vueuse/core';
 import AppTextInput from '../components/AppTextInput.vue';
+import { useUiStore } from '../store/ui';
 
 const router = useRouter();
+const ui = useUiStore()
 
 const email = ref('');
 const password = ref('');
@@ -18,6 +20,7 @@ async function login() {
     localStorage.setItem("auth", data.value.token);
     localStorage.setItem("user", JSON.stringify(data.value.user));
     router.push({ name: 'Home' });
+    ui.openSnackBar('Login erfolgreich.')
   }
   console.log(error)
 }
