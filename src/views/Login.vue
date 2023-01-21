@@ -10,7 +10,7 @@ const email = ref('');
 const password = ref('');
 
 async function login() {
-  const { data } = await useFetch(`${import.meta.env.VITE_BASE_API_URL}/login`).post({
+  const { data, error } = await useFetch(`${import.meta.env.VITE_BASE_API_URL}/login`).post({
     email: email.value, 
     password: password.value,
   }).json()
@@ -19,6 +19,7 @@ async function login() {
     localStorage.setItem("user", JSON.stringify(data.value.user));
     router.push({ name: 'Home' });
   }
+  console.log(error)
 }
 
 </script>
