@@ -19,7 +19,7 @@ async function login() {
   if (data.value.token) {
     localStorage.setItem("auth", data.value.token);
     localStorage.setItem("user", JSON.stringify(data.value.user));
-    router.push({ name: 'Home'});
+    router.replace({ name: 'Home'});
     ui.openSnackBar('Login erfolgreich.')
   }
 }
