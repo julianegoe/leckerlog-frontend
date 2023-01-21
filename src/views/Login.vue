@@ -11,14 +11,6 @@ const ui = useUiStore()
 const email = ref('');
 const password = ref('');
 
-const jwtToken = useStorage('auth', '', localStorage);
-const user = useStorage('user', {
-  user_id: '',
-  email: '',
-  password: '',
-  username: null,
-}, localStorage);
-
 async function login() {
   const { data } = await useFetch(`${import.meta.env.VITE_BASE_API_URL}/login`).post({
     email: email.value, 
