@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useFetch } from '@vueuse/core';
+import { useFetch, useStorage } from '@vueuse/core';
 import AppTextInput from '../components/AppTextInput.vue';
 import { useUiStore } from '../store/ui';
 
@@ -11,6 +11,14 @@ const ui = useUiStore()
 const email = ref('');
 const password = ref('');
 
+const jwtToken = useStorage('auth', '', localStorage);
+const user = useStorage('user', {
+  user_id: '',
+  email: '',
+  password: '',
+  username: null,
+}, localStorage);
+
 async function login() {
   const { data } = await useFetch(`${import.meta.env.VITE_BASE_API_URL}/login`).post({
     email: email.value, 
@@ -19,7 +27,7 @@ async function login() {
   if (data.value.token) {
     localStorage.setItem("auth", data.value.token);
     localStorage.setItem("user", JSON.stringify(data.value.user));
-    router.push({ name: 'Home'})
+    router.push({ name: 'Home'});
     ui.openSnackBar('Login erfolgreich.')
   }
 }
