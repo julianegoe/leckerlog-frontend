@@ -63,7 +63,7 @@ export interface Restaurant {
 };
 
 export interface Leckerlog {
-  restaurant_id: number;
+  restaurant_id: string;
   name: string;
   cuisine: string;
   cuisine_id: number;
