@@ -24,8 +24,6 @@ const leckerlog = computed(() => content.currentFoodOrdered);
 const url = ref('https://via.placeholder.com/500');
 onMounted(async () => {
     content.setCurrentFoodOrdered(undefined);
-    const response = await api.getLeckerlogById(props.foodId)
-    content.setCurrentFoodOrdered(response);
 })
 
 const toLocaleDateString = (dateString: string) => {

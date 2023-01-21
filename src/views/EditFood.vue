@@ -7,12 +7,8 @@ import ChipInput from "../components/ChipInput.vue";
 import CuisineInput from "../components/CuisineInput.vue";
 import AppTextInput from "../components/AppTextInput.vue";
 import { reactive, ref } from "vue";
-import { useApi } from "../composables/useApi";
 import { useContentStore } from "../store/content";
-import { useRouter, RouterLink } from "vue-router";
 
-const api = useApi();
-const router = useRouter();
 const { currentFoodOrdered } = useContentStore()
 
 const loading = ref(false);
@@ -30,12 +26,6 @@ const inputValues = reactive<any>({
 })
 
 const updateFood = async () => {
-    loading.value = true;
-    if (currentFoodOrdered?.food_ordered[0].food_id) {
-        await api.updateFoodOrdered(currentFoodOrdered?.food_ordered[0].food_id, inputValues);
-    }
-    loading.value = false;
-    await router.push({ name: 'Details', params: { foodId: currentFoodOrdered?.food_ordered[0].food_id } });
 
 };
 

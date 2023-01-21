@@ -1,17 +1,14 @@
 <script lang="ts" setup>
 /// <reference types="vite-svg-loader" />
-import { computed, ref, Transition, watch } from 'vue';
+import { computed, ref, Transition } from 'vue';
 import { RouterLink } from 'vue-router';
 import BackIcon from '../../assets/icons/chevron-left.svg?component';
 import AppHeader from '../../components/AppHeader.vue';
 import AppSearchBar from '../../components/AppSearchBar.vue';
 import MiniFoodCard from '../../components/MiniFoodCard.vue';
 import SearchPlacesMenu from '../../components/SearchPlacesMenu.vue';
-import { useApi } from '../../composables/useApi';
 import { Leckerlog } from '../../types/types';
 import TagsList from '../Categories/TagsList.vue';
-
-const { queryFood } = useApi();
 
 const searchQuery = ref('');
 const searchPlaces = ref('food')
@@ -36,12 +33,6 @@ const queryUrl = computed(() => {
 })
 
 const searchResults = ref<Leckerlog[]>([]);
-
-watch(queryUrl, async () => {
-    if (searchQuery.value || searchTags.value) {
-        searchResults.value = await queryFood(queryUrl.value.href);
-    } else { searchResults.value = [] };
-})
 
 </script>
 <template>
