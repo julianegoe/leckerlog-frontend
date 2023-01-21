@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 import AppHeader from "../components/AppHeader.vue";
 import AppStarRatingInput from "../components/AppStarRatingInput.vue";
 import AppTextInput from '../components/AppTextInput.vue';
@@ -24,14 +24,14 @@ const user = useStorage('user', {
 const { post } = useRequest()
 const loading = ref(false);
 
-const inputValues = reactive<RecordData>({ ...INPUT_DEFAULT_VALUES })
+const inputValues = ref<RecordData>({ ...INPUT_DEFAULT_VALUES })
 const showSnackbar = ref(false);
 const isValid = ref(false);
 
 const uploadImage: any = async () => {
   const formData = new FormData();
-  if (inputValues.photoData.imageFile) {
-    formData.append('file', inputValues.photoData.imageFile)
+  if (inputValues.value.photoData.imageFile) {
+    formData.append('file', inputValues.value.photoData.imageFile)
     const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/upload`, {
       method: 'POST',
       body: formData,
@@ -46,15 +46,15 @@ const uploadImage: any = async () => {
 const uploadData: any = async () => {
   try {
     const response = await post(`/leckerlog/${user.value.user_id}`, {
-      restaurant_name: inputValues.restaurantName,
-      food_name: inputValues.foodName,
-      cuisine_id: inputValues.cuisine.value,
-      address: inputValues.address,
-      comment: inputValues.comment,
-      rating: inputValues.rating,
-      ordered_at: inputValues.photoData.orderedAt,
-      image_path: inputValues.photoData.imagePath,
-      tags: inputValues.tags
+      restaurant_name: inputValues.value.restaurantName,
+      food_name: inputValues.value.foodName,
+      cuisine_id: inputValues.value.cuisine.value,
+      address: inputValues.value.address,
+      comment: inputValues.value.comment,
+      rating: inputValues.value.rating,
+      ordered_at: inputValues.value.photoData.orderedAt,
+      image_path: inputValues.value.photoData.imagePath,
+      tags: inputValues.value.tags
     });
     return response;
   } catch(err) {
@@ -70,9 +70,14 @@ const upload = async () => {
   console.log(responseImage.status, responseData.status)
   if (responseImage.status === 200 && responseData.status === 200) {
     loading.value = false
-    const imageData = await responseImage.json()
+    const imageData = await responseImage.json();
     const leckerlog = await responseData.json();
     console.log(imageData, leckerlog)
+    inputValues.value = {...INPUT_DEFAULT_VALUES}
+    showSnackbar.value = true
+    setTimeout(() => {
+      showSnackbar.value = false
+    }, 2000)
   }
 
 }
