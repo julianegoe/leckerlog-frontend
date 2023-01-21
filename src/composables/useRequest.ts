@@ -1,50 +1,33 @@
 import { ref } from "vue";
 import { Leckerlog } from "../types/types";
-import { useFetch } from "@vueuse/core";
+import { useFetch, useStorage } from "@vueuse/core";
+
+const jwtToken = useStorage('auth', '', localStorage);
 
 export const useRequest = () => {
     const errorMessage = ref();
 
-    const getOne = async (endpoint: string): Promise<Leckerlog | undefined> => {
-        const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}`;
-        try {
-            const response = await fetch(path, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const data = await response.json();
-            return data;
-
-        }
-        catch (error) {
-            errorMessage.value = error;
-            return undefined
-        }
-    };
-
-    const post = async (endpoint: string, body: Record<string, string | number | null | Array<string>>): Promise<Leckerlog | undefined> => {
-        const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}`;
+    const post = async (endpoint: string, body: Record<string, string | number | null | Array<string>>): Promise<Response | unknown> => {
+        const path = `${import.meta.env.VITE_BASE_API_URL}${endpoint}`;
         try {
             const response = await fetch(path, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${jwtToken.value}`
                 },
                 body: JSON.stringify(body),
             })
-            const data = await response.json();
-            return data;
+            return response
         }
         catch (error) {
             errorMessage.value = error;
-            return undefined
+            return error
         }
     };
 
     const deleteRecord = async (endpoint: string, id: number,): Promise<any> => {
-        const path = `${import.meta.env.VITE_BASE_API_URL}/${endpoint}/${id}`;
+        const path = `${import.meta.env.VITE_BASE_API_URL}${endpoint}/${id}`;
         try {
             const response = await fetch(path, {
                 method: 'DELETE',
@@ -69,8 +52,7 @@ export const useRequest = () => {
                     'Content-Type': 'application/json',
                 },
             });
-            const data = await response.json();
-            return data;
+            return response
 
         }
         catch (error) {
@@ -80,7 +62,6 @@ export const useRequest = () => {
     }
 
     return {
-        getOne,
         queryAll,
         post,
         deleteRecord,

@@ -1,6 +1,6 @@
 export interface ListItem {
-    value: string | number,
-    label: string,
+  value: string | number,
+  label: string,
 }
 
 export interface Cuisine {
@@ -8,16 +8,27 @@ export interface Cuisine {
   name: string;
 }
 
+export interface PhotoData {
+  imagePath: string;
+  imageFile: File | undefined;
+  orderedAt: string;
+  location: {
+    GPSLatitude: [number, number, number];
+    GPSLatitudeRef: string;
+    GPSLongitude: [number, number, number];
+    GPSLongitudeRef: string;
+  };
+}
+
 export interface RecordData {
   restaurantName: string;
   cuisine: ListItem;
-  ordered_at: string;
   rating: number;
   comment: string;
   foodName: string;
-  image_path: string | null;
   tags: string[];
   address: string;
+  photoData: PhotoData;
 }
 
 export interface FoodOrdered {
@@ -56,19 +67,28 @@ export interface Leckerlog {
 
 
 export const INPUT_DEFAULT_VALUES: RecordData = {
-    restaurantName: '',
-    address: '',
-    cuisine: {
-      value: '0',
-      label: '',
-    },
-    ordered_at: '',
-    rating: 0,
-    comment: '',
-    foodName: '',
-    image_path: null,
-    tags: [],
+  restaurantName: '',
+  address: '',
+  cuisine: {
+    value: '0',
+    label: '',
+  },
+  rating: 0,
+  comment: '',
+  foodName: '',
+  tags: [],
+  photoData: {
+    orderedAt: '',
+    imagePath: '',
+    imageFile: undefined,
+    location: {
+      GPSLatitude: [37, 5, 59.46],
+      GPSLatitudeRef: 'W',
+      GPSLongitude: [8, 40, 17.11],
+      GPSLongitudeRef: 'N'
+    }
   }
+}
 
 export type SortBy = 'last_ordered' | 'best_rated' | 'alphabetically_asc';
 

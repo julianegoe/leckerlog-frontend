@@ -7,9 +7,25 @@ import { createPinia } from 'pinia';
 
 const pinia = createPinia()
 
-createApp(App)
+const app = createApp(App)
 .use(router)
 .use(pinia)
 .directive('click-outside', clickOutside)
-.mount('#app')
+.mount('#app');
 
+declare global {
+    interface Window { GoogleMapsInit: any; }
+}
+
+window.GoogleMapsInit = window.GoogleMapsInit || {};
+export const loadedGoogleMapsAPI = new Promise( (resolve,reject) => {
+
+    window['GoogleMapsInit'] = resolve;
+
+    let GMap = document.createElement('script');
+
+    GMap.setAttribute('src',
+   `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_API}&libraries=places&callback=GoogleMapsInit`);
+
+    document.body.appendChild(GMap); 
+});

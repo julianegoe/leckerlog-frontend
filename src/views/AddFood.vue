@@ -1,46 +1,83 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref, watchEffect } from 'vue';
 import AppHeader from "../components/AppHeader.vue";
 import AppStarRatingInput from "../components/AppStarRatingInput.vue";
 import AppTextInput from '../components/AppTextInput.vue';
 import AppDateInput from '../components/AppDateInput.vue';
 import CuisineInput from '../components/CuisineInput.vue';
-import { RecordData } from '../types/types';
+import { INPUT_DEFAULT_VALUES, RecordData } from '../types/types';
 import SnackBar from '../components/globals/SnackBar.vue';
-import { useApi } from '../composables/useApi';
 import ChipInput from '../components/ChipInput.vue';
 import AppTextarea from '../components/AppTextarea.vue';
 import ImageUploadForm from '../components/forms/ImageUploadForm.vue';
+import GooglePlacesTextInput from '../components/GooglePlacesTextInput.vue';
+import { useStorage } from '@vueuse/core';
+import { request } from 'http';
+import { useRequest } from '../composables/useRequest';
 
-const { addRecord } = useApi()
-
+const jwtToken = useStorage('auth', '', localStorage);
+const user = useStorage('user', {
+  user_id: '',
+  email: '',
+  password: '',
+  username: null,
+}, localStorage);
+const { post } = useRequest()
 const loading = ref(false);
 
-const photoData = ref();
-const inputValues = reactive<RecordData>({
-  restaurantName: '',
-  cuisine: {
-    value: '0',
-    label: '',
-  },
-  ordered_at: '',
-  rating: 0,
-  comment: '',
-  foodName: '',
-  image_path: '',
-  tags: [],
-  address: '',
-});
-
+const inputValues = reactive<RecordData>({ ...INPUT_DEFAULT_VALUES })
 const showSnackbar = ref(false);
 const isValid = ref(false);
-const addFood = async () => {
-  const result = await addRecord(inputValues);
-  if (result) {
-    showSnackbar.value = true;
-    setTimeout(() => { showSnackbar.value = false}, 500)
+
+const uploadImage: any = async () => {
+  const formData = new FormData();
+  if (inputValues.photoData.imageFile) {
+    formData.append('file', inputValues.photoData.imageFile)
+    const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/upload`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Authorization': `Bearer ${jwtToken.value}`
+      }
+    });
+    return response;
+  }
+}
+
+const uploadData: any = async () => {
+  try {
+    const response = await post(`/leckerlog/${user.value.user_id}`, {
+      restaurant_name: inputValues.restaurantName,
+      food_name: inputValues.foodName,
+      cuisine_id: inputValues.cuisine.value,
+      address: inputValues.address,
+      comment: inputValues.comment,
+      rating: inputValues.rating,
+      ordered_at: inputValues.photoData.orderedAt,
+      image_path: inputValues.photoData.imagePath,
+      tags: inputValues.tags
+    });
+    return response;
+  } catch(err) {
+    console.log(err)
+    return err
   }
 };
+
+const upload = async () => {
+  loading.value = true;
+  const responseImage = await uploadImage();
+  const responseData = await uploadData();
+  console.log(responseImage.status, responseData.status)
+  if (responseImage.status === 200 && responseData.status === 200) {
+    loading.value = false
+    const imageData = await responseImage.json()
+    const leckerlog = await responseData.json();
+    console.log(imageData, leckerlog)
+  }
+
+}
+
 
 </script>
 <template>
@@ -49,19 +86,20 @@ const addFood = async () => {
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>
     <div class="m-auto p-2">
-      <ImageUploadForm v-model="photoData" />
-      <form @submit.prevent="addFood">
+      <ImageUploadForm v-model="inputValues.photoData" />
+      <form @submit.prevent="upload">
         <GooglePlacesTextInput @update:restaurant="(value: any) => {
           inputValues.restaurantName = value.name;
           inputValues.address = value.address;
-        }" label="Restaurant" input-id="restaurant-input" :latitude="photoData.output.GPSLatitude"
-          :latitude-direction="photoData.output.GPSLatitudeRef" :longitude="photoData.output.GPSLongitude"
-          :longitude-direction="photoData.output.GPSLongitudeRef" />
+        }" label="Restaurant" input-id="restaurant-input" :latitude="inputValues.photoData.location.GPSLatitude"
+          :latitude-direction="inputValues.photoData.location.GPSLatitudeRef"
+          :longitude="inputValues.photoData.location.GPSLongitude"
+          :longitude-direction="inputValues.photoData.location.GPSLongitudeRef" />
         <CuisineInput v-model="inputValues.cuisine" />
         <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
           id="meal-input" type="text" />
-        <AppDateInput v-model="inputValues.ordered_at" :photo-date="inputValues.ordered_at" label="Bestellt am"
-          id="date-input" />
+        <AppDateInput v-model="inputValues.photoData.orderedAt" :photo-date="inputValues.photoData.orderedAt"
+          label="Bestellt am" id="date-input" />
         <AppTextarea @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
           id="comment-input" type="text" />
         <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
