@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useFetch, useStorage } from '@vueuse/core';
+import { useFetch } from '@vueuse/core';
 import AppTextInput from '../components/AppTextInput.vue';
 import { useUiStore } from '../store/ui';
 
