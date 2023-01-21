@@ -11,7 +11,7 @@ export const useUiStore = defineStore('ui', () => {
         showSnackBar.value = true;
         setTimeout(() => {
             showSnackBar.value = false
-        }, 1500)
+        }, 2000)
     }
 
     return {
