@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { useStorage } from '@vueuse/core';
 import exifr from 'exifr';
 import { computed, ref } from 'vue';
 

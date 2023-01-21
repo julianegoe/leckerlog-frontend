@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref, watchEffect } from 'vue';
+import { reactive, ref } from 'vue';
 import AppHeader from "../components/AppHeader.vue";
 import AppStarRatingInput from "../components/AppStarRatingInput.vue";
 import AppTextInput from '../components/AppTextInput.vue';
@@ -12,7 +12,6 @@ import AppTextarea from '../components/AppTextarea.vue';
 import ImageUploadForm from '../components/forms/ImageUploadForm.vue';
 import GooglePlacesTextInput from '../components/GooglePlacesTextInput.vue';
 import { useStorage } from '@vueuse/core';
-import { request } from 'http';
 import { useRequest } from '../composables/useRequest';
 
 const jwtToken = useStorage('auth', '', localStorage);
