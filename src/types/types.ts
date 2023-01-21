@@ -33,6 +33,7 @@ export interface RecordData {
 
 export interface FoodOrdered {
   food_id: number;
+  user_id: string;
   name: string;
   cuisine_id: number;
   ordered_at: string;
@@ -42,6 +43,11 @@ export interface FoodOrdered {
   tags: string[];
   date_updated: string;
   date_created: string;
+}
+
+export interface FoodOrderedExtended extends FoodOrdered {
+  restaurant_name: string;
+  cuisine: string;
 }
 
 export interface Restaurant {

@@ -21,24 +21,6 @@ const groupBy = ref<FilterItem[]>([
 const setGroupBy = (groupBy: FilterItem) => {
     grouping.setGroupState(groupBy);
 }
-
-const imageUrl = ref('');
-const filename = ref('IMG_6338_small.jpg');
-onMounted(async () => {
-    try {
-        const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/download/?filename=${filename.value}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwtToken.value}`
-        }
-        });
-        const blob = await response.blob();
-        imageUrl.value = URL.createObjectURL(blob)
-    } catch (error) {
-        console.log(error)
-    }
-})
 </script>
 <template>
     <div>
@@ -51,7 +33,6 @@ onMounted(async () => {
                     :active-state="grouping.activeGroupBy" route-name="Categories" />
             </template>
         </div>
-        <img :src="imageUrl" alt="image">
         <div v-if="!isLoading && grouping.activeGroupBy.value === 'cuisines'" class="px-2 py-2">
             <CuisinesList />
         </div>

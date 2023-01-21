@@ -1,16 +1,23 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import AppHeader from '../../components/AppHeader.vue';
-import { useContentStore } from '../../store/content';
 import { useSortingStore } from '../../store/sorting';
 import AppBadge from '../../components/globals/AppBadge.vue';
-import { FilterItem, Leckerlog } from '../../types/types';
-import { useFetch } from "@vueuse/core";
+import { FilterItem, FoodOrderedExtended } from '../../types/types';
+import { useStorage } from "@vueuse/core";
 import { useUiStore } from '../../store/ui';
+import FoodCard from '../../components/FoodCard.vue';
 
-const contentStore = useContentStore();
 const ui = useUiStore();
+const jwtToken = useStorage('auth', '', localStorage);
+const user = useStorage('user', {
+    user_id: '',
+    email: '',
+    password: '',
+    username: null,
+}, localStorage);
 
+const isLoading = ref(true);
 const sorting = useSortingStore();
 const sortBy = ref<FilterItem[]>([
     {
@@ -27,10 +34,57 @@ const sortBy = ref<FilterItem[]>([
     },
 ]);
 
-const path = `${import.meta.env.VITE_BASE_API_URL}/leckerlog/test`;
-const { isFetching, data, error } = useFetch(path).get().json();
-const leckerlogs = computed<Leckerlog[]>(() => data.value);
-contentStore.setLeckerlogs(leckerlogs.value);
+const path = `${import.meta.env.VITE_BASE_API_URL}/food/${user.value.user_id}`;
+onMounted(async () => {
+    try {
+        const response = await fetch(path, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${jwtToken.value}`,
+            }
+        });
+        const json = await response.json();
+        foods.value = json;
+        console.log(json)
+        isLoading.value = false;
+    } catch (err) {
+        console.log(err)
+    }
+})
+const foods = ref<FoodOrderedExtended[]>([]);
+const sortedFood = computed(() => {
+    const foodsCopy = [...foods.value];
+    switch (sorting.activeSortBy.value) {
+        case 'best_rated':
+            return foodsCopy.sort((a: FoodOrderedExtended, b: FoodOrderedExtended) => {
+                if (a.rating > b.rating) {
+                    return -1;
+                }
+                if (a.rating < b.rating) {
+                    return 1;
+                }
+                if (a.rating === b.rating) {
+                    return 0;
+                }
+                return 0
+            });
+        case 'alphabetically_asc':
+            return foodsCopy.sort((a: FoodOrderedExtended, b: FoodOrderedExtended) => {
+                if (a.name > b.name) {
+                    return 1;
+                }
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name === b.name) {
+                    return 0;
+                }
+                return 0
+            });
+        default:
+            return foods.value
+    }
+})
 
 const setSortBy = (sortBy: FilterItem) => {
     sorting.setSortingState(sortBy);
@@ -48,11 +102,12 @@ const setSortBy = (sortBy: FilterItem) => {
                     route-name="Home" />
             </template>
         </div>
-        <div v-if="!isFetching" class="px-2 py-2">
-            <pre>{{  data  }}</pre>
-            <div>{{ error }}</div>
+        <div v-if="!isLoading && foods.length" class="flex flex-col gap-y-4 px-2 py-2">
+            <template v-for="food in sortedFood" :key="food.food_id + food.name">
+                <FoodCard :food="food" />
+            </template>
         </div>
-        <div v-if="isFetching" class="flex flex-col gap-4 items-center justify-between m-2">
+        <div v-if="isLoading" class="flex flex-col gap-4 items-center justify-between m-2">
             <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
             <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
             <div class="bg-gray-200 animate-pulse rounded-md w-full h-40"></div>
