@@ -6,8 +6,10 @@ import { useSortingStore } from '../../store/sorting';
 import AppBadge from '../../components/globals/AppBadge.vue';
 import { FilterItem, Leckerlog } from '../../types/types';
 import { useFetch } from "@vueuse/core";
+import { useUiStore } from '../../store/ui';
 
 const contentStore = useContentStore();
+const ui = useUiStore();
 
 const sorting = useSortingStore();
 const sortBy = ref<FilterItem[]>([

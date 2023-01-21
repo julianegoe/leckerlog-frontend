@@ -6,13 +6,13 @@ import AppTextInput from '../components/AppTextInput.vue';
 import AppDateInput from '../components/AppDateInput.vue';
 import CuisineInput from '../components/CuisineInput.vue';
 import { INPUT_DEFAULT_VALUES, RecordData } from '../types/types';
-import SnackBar from '../components/globals/SnackBar.vue';
 import ChipInput from '../components/ChipInput.vue';
 import AppTextarea from '../components/AppTextarea.vue';
 import ImageUploadForm from '../components/forms/ImageUploadForm.vue';
 import GooglePlacesTextInput from '../components/GooglePlacesTextInput.vue';
 import { useStorage } from '@vueuse/core';
 import { useRequest } from '../composables/useRequest';
+import { useUiStore } from '../store/ui';
 
 const jwtToken = useStorage('auth', '', localStorage);
 const user = useStorage('user', {
@@ -21,11 +21,11 @@ const user = useStorage('user', {
   password: '',
   username: null,
 }, localStorage);
-const { post } = useRequest()
+const { post } = useRequest();
+const ui = useUiStore();
 const loading = ref(false);
 
 const inputValues = ref<RecordData>({ ...INPUT_DEFAULT_VALUES })
-const showSnackbar = ref(false);
 const isValid = ref(false);
 
 const uploadImage: any = async () => {
@@ -73,13 +73,9 @@ const upload = async () => {
     const imageData = await responseImage.json();
     const leckerlog = await responseData.json();
     console.log(imageData, leckerlog)
-    inputValues.value = {...INPUT_DEFAULT_VALUES}
-    showSnackbar.value = true
-    setTimeout(() => {
-      showSnackbar.value = false
-    }, 2000)
+    inputValues.value = {...INPUT_DEFAULT_VALUES};
+    ui.openSnackBar('Upload erfolgeich.');
   }
-
 }
 
 
@@ -114,7 +110,6 @@ const upload = async () => {
             class="w-6 h-6 border-2 border-black border-solid rounded-full animate-spin border-t-transparent"></div>
         </button>
       </form>
-      <SnackBar text="Upload erfolgreich" :show-snackbar="showSnackbar" />
     </div>
   </div>
 </template>

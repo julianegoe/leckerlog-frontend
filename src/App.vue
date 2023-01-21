@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
+import SnackBar from "./components/globals/SnackBar.vue";
+import { useUiStore } from "./store/ui";
 
 
-const router = useRouter()
+const router = useRouter();
+const ui = useUiStore()
 
 
 </script>
@@ -16,6 +19,7 @@ const router = useRouter()
             </transition>
         </router-view>
     </main>
+    <SnackBar :text="ui.snackBarText" :show-snackbar="ui.showSnackBar" />
     <AppFooter v-if="router.currentRoute.value.name !== 'Login' && router.currentRoute.value.name !== 'Signup'" />
 </template>
 <style scoped>
