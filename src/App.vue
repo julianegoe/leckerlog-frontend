@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { useStorage } from "@vueuse/core";
-import { watch } from "vue";
 import { useRouter } from "vue-router";
-import { registerQuotaErrorCallback } from "workbox-core";
 import AppFooter from "./components/AppFooter/AppFooter.vue";
 import SnackBar from "./components/globals/SnackBar.vue";
 import { useUiStore } from "./store/ui";

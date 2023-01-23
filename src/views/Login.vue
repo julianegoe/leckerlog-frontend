@@ -4,24 +4,45 @@ import { useRouter } from 'vue-router';
 import { useFetch } from '@vueuse/core';
 import AppTextInput from '../components/AppTextInput.vue';
 import { useUiStore } from '../store/ui';
+import { ValidatorResponse } from '../types/api-types';
 
 const router = useRouter();
 const ui = useUiStore()
 
 const email = ref('');
 const password = ref('');
+const emailErrors = ref<string[]>([]);
+const passwordErrors = ref<string[]>([]);
 
 async function login() {
-  const { data } = await useFetch(`${import.meta.env.VITE_BASE_API_URL}/login`).post({
-    email: email.value, 
-    password: password.value,
-  }).json()
-  if (data.value.token) {
-    localStorage.setItem("auth", data.value.token);
-    localStorage.setItem("user", JSON.stringify(data.value.user));
-    router.replace({ name: 'Home'});
-    ui.openSnackBar('Login erfolgreich.')
+  const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
+    })
+  });
+  const data = await response.json();
+  if (response.status === 400) {
+    console.log(400, data)
+    emailErrors.value = data.errors.filter((error: ValidatorResponse) => error.param === 'email').map((error: ValidatorResponse) => error.msg);
+    passwordErrors.value = data.errors.filter((error: ValidatorResponse) => error.param === 'password').map((error: ValidatorResponse) => error.msg);
+    return;
   }
+  if (response.status === 401) {
+    console.log(401, data)
+    ui.openSnackBar(data.info);
+    return;
+  }
+  if (data.token) {
+    localStorage.setItem('auth', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+  }
+  router.push({ name: 'Home' });
+  ui.openSnackBar(data.message);
 }
 
 </script>
@@ -33,8 +54,9 @@ async function login() {
       <div class="flex flex-col justify-center items-center">
         <h1>Login</h1>
         <form @submit.prevent="login" autocomplete="off">
-          <AppTextInput v-model="email" label="Email" id="email" type="text" />
-          <AppTextInput v-model="password" label="Passwort" id="password" type="password" />
+          <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
+          <AppTextInput v-model="password" label="Passwort" id="password" type="password"
+            :server-errors="passwordErrors" />
           <button class="w-full flex justify-center mt-4 p-2 border border-black active:bg-gray-200" type="submit">
             <div>Login</div>
           </button>

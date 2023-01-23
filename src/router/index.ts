@@ -67,11 +67,10 @@ const router = createRouter({
       },
 });
 
-const isAuthenticated = computed(() => localStorage.getItem('auth'));
 router.beforeEach(async (to, from) => {
     if (to.name === 'Signup') return true;
     if (
-      !isAuthenticated.value &&
+      !localStorage.getItem('auth') &&
       to.name !== 'Login'
     ) {
       return { name: 'Login' }
