@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import AppTextInput from '../components/AppTextInput.vue';
 import { ref } from 'vue';
-import { useFetch } from '@vueuse/core';
 import { useUiStore } from '../store/ui';
 import { useRouter } from 'vue-router';
 import { ValidatorResponse } from '../types/api-types';
+import UiBackground from '../components/globals/UiBackground.vue';
 
 const ui = useUiStore();
 const router = useRouter();
@@ -47,15 +47,18 @@ const register = async () => {
 
 </script>
 <template>
-  <div class="flex flex-col justfy-between items-center gap-4">
-    <h1>Registrieren</h1>
-    <form @submit.prevent="register" autocomplete="off">
-      <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
-      <AppTextInput v-model="password" label="Passwort" id="password" type="password" :server-errors="passwordErrors" />
-      <button class="w-full border border-1 border-black p-2 mt-4" type="submit">Registrieren</button>
-      <RouterLink :to="{ name: 'Login' }">
-        <button class="w-full border border-1 border-black p-2 mt-4" type="submit">Login</button>
-      </RouterLink>
-    </form>
-  </div>
+  <UiBackground>
+    <div class="flex flex-col justfy-end items-center gap-4">
+      <h1 class="text-xl font-bold">Registrieren</h1>
+      <form @submit.prevent="register" autocomplete="off">
+        <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
+        <AppTextInput v-model="password" label="Passwort" id="password" type="password"
+          :server-errors="passwordErrors" />
+        <button class="w-full border border-1 border-black hover:bg-black hover:text-white p-2 mt-4" type="submit">Registrieren</button>
+        <RouterLink :to="{ name: 'Login' }">
+          <button class="w-full text-md font-bold mt-4" type="submit">Zum Login</button>
+        </RouterLink>
+      </form>
+    </div>
+  </UiBackground>
 </template>
