@@ -27,10 +27,8 @@ watchEffect(() => {
     </div>
 </template>
 <style scoped>
-/* input[type="date"] {
+input[type="date"] {
     display: block;
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
     min-height: 2.75em;
-} */
+}
 </style>
