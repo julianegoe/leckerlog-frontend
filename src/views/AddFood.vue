@@ -57,7 +57,7 @@ const uploadData: any = async () => {
       tags: inputValues.value.tags
     });
     return response;
-  } catch(err) {
+  } catch (err) {
     console.log(err)
     return err
   }
@@ -73,7 +73,7 @@ const upload = async () => {
     const imageData = await responseImage.json();
     const leckerlog = await responseData.json();
     console.log(imageData, leckerlog)
-    inputValues.value = {...INPUT_DEFAULT_VALUES};
+    inputValues.value = { ...INPUT_DEFAULT_VALUES };
     ui.openSnackBar('Upload erfolgeich.');
   }
 }
@@ -85,7 +85,7 @@ const upload = async () => {
     <AppHeader>
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>
-    <div class="m-auto p-2">
+    <div class="flex flex-col gap-y-1 p-2">
       <ImageUploadForm v-model="inputValues.photoData" />
       <form @submit.prevent="upload">
         <GooglePlacesTextInput @update:restaurant="(value: any) => {
