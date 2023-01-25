@@ -31,19 +31,13 @@ watch(errors, () => {
 </script>
 <template>
     <div class="py-2">
-        <label :class="{
-            'text-red-600': errors.length > 0
-        }" class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="id">{{
-    label
-}}</label>
         <input :class="{
-            'border-red-600 outline-red-600': mergedErrors.length
-        }" @change="$emit('update:modelValue', inputValue)"
-            v-model="inputValue" :id="id" :name="id" autocomplete="off" class="py-2 px-4 border border-black w-full"
-            :type="type" :placeholder="label" />
-        <div class="text-xs text-red-600 pt-1" v-for="(error, index) in mergedErrors" :key="`error-${index}`">{{
-            error
-        }}
+            'border-b-red-600 outline-b-red-600': mergedErrors.length
+        }" @change="$emit('update:modelValue', inputValue)" v-model="inputValue" :id="id" :name="id" autocomplete="off"
+            class="w-full py-2 px-4 border-b-2 border-b-black shadow-none appearance-none bg-transparent" :type="type"
+            :placeholder="label" />
+        <div class="text-xs text-red-600 pt-1" v-for="(error, index) in mergedErrors" :key="`error-${index}`">
+        {{ error }}
         </div>
     </div>
 </template>

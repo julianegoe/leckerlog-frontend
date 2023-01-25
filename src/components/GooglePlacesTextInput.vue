@@ -85,9 +85,8 @@ onMounted(() => {
 </script>
 <template>
   <div class="py-2">
-    <label class="relative -bottom-3 left-4 px-1 bg-white text-sm" :for="inputId">{{ label }}</label>
     <input id="autocomplete" type="text" :ref="restaurantRef" v-model="searchQuery" autocomplete="off"
-      class="py-2 px-4 border border-black w-full" placeholder="nach Restaurant suchen" />
+      class="py-2 px-4 border-b-2 border-b-black w-full" placeholder="nach Restaurant suchen" />
     <div class="text-red-700 text-xs" v-if="!googleLocation">Dieses Bild hat keine EXIF Daten</div>
     <ul v-if="googlePredictions.length > 0" class="border border-black">
       <li class="cursor-pointer hover:bg-gray-200 p-2" @click="handleSelection(prediction.structured_formatting)"

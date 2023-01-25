@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useFetch } from '@vueuse/core';
 import AppTextInput from '../components/AppTextInput.vue';
 import { useUiStore } from '../store/ui';
 import { ValidatorResponse } from '../types/api-types';
@@ -58,7 +57,7 @@ async function login() {
           <AppTextInput v-model="password" label="Passwort" id="password" type="password"
             :server-errors="passwordErrors" />
           <button class="w-full flex justify-center mt-4 p-2 border border-black active:bg-gray-200" type="submit">
-            <div>Login</div>
+            <div>Einloggen</div>
           </button>
         </form>
         <div class="mt-4 cursor-pointer">Passwort vergessen</div>

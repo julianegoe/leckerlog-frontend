@@ -56,7 +56,7 @@ const register = async () => {
           :server-errors="passwordErrors" />
         <button class="w-full border border-1 border-black hover:bg-black hover:text-white p-2 mt-4" type="submit">Registrieren</button>
         <RouterLink :to="{ name: 'Login' }">
-          <button class="w-full text-md font-bold mt-4" type="submit">Zum Login</button>
+          <button class="w-full text-md font-bold mt-4" type="submit">Zum Einloggen</button>
         </RouterLink>
       </form>
     </div>
