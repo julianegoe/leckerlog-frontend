@@ -37,7 +37,8 @@ const removeTag = (index: number) => {
 <template>
     <div class="py-2">
         <input @keydown.delete="newTag.length || removeTag(tags.length - 1)" @keypress.space.prevent="addTag(newTag)"
-            @keypress.,.prevent="addTag(newTag)" @keypress.enter.prevent class="w-full py-2 px-4 border-b-2 border-b-black"
+            @keypress.,.prevent="addTag(newTag)" @keypress.enter.prevent
+            class="w-full py-2 px-4 border-b-2 border-b-black rounded-none shadow-none appearance-none bg-transparent"
             v-model="newTag" type="text" :id="id" placeholder="Tags hinzufügen" autocomplete=off />
 
         <ul v-if="tags.length" ref="tagsUl" class="flex flex-wrap justify-start items-center gap-1 p-2 mt-1">

@@ -28,7 +28,7 @@ watch(errors, () => {
             'border-b-red-600 outline-b-red-600': errors.length > 0
         }" @change="$emit('update:modelValue', inputValue)"
             v-model="inputValue" :id="id" :name="id" autocomplete="off"
-            class="py-2 px-4 border-b-2 border-b-black w-full" :type="type" :placeholder="label" rows="5"></textarea>
+            class="py-2 px-4 border-b-2 border-b-black rounded-none w-full shadow-none appearance-none bg-transparent" :type="type" :placeholder="label" rows="5"></textarea>
         <div class="text-xs text-red-600 pt-1" v-for="(error, index) in errors" :key="`error-${index}`">{{ error }}
         </div>
     </div>

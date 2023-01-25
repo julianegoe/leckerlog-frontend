@@ -47,7 +47,8 @@ const handleSelection = (cuisine: ListItem) => {
 <template>
     <div class="py-2">
         <input @focus="isOpen = true" autocomplete="off" v-model="searchQuery" id="cuisine-input" name="cuisine-input"
-            class="py-2 px-4 border-b-2 border-b-black w-full" type="text" placeholder="nach Küchen suchen" />
+            class="py-2 px-4 border-b-2 border-b-black w-full rounded-none shadow-none appearance-none bg-transparent"
+            type="text" placeholder="nach Küchen suchen" />
         <div class="z-100" v-if="isOpen" v-click-outside="() => { isOpen = false }">
             <ul class="border border-black overflow-y-scroll max-h-40">
                 <li v-for="cuisine in selectableCuisines" :key="cuisine.value"

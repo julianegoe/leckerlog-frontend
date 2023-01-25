@@ -37,35 +37,35 @@ const googleLocation = computed(() => {
 })
 
 watch(searchQuery, (value, prevValue) => {
-    autocompleteService.value.getPlacePredictions({
-      input: searchQuery.value,
-      types: ['restaurant', 'cafe', 'bar', 'bakery', 'food'],
-    }, (predictions: any, status: string) => {
-      if (searchQuery.value === '') {
-        googlePredictions.value = [];
-        return;
-      }
-      googlePredictions.value = predictions;
-    });
-  })
-
-  watch(() => props.latitude, () => {
-    if (hasSelected.value) {
+  autocompleteService.value.getPlacePredictions({
+    input: searchQuery.value,
+    types: ['restaurant', 'cafe', 'bar', 'bakery', 'food'],
+  }, (predictions: any, status: string) => {
+    if (searchQuery.value === '') {
+      googlePredictions.value = [];
       return;
     }
-    if (!googleLocation.value) {
-      return
+    googlePredictions.value = predictions;
+  });
+})
+
+watch(() => props.latitude, () => {
+  if (hasSelected.value) {
+    return;
+  }
+  if (!googleLocation.value) {
+    return
+  }
+  placesService.value.nearbySearch({
+    location: googleLocation.value,
+    rankBy: google.maps.places.RankBy.DISTANCE,
+    type: 'restaurant',
+  }, (results: any, status: string) => {
+    if (status === 'OK') {
+      googleNearbySearch.value = results;
     }
-    placesService.value.nearbySearch({
-      location: googleLocation.value,
-      rankBy: google.maps.places.RankBy.DISTANCE,
-      type: 'restaurant',
-    }, (results: any, status: string) => {
-      if (status === 'OK') {
-        googleNearbySearch.value = results;
-      }
-    })
   })
+})
 
 const handleSelection = (value: any) => {
   emit('update:restaurant', {
@@ -86,7 +86,8 @@ onMounted(() => {
 <template>
   <div class="py-2">
     <input id="autocomplete" type="text" :ref="restaurantRef" v-model="searchQuery" autocomplete="off"
-      class="py-2 px-4 border-b-2 border-b-black w-full" placeholder="nach Restaurant suchen" />
+      class="py-2 px-4 border-b-2 border-b-black rounded-none w-full shadow-none appearance-none bg-transparent"
+      placeholder="nach Restaurant suchen" />
     <div class="text-red-700 text-xs" v-if="!googleLocation">Dieses Bild hat keine EXIF Daten</div>
     <ul v-if="googlePredictions.length > 0" class="border border-black">
       <li class="cursor-pointer hover:bg-gray-200 p-2" @click="handleSelection(prediction.structured_formatting)"
