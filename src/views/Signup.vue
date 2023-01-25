@@ -49,7 +49,7 @@ const register = async () => {
 <template>
   <UiBackground>
     <div class="flex flex-col justfy-end items-center gap-4">
-      <h1 class="text-xl font-bold">Registrieren</h1>
+      <h1 class="text-xl font-bold">Hol' dir dein Leckerlog Konto</h1>
       <form @submit.prevent="register" autocomplete="off">
         <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
         <AppTextInput v-model="password" label="Passwort" id="password" type="password"

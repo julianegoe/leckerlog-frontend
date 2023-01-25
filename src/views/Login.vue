@@ -48,22 +48,24 @@ async function login() {
 <template>
   <div>
     <h1 class="text-2xl font-bold text-center mb-4">Leckerlog!</h1>
-    <div class="flex flex-col justfy-between items-center gap-4">
+    <div class="flex flex-col items-center">
       <img class="w-3/4 aspect-square" src="../assets/logo.png" alt="Leckerlog logo" />
-      <div class="flex flex-col justify-center items-center">
-        <h1>Login</h1>
+      <div class="p-4">
+        <h1 class="text-xl font-bold">Gleich geht's los...</h1>
         <form @submit.prevent="login" autocomplete="off">
           <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
           <AppTextInput v-model="password" label="Passwort" id="password" type="password"
             :server-errors="passwordErrors" />
-          <button class="w-full flex justify-center mt-4 p-2 border border-black active:bg-gray-200" type="submit">
+          <button
+            class="w-full flex justify-center mt-4 p-2 border border-black active:bg-gray-200 hover:bg-black hover:text-white"
+            type="submit">
             <div>Einloggen</div>
           </button>
         </form>
-        <div class="mt-4 cursor-pointer">Passwort vergessen</div>
-        <RouterLink class="w-full" :to="{ name: 'Signup' }">
-          <div class="w-full flex justify-center mt-4 p-2 border border-black active:bg-gray-200">Registrieren</div>
+        <RouterLink :to="{ name: 'Signup' }">
+          <div class="w-full text-md font-bold mt-4">Zum Registrieren</div>
         </RouterLink>
+        <div class="mt-4 cursor-pointer">Passwort vergessen</div>
       </div>
     </div>
   </div>
