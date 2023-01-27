@@ -36,6 +36,7 @@ export default defineConfig({
           type: 'image/png',
         }
       ],
+      background_color: '#c68aff',
       shortcuts: [
         {
           name: 'Gericht hinzufügen',
