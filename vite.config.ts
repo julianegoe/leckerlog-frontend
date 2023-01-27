@@ -16,7 +16,7 @@ export default defineConfig({
       './assets/logo.png',
       './assets/icons/icon-512x512.png',
       './assets/icons/icon-192x192.png',
-      './assets/spash-screens/*'],
+      './assets/splash_screens/iPhone_11__iPhone_XR_landscape.png'],
     manifest: {
       name: 'Leckerlog',
       short_name: 'LCKR',
