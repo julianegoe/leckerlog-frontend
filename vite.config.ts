@@ -12,7 +12,11 @@ export default defineConfig({
     base: "/",
     srcDir: 'src',
     filename: 'service-worker.ts',
-    includeAssets: ['./assets/logo.png', './assets/icons/icon-512x512.png',  './assets/icons/icon-192x192.png'],
+    includeAssets: [
+      './assets/logo.png',
+      './assets/icons/icon-512x512.png',
+      './assets/icons/icon-192x192.png',
+      './assets/spash-screens/*'],
     manifest: {
       name: 'Leckerlog',
       short_name: 'LCKR',
