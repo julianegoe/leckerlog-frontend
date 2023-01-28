@@ -81,7 +81,7 @@ const upload = async () => {
 
 </script>
 <template>
-  <div>
+  <div class="mb-20">
     <AppHeader>
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>

@@ -1,5 +1,5 @@
 <template>
-  <main class="background firelativexed top-0 left-0 w-full h-full mb-16">
+  <main class="background absolute top-0 left-0 w-full min-h-max">
     <slot></slot>
   </main>
 </template>

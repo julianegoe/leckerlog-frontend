@@ -90,7 +90,7 @@ const setSortBy = (sortBy: FilterItem) => {
 
 </script>
 <template>
-    <div>
+    <div class="mb-20">
         <AppHeader>
             <div class="font-bold text-xl">LeckerLog</div>
         </AppHeader>

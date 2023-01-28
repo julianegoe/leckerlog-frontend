@@ -106,7 +106,7 @@ const handleDelete = async () => {
 </script>
 
 <template>
-    <div>
+    <div class="mb-20">
         <AppHeader>
             <div @click="$router.back()" class="cursor-pointer pr-2">
                 <BackIcon class="hover:transition-transform hover:scale-125 hover:ease-in" />
