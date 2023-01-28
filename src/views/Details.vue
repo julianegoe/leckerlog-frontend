@@ -129,6 +129,14 @@ const handleDelete = async () => {
 
             <div class="flex flex-col justify-between gap-y-3">
                 <Box class="m-4 flex flex-col justify-between gap-y-2">
+                    <template #header>
+                        <div class="flex justify-end gap-x-4">
+                            <TrashIcon @click="showDeleteModal = true" class="text-white pr-1" />
+                            <RouterLink :to="{ name: 'EditFood', params: { foodId } }">
+                                <EditIcon class="text-white pr-1" />
+                            </RouterLink>
+                        </div>
+                    </template>
                     <div class="text-sm text-gray-600">{{ toLocaleDateString(food.ordered_at) }}
                     </div>
                     <div class="text-3xl font-black">{{ food.name }}</div>
@@ -148,19 +156,6 @@ const handleDelete = async () => {
                         </template>
                     </div>
                 </Box>
-                <div class="flex items-center justify-between gap-2 text-xs p-4">
-                    <AppButton @click="showDeleteModal = true" class="flex items-center">
-                        <TrashIcon class="pr-1" />
-                        <div>Gericht löschen</div>
-                    </AppButton>
-                    <RouterLink :to="{ name: 'EditFood', params: { foodId } }">
-                        <AppButton class="flex items-center flex-nowrap">
-                            <EditIcon class="pr-1" />
-                            <div>Gericht bearbeiten</div>
-                        </AppButton>
-                    </RouterLink>
-
-                </div>
                 <p class="text-xs text-gray-500 px-4">zuletzt aktualisiert: {{
                     toLocaleDateString(food.date_updated || '')
                 }}</p>
