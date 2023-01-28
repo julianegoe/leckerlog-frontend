@@ -1,5 +1,5 @@
 <template>
-    <main class="background absolute top-0 left-0 w-full h-full">
+    <main class="background absolute top-0 left-0 w-full h-full mb-24">
        <slot></slot>
     </main>
 </template>
