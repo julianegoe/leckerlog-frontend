@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import AppTextInput from '../components/AppTextInput.vue';
+import AppButton from '../components/globals/AppButton.vue';
 import { useUiStore } from '../store/ui';
 import { ValidatorResponse } from '../types/api-types';
 
@@ -54,11 +55,7 @@ async function login() {
         <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
         <AppTextInput v-model="password" label="Passwort" id="password" type="password"
           :server-errors="passwordErrors" />
-        <button
-          class="w-full flex justify-center mt-4 p-2 border border-black active:bg-gray-200 hover:bg-black hover:text-white"
-          type="submit">
-          <div>Einloggen</div>
-        </button>
+        <AppButton class="w-full">Einloggen</AppButton>
       </form>
       <RouterLink :to="{ name: 'Signup' }">
         <div class="w-full text-md font-bold mt-4">Zum Registrieren</div>

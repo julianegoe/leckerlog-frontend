@@ -1,16 +1,15 @@
 <script lang="ts" setup>
 /// <reference types="vite-svg-loader" />
 import AppHeader from "../components/AppHeader.vue";
+import AppButton from "../components/globals/AppButton.vue";
 import BackIcon from '../assets/icons/chevron-left.svg?component';
 import StarIcon from '../assets/icons/star-outline.svg?component'
 import TrashIcon from '../assets/icons/trash.svg?component';
 import EditIcon from '../assets/icons/edit.svg?component';
 import AppModal from '../components/modals/AppModal.vue';
 import { computed, onMounted, ref, watchEffect } from "vue";
-import { useContentStore } from "../store/content";
 import TagBoxVue from "../components/globals/TagBox.vue";
 import { useRouter } from "vue-router";
-import { useApi } from "../composables/useApi";
 import { useStorage } from "@vueuse/core";
 import { FoodOrderedExtended } from "../types/types";
 import { useUiStore } from "../store/ui";
@@ -146,17 +145,15 @@ const handleDelete = async () => {
                     </template>
                 </div>
                 <div class="flex items-center justify-between gap-2 text-xs">
-                    <button @click="showDeleteModal = true"
-                        class="flex items-center border border-black shadow-brutal py-1.5 px-1.5 hover:bg-primary-red">
+                    <AppButton @click="showDeleteModal = true" class="flex items-center">
                         <TrashIcon class="pr-1" />
                         <div>Gericht löschen</div>
-                    </button>
+                    </AppButton>
                     <RouterLink :to="{ name: 'EditFood', params: { foodId } }">
-                        <button
-                            class="flex items-center border border-black shadow-brutal py-1.5 px-1.5 hover:bg-primary-red">
+                        <AppButton class="flex items-center flex-nowrap">
                             <EditIcon class="pr-1" />
                             <div>Gericht bearbeiten</div>
-                        </button>
+                        </AppButton>
                     </RouterLink>
 
                 </div>

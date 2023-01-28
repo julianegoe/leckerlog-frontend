@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 /// <reference types="vite-svg-loader" />
-import SearchIcon from '../assets/icons/search.svg?component'
+import SearchIcon from '../assets/icons/search.svg?component';
+import AppButton from './globals/AppButton.vue';
 import { useRouter } from 'vue-router';
 import { useUiStore } from '../store/ui';
 
@@ -17,7 +18,7 @@ const logout = () => {
 
 </script>
 <template>
-  <header class="flex justify-between items-center p-2">
+  <header class="flex justify-between items-center p-2 bg-white">
     <slot></slot>
     <!--    right side-->
     <div class="flex items-center justify-between gap-4">
@@ -26,7 +27,7 @@ const logout = () => {
           <SearchIcon />
         </div>
       </RouterLink>
-      <button @click="logout" class="px-2 border border-black cursor-pointer">Logout</button>
+      <AppButton @click="logout">Logout</AppButton>
     </div>
   </header>
 </template>

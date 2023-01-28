@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import { useUiStore } from '../store/ui';
 import { useRouter } from 'vue-router';
 import { ValidatorResponse } from '../types/api-types';
+import AppButton from '../components/globals/AppButton.vue';
 
 const ui = useUiStore();
 const router = useRouter();
@@ -51,8 +52,7 @@ const register = async () => {
     <form class="w-full" @submit.prevent="register" autocomplete="off">
       <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
       <AppTextInput v-model="password" label="Passwort" id="password" type="password" :server-errors="passwordErrors" />
-      <button class="w-full border border-1 border-black hover:bg-black hover:text-white p-2 mt-4"
-        type="submit">Registrieren</button>
+      <AppButton class="w-full">Registrieren</AppButton>
       <RouterLink :to="{ name: 'Login' }">
         <button class="w-full text-md font-bold mt-4" type="submit">Zum Einloggen</button>
       </RouterLink>

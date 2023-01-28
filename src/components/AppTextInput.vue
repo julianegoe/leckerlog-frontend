@@ -34,7 +34,7 @@ watch(errors, () => {
         <input :class="{
             'border-b-red-600 outline-b-red-600': mergedErrors.length
         }" @change="$emit('update:modelValue', inputValue)" v-model="inputValue" :id="id" :name="id" autocomplete="off"
-            class="w-full py-2 px-4 border-b-2 border-b-black rounded-none shadow-none appearance-none bg-transparent" :type="type"
+            class="w-full py-2 px-4 bg-white border-b-2 border-b-black rounded-none shadow-none appearance-none bg-transparent" :type="type"
             :placeholder="label" />
         <div class="text-xs text-red-600 pt-1" v-for="(error, index) in mergedErrors" :key="`error-${index}`">
         {{ error }}
