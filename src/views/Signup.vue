@@ -5,6 +5,7 @@ import { useUiStore } from '../store/ui';
 import { useRouter } from 'vue-router';
 import { ValidatorResponse } from '../types/api-types';
 import AppButton from '../components/globals/AppButton.vue';
+import Box from '../components/globals/Box.vue';
 
 const ui = useUiStore();
 const router = useRouter();
@@ -48,14 +49,17 @@ const register = async () => {
 </script>
 <template>
   <div class="flex flex-col justfy-end items-center gap-4 p-6">
-    <h1 class="text-xl font-bold py-2">Hol' dir dein Leckerlog Konto</h1>
-    <form class="w-full" @submit.prevent="register" autocomplete="off">
-      <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
-      <AppTextInput v-model="password" label="Passwort" id="password" type="password" :server-errors="passwordErrors" />
-      <AppButton class="w-full">Registrieren</AppButton>
-      <RouterLink :to="{ name: 'Login' }">
-        <button class="w-full text-md font-bold mt-4" type="submit">Zum Einloggen</button>
-      </RouterLink>
-    </form>
+    <Box class="m-2 w-full">
+      <h1 class="text-xl font-bold py-2">Hol' dir dein Leckerlog Konto</h1>
+      <form class="w-full" @submit.prevent="register" autocomplete="off">
+        <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
+        <AppTextInput v-model="password" label="Passwort" id="password" type="password"
+          :server-errors="passwordErrors" />
+        <AppButton class="w-full">Registrieren</AppButton>
+        <RouterLink :to="{ name: 'Login' }">
+          <button class="w-full text-md font-bold mt-4" type="submit">Zum Einloggen</button>
+        </RouterLink>
+      </form>
+    </Box>
   </div>
 </template>

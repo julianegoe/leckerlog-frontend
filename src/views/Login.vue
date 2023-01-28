@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import AppTextInput from '../components/AppTextInput.vue';
 import AppButton from '../components/globals/AppButton.vue';
+import Box from '../components/globals/Box.vue';
 import { useUiStore } from '../store/ui';
 import { ValidatorResponse } from '../types/api-types';
 
@@ -50,13 +51,15 @@ async function login() {
   <div>
     <h1 class="text-2xl font-bold text-center mb-4">Leckerlog!</h1>
     <div class="flex flex-col items-center p-6">
-      <h1 class="text-xl font-bold">Gleich geht's los...</h1>
-      <form class="w-full" @submit.prevent="login" autocomplete="off">
-        <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
-        <AppTextInput v-model="password" label="Passwort" id="password" type="password"
-          :server-errors="passwordErrors" />
-        <AppButton class="w-full">Einloggen</AppButton>
-      </form>
+      <Box class="m-2 w-full">
+        <h1 class="text-xl font-bold">Gleich geht's los...</h1>
+        <form class="w-full" @submit.prevent="login" autocomplete="off">
+          <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />
+          <AppTextInput v-model="password" label="Passwort" id="password" type="password"
+            :server-errors="passwordErrors" />
+          <AppButton class="w-full">Einloggen</AppButton>
+        </form>
+      </Box>
       <RouterLink :to="{ name: 'Signup' }">
         <div class="w-full text-md font-bold mt-4">Zum Registrieren</div>
       </RouterLink>
