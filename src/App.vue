@@ -11,7 +11,7 @@ const ui = useUiStore();
 </script>
 
 <template>
-  <div class="mb-20">
+  <div class="mb-24">
     <router-view v-slot="{ Component }">
       <transition name="slide" mode="out-in">
         <component :is="Component" />

@@ -73,7 +73,7 @@ const updateFood = async () => {
 <template>
     <div>
         <div class="p-4 flex justify-between text-md font-bold bg-primary-red border border-b-2 border-black">
-            <span>{{ food?.name }} bearbeiten</span>
+            <div class="line-clamp-1">{{ food?.name }} bearbeiten</div>
             <RouterLink :to="{ name: 'Details', params: { foodId } }">
                 <CancelIcon />
             </RouterLink>

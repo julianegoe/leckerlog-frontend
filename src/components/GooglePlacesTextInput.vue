@@ -96,7 +96,7 @@ onMounted(() => {
         <div class="text-xs text-gray-400">{{ prediction.structured_formatting.secondary_text }}</div>
       </li>
     </ul>
-    <div v-else-if="googleNearbySearch.length > 0" class="border border-black">
+    <div v-else-if="googleNearbySearch.length > 0" class="bg-white border border-black">
       <div class="cursor-pointer hover:bg-gray-200 p-2" @click="handleSelection(place)"
         v-for="(place, index) in googleNearbySearch.slice(0, 7)" :key="place.place_id">
         <div>{{ place.name }}</div>

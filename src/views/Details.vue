@@ -111,7 +111,7 @@ const handleDelete = async () => {
             <div @click="$router.back()" class="cursor-pointer pr-2">
                 <BackIcon class="hover:transition-transform hover:scale-125 hover:ease-in" />
             </div>
-            <div v-if="food" class="font-bold text-lg">{{ food?.name }}</div>
+            <div v-if="food" class="font-bold text-lg line-clamp-1">{{ food?.name }}</div>
         </AppHeader>
         <Transition>
             <AppModal v-if="showDeleteModal">
@@ -139,7 +139,7 @@ const handleDelete = async () => {
                         </div>
                     </template>
                     <template class="flex flex-col gap-y-2">
-                        <div class="text-sm text-gray-600">{{ toLocaleDateString(food.ordered_at) }}
+                        <div class="text-sm text-gray-600">bestellt am {{ toLocaleDateString(food.ordered_at) }}
                         </div>
                         <div class="text-2xl font-black">{{ food.name }}</div>
                         <div class=" text-sm hover:text-primary-purple text-gray-600">

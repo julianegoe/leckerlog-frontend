@@ -41,7 +41,7 @@ onMounted(async () => {
     class="grid grid-cols-3 border-2 bg-white border-black shadow-brutal rounded-md cursor-pointer">
     <div class="h-48 col-span-2 flex flex-col gap-2 p-2">
       <p class="text-xs">{{ localeDateString }}</p>
-      <h1 class="text-lg font-bold">{{ food.name }}</h1>
+      <h1 class="text-lg font-bold line-clamp-1">{{ food.name }}</h1>
       <p class="text-xs line-clamp-1">{{ food.restaurant_name }}, {{ food.cuisine }}</p>
       <div class="flex gap-1">
         <StarIcon fill="#8affdc" class="h-6 w-6" v-for="n in food.rating" :key="`${n}-star-rating`" />
