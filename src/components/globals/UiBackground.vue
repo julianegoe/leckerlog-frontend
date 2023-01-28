@@ -1,7 +1,9 @@
 <template>
-    <main class="background absolute top-0 left-0 w-full h-full">
-       <slot></slot>
-    </main>
+  <main class="background absolute top-0 left-0 w-full h-full">
+    <div class="mb-24">
+      <slot></slot>
+    </div>
+  </main>
 </template>
 <style lang="css" scoped>
 .background {
