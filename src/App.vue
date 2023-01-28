@@ -22,10 +22,10 @@ const ui = useUiStore();
     <AppFooter v-if="router.currentRoute.value.name !== 'Login' && router.currentRoute.value.name !== 'Signup'" />
 </template>
 <style scoped>
+
 .slide-leave-active {
   transition: all 0.3s ease-in;
 }
-
 .slide-leave-to {
   transform: translateX(100%)
 }
