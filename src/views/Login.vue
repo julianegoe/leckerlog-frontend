@@ -49,7 +49,6 @@ async function login() {
   <div>
     <h1 class="text-2xl font-bold text-center mb-4">Leckerlog!</h1>
     <div class="flex flex-col items-center p-6">
-      <img class="w-3/4 aspect-square" src="../assets/logo.png" alt="Leckerlog logo" />
       <h1 class="text-xl font-bold">Gleich geht's los...</h1>
       <form class="w-full" @submit.prevent="login" autocomplete="off">
         <AppTextInput v-model="email" label="Email" id="email" type="text" :server-errors="emailErrors" />

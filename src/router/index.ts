@@ -20,14 +20,20 @@ const routes = [
         component: () => import(/* webpackChunkName: "output" */ '../views/Stats.vue'),
     },
     {
-        path: '/login',
-        name: 'Login',
-        component: () => import(/* webpackChunkName: "output" */ '../views/Login.vue'),
-    },
-    {
-        path: '/signup',
-        name: 'Signup',
-        component: () => import(/* webpackChunkName: "output" */ '../views/Signup.vue'),
+        path: '/auth',
+        component: () => import(/* webpackChunkName: "output" */ '../views/Auth.vue'),
+        children: [
+            {
+                path: 'login',
+                name: 'Login',
+                component: () => import(/* webpackChunkName: "output" */ '../views/Login.vue'),
+            },
+            {
+                path: 'signup',
+                name: 'Signup',
+                component: () => import(/* webpackChunkName: "output" */ '../views/Signup.vue'),
+            },
+        ]
     },
     {
         path: '/details/:foodId',
