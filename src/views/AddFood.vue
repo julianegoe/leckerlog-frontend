@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { cloneDeep } from 'lodash';
 import { ref } from 'vue';
 import AppHeader from "../components/AppHeader.vue";
 import AppButton from '../components/globals/AppButton.vue';
@@ -26,7 +27,7 @@ const { post } = useRequest();
 const ui = useUiStore();
 const loading = ref(false);
 
-const inputValues = ref<RecordData>({ ...INPUT_DEFAULT_VALUES })
+const inputValues = ref<RecordData>({...cloneDeep(INPUT_DEFAULT_VALUES)})
 const isValid = ref(false);
 
 const uploadImage: any = async () => {
@@ -68,14 +69,15 @@ const upload = async () => {
   loading.value = true;
   const responseImage = await uploadImage();
   const responseData = await uploadData();
-  console.log(responseImage.status, responseData.status)
   if (responseImage.status === 200 && responseData.status === 200) {
     loading.value = false
-    const imageData = await responseImage.json();
-    const leckerlog = await responseData.json();
-    console.log(imageData, leckerlog)
-    inputValues.value = { ...INPUT_DEFAULT_VALUES };
+    await responseImage.json();
+    await responseData.json();
     ui.openSnackBar('Upload erfolgeich.');
+    inputValues.value = {...cloneDeep(INPUT_DEFAULT_VALUES)};
+  } else {
+    loading.value = false;
+    ui.openSnackBar('Upload gescheitert. Versuche es erneut.');
   }
 }
 
