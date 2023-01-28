@@ -161,7 +161,7 @@ const handleDelete = async () => {
                     </RouterLink>
 
                 </div>
-                <p class="text-xs text-gray-500 px-4">zuletzt aktualisiert: {{
+                <p class="text-xs text-gray-500 px-4 mb-20">zuletzt aktualisiert: {{
                     toLocaleDateString(food.date_updated || '')
                 }}</p>
             </div>
