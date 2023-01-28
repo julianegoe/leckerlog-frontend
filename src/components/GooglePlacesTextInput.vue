@@ -89,7 +89,7 @@ onMounted(() => {
       class="py-2 px-4 border-b-2 border-b-black rounded-none w-full shadow-none appearance-none bg-transparent"
       placeholder="nach Restaurant suchen" />
     <div class="text-red-700 text-xs" v-if="!googleLocation">Dieses Bild hat keine EXIF Daten</div>
-    <ul v-if="googlePredictions.length > 0" class="border border-black">
+    <ul v-if="googlePredictions.length > 0" class="border border-black bg-white">
       <li class="cursor-pointer hover:bg-gray-200 p-2" @click="handleSelection(prediction.structured_formatting)"
         v-for="prediction in googlePredictions" :key="prediction.place_id">
         <div>{{ prediction.structured_formatting.main_text }}</div>

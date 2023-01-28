@@ -50,7 +50,7 @@ const handleSelection = (cuisine: ListItem) => {
             class="py-2 px-4 border-b-2 border-b-black w-full rounded-none shadow-none appearance-none bg-transparent"
             type="text" placeholder="nach Küchen suchen" />
         <div class="z-100" v-if="isOpen" v-click-outside="() => { isOpen = false }">
-            <ul class="border border-black overflow-y-scroll max-h-40">
+            <ul class="border border-black bg-white overflow-y-scroll max-h-40">
                 <li v-for="cuisine in selectableCuisines" :key="cuisine.value"
                     class="cursor-pointer hover:bg-gray-200 p-2" @click="handleSelection(cuisine)">
                     <div>{{ cuisine.label }}</div>

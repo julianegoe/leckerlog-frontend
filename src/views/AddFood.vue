@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import AppHeader from "../components/AppHeader.vue";
+import AppButton from '../components/globals/AppButton.vue';
 import AppStarRatingInput from "../components/AppStarRatingInput.vue";
 import AppTextInput from '../components/AppTextInput.vue';
 import AppDateInput from '../components/AppDateInput.vue';
@@ -81,7 +82,7 @@ const upload = async () => {
 
 </script>
 <template>
-  <div class="mb-20">
+  <div>
     <AppHeader>
       <div class="text-xl font-bold">LeckerLog</div>
     </AppHeader>
@@ -104,11 +105,11 @@ const upload = async () => {
           id="comment-input" type="text" />
         <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
         <AppStarRatingInput v-model="inputValues.rating" />
-        <button class="flex justify-center mt-4 p-2 w-32 border border-black active:bg-gray-200" type="submit">
+        <AppButton>
           <div v-if="!loading">Hinzufügen</div>
           <div v-else-if="loading"
             class="w-6 h-6 border-2 border-black border-solid rounded-full animate-spin border-t-transparent"></div>
-        </button>
+        </AppButton>
       </form>
     </div>
   </div>

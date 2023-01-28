@@ -1,15 +1,15 @@
 <script lang="ts" setup>
 /// <reference types="vite-svg-loader" />
+import AppButton from '../components/globals/AppButton.vue';
 import CancelIcon from '../assets/icons/cancel.svg?component'
 import AppStarRatingInput from "../components/AppStarRatingInput.vue";
 import AppTextarea from "../components/AppTextarea.vue";
 import ChipInput from "../components/ChipInput.vue";
 import CuisineInput from "../components/CuisineInput.vue";
 import AppTextInput from "../components/AppTextInput.vue";
-import { onBeforeMount, onMounted, reactive, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { FoodOrderedExtended, ListItem } from '../types/types';
 import { useStorage } from '@vueuse/core';
-import { classBody } from '@babel/types';
 import { useRequest } from '../composables/useRequest';
 import { useRouter } from 'vue-router';
 
@@ -63,7 +63,7 @@ const updateFood = async () => {
             restaurantName: food.value?.restaurant_name ?? '',
         });
         const data = await response.json();
-        router.push({ name: 'Home'})
+        router.push({ name: 'Home' })
     } catch (error) {
         console.log(error)
     }
@@ -86,12 +86,14 @@ const updateFood = async () => {
                     <AppTextarea v-model="food.comment" label="Kommentar" id="comment-input" type="text" />
                     <ChipInput label="Tags" id="tag-input" v-model="food.tags" />
                     <AppStarRatingInput v-model="food.rating" />
-                    <button class="font-bold mr-2" type="submit">Ändern</button>
+                    <div class="flex gap-x-4">
+                        <AppButton>Ändern</AppButton>
+                        <RouterLink :to="{ name: 'Details', params: { foodId } }">
+                            <AppButton class="bg-primary-red" @click="$emit('close', false)">Abbrechen</AppButton>
+                        </RouterLink>
+                    </div>
                 </form>
             </div>
-            <RouterLink :to="{ name: 'Details', params: { foodId } }">
-                <button class="font-bold" @click="$emit('close', false)">Abbrechen</button>
-            </RouterLink>
         </div>
     </div>
 </template>

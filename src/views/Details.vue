@@ -131,8 +131,8 @@ const handleDelete = async () => {
             <div class="flex flex-col justify-between gap-y-3">
                 <Box class="m-4 flex flex-col justify-between gap-y-2">
                     <template #header>
-                        <div class="flex justify-end gap-x-4">
-                            <TrashIcon @click="showDeleteModal = true" class="text-white pr-1" />
+                        <div class="flex justify-end gap-x-4 py-1">
+                            <TrashIcon @click="showDeleteModal = true" class=" cursor-pointer text-white pr-1" />
                             <RouterLink :to="{ name: 'EditFood', params: { foodId } }">
                                 <EditIcon class="text-white pr-1" />
                             </RouterLink>
