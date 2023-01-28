@@ -16,7 +16,7 @@ const isActive = (name: string) => {
 </script>
 <template>
   <footer id="bottom-nav"
-    class="fixed bottom-0 w-full bg-black flex justify-start items-center mt-16">
+    class="fixed bottom-0 w-full bg-black flex justify-start items-center mt-24">
     <router-link :to="{name: 'AddFood'}">
       <button :disabled="isUploading" id="list-button"
         class="group text-primary-red w-24 cursor-pointer grow-1 flex flex-col items-center justify-center pt-2"
