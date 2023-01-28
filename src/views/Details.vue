@@ -125,6 +125,7 @@ const handleDelete = async () => {
         <div v-if="food">
             <div class="border-b-2 border-b-black">
                 <img class="w-full h-72 object-cover object-center" v-if="imageUrl" :src="imageUrl" :alt="food?.name">
+                <div v-else class="animate-pulse bg-gray-300 w-full h-72"></div>
             </div>
 
             <div class="flex flex-col justify-between gap-y-3">
