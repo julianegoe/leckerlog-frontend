@@ -18,7 +18,7 @@ const logout = () => {
 
 </script>
 <template>
-  <header class="flex justify-between items-center p-2 bg-white">
+  <header class="flex justify-between items-center p-2 bg-white border-b-2 border-b-black">
     <slot></slot>
     <!--    right side-->
     <div class="flex items-center justify-between gap-4">

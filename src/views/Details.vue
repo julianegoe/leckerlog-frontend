@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 /// <reference types="vite-svg-loader" />
 import AppHeader from "../components/AppHeader.vue";
+import Box from "../components/globals/Box.vue";
 import AppButton from "../components/globals/AppButton.vue";
 import BackIcon from '../assets/icons/chevron-left.svg?component';
 import StarIcon from '../assets/icons/star-outline.svg?component'
@@ -122,29 +123,32 @@ const handleDelete = async () => {
             </AppModal>
         </Transition>
         <div v-if="food">
-            <div class="border-b-2 border-black">
+            <div class="border-b-2 border-b-black">
                 <img class="w-full h-72 object-cover object-center" v-if="imageUrl" :src="imageUrl" :alt="food?.name">
             </div>
-            <div class="flex flex-col justify-between gap-y-4 p-4">
-                <div class="text-sm text-gray-600">{{ toLocaleDateString(food.ordered_at) }}
-                </div>
-                <div class="text-3xl font-black">{{ food.name }}</div>
-                <div class=" text-sm hover:text-primary-purple text-gray-600">
-                    <a :href="googleSearchUrl" target=”_blank”>
-                        {{ food.restaurant_name }}
-                        <div>{{ food.address }}</div>
-                    </a>
-                </div>
-                <div class="text-lg">"{{ food.comment }}"</div>
-                <div class="flex gap-1">
-                    <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in food.rating" :key="`${n}-star-rating`" />
-                </div>
-                <div class="flex gap-1 gap-y-4 flex-wrap">
-                    <template v-for="tag in food.tags" :key="tag">
-                        <TagBoxVue :is-active="false" :name="tag" />
-                    </template>
-                </div>
-                <div class="flex items-center justify-between gap-2 text-xs">
+
+            <div class="flex flex-col justify-between gap-y-3">
+                <Box class="m-4 flex flex-col justify-between gap-y-2">
+                    <div class="text-sm text-gray-600">{{ toLocaleDateString(food.ordered_at) }}
+                    </div>
+                    <div class="text-3xl font-black">{{ food.name }}</div>
+                    <div class=" text-sm hover:text-primary-purple text-gray-600">
+                        <a :href="googleSearchUrl" target=”_blank”>
+                            {{ food.restaurant_name }}
+                            <div>{{ food.address }}</div>
+                        </a>
+                    </div>
+                    <div class="text-lg">"{{ food.comment }}"</div>
+                    <div class="flex gap-1">
+                        <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in food.rating" :key="`${n}-star-rating`" />
+                    </div>
+                    <div class="flex gap-1 gap-y-4 flex-wrap">
+                        <template v-for="tag in food.tags" :key="tag">
+                            <TagBoxVue :is-active="false" :name="tag" />
+                        </template>
+                    </div>
+                </Box>
+                <div class="flex items-center justify-between gap-2 text-xs p-4">
                     <AppButton @click="showDeleteModal = true" class="flex items-center">
                         <TrashIcon class="pr-1" />
                         <div>Gericht löschen</div>
@@ -157,10 +161,11 @@ const handleDelete = async () => {
                     </RouterLink>
 
                 </div>
-                <p class="text-xs text-gray-500">zuletzt aktualisiert: {{
+                <p class="text-xs text-gray-500 px-4">zuletzt aktualisiert: {{
                     toLocaleDateString(food.date_updated || '')
                 }}</p>
             </div>
+
         </div>
         <div class="animate-pulse" v-else>
             <div class="w-full h-72 bg-gray-300"></div>
