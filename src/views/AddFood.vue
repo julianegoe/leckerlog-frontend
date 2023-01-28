@@ -2,6 +2,7 @@
 import { cloneDeep } from 'lodash';
 import { ref } from 'vue';
 import AppHeader from "../components/AppHeader.vue";
+import Box from '../components/globals/Box.vue';
 import AppButton from '../components/globals/AppButton.vue';
 import AppStarRatingInput from "../components/AppStarRatingInput.vue";
 import AppTextInput from '../components/AppTextInput.vue';
@@ -27,7 +28,7 @@ const { post } = useRequest();
 const ui = useUiStore();
 const loading = ref(false);
 
-const inputValues = ref<RecordData>({...cloneDeep(INPUT_DEFAULT_VALUES)})
+const inputValues = ref<RecordData>({ ...cloneDeep(INPUT_DEFAULT_VALUES) })
 const isValid = ref(false);
 
 const uploadImage: any = async () => {
@@ -74,7 +75,7 @@ const upload = async () => {
     await responseImage.json();
     await responseData.json();
     ui.openSnackBar('Upload erfolgeich.');
-    inputValues.value = {...cloneDeep(INPUT_DEFAULT_VALUES)};
+    inputValues.value = { ...cloneDeep(INPUT_DEFAULT_VALUES) };
   } else {
     loading.value = false;
     ui.openSnackBar('Upload gescheitert. Versuche es erneut.');
@@ -90,29 +91,31 @@ const upload = async () => {
     </AppHeader>
     <div class="flex flex-col gap-y-1 p-2">
       <ImageUploadForm v-model="inputValues.photoData" />
-      <form @submit.prevent="upload">
-        <GooglePlacesTextInput @update:restaurant="(value: any) => {
-          inputValues.restaurantName = value.name;
-          inputValues.address = value.address;
-        }" label="Restaurant" input-id="restaurant-input" :latitude="inputValues.photoData.location.GPSLatitude"
-          :latitude-direction="inputValues.photoData.location.GPSLatitudeRef"
-          :longitude="inputValues.photoData.location.GPSLongitude"
-          :longitude-direction="inputValues.photoData.location.GPSLongitudeRef" />
-        <CuisineInput v-model="inputValues.cuisine" />
-        <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
-          id="meal-input" type="text" />
-        <AppDateInput v-model="inputValues.photoData.orderedAt" :photo-date="inputValues.photoData.orderedAt"
-          label="Bestellt am" id="date-input" />
-        <AppTextarea @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
-          id="comment-input" type="text" />
-        <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
-        <AppStarRatingInput v-model="inputValues.rating" />
-        <AppButton>
-          <div v-if="!loading">Hinzufügen</div>
-          <div v-else-if="loading"
-            class="w-6 h-6 border-2 border-black border-solid rounded-full animate-spin border-t-transparent"></div>
-        </AppButton>
-      </form>
+      <Box class="m-2">
+        <form @submit.prevent="upload">
+          <GooglePlacesTextInput @update:restaurant="(value: any) => {
+            inputValues.restaurantName = value.name;
+            inputValues.address = value.address;
+          }" label="Restaurant" input-id="restaurant-input" :latitude="inputValues.photoData.location.GPSLatitude"
+            :latitude-direction="inputValues.photoData.location.GPSLatitudeRef"
+            :longitude="inputValues.photoData.location.GPSLongitude"
+            :longitude-direction="inputValues.photoData.location.GPSLongitudeRef" />
+          <CuisineInput v-model="inputValues.cuisine" />
+          <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
+            id="meal-input" type="text" />
+          <AppDateInput v-model="inputValues.photoData.orderedAt" :photo-date="inputValues.photoData.orderedAt"
+            label="Bestellt am" id="date-input" />
+          <AppTextarea @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
+            id="comment-input" type="text" />
+          <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
+          <AppStarRatingInput v-model="inputValues.rating" />
+          <AppButton>
+            <div v-if="!loading">Hinzufügen</div>
+            <div v-else-if="loading"
+              class="w-6 h-6 border-2 border-black border-solid rounded-full animate-spin border-t-transparent"></div>
+          </AppButton>
+        </form>
+      </Box>
     </div>
   </div>
 </template>

@@ -12,6 +12,7 @@ import { FoodOrderedExtended, ListItem } from '../types/types';
 import { useStorage } from '@vueuse/core';
 import { useRequest } from '../composables/useRequest';
 import { useRouter } from 'vue-router';
+import Box from '../components/globals/Box.vue';
 
 const props = defineProps<{
     foodId: string;
@@ -80,19 +81,17 @@ const updateFood = async () => {
         </div>
         <div class="p-4">
             <div v-if="food" class="text-sm">
-                <form @submit.prevent="updateFood">
-                    <AppTextInput v-model="food.name" id="foodName" label="Gericht" type="text" />
-                    <CuisineInput v-model="cuisine" />
-                    <AppTextarea v-model="food.comment" label="Kommentar" id="comment-input" type="text" />
-                    <ChipInput label="Tags" id="tag-input" v-model="food.tags" />
-                    <AppStarRatingInput v-model="food.rating" />
-                    <div class="flex gap-x-4">
+                <Box class="m-2">
+                    <form @submit.prevent="updateFood">
+                        <AppTextInput v-model="food.name" id="foodName" label="Gericht" type="text" />
+                        <CuisineInput v-model="cuisine" />
+                        <AppTextarea v-model="food.comment" label="Kommentar" id="comment-input" type="text" />
+                        <ChipInput label="Tags" id="tag-input" v-model="food.tags" />
+                        <AppStarRatingInput v-model="food.rating" />
                         <AppButton>Ändern</AppButton>
-                        <RouterLink :to="{ name: 'Details', params: { foodId } }">
-                            <AppButton class="bg-primary-red" @click="$emit('close', false)">Abbrechen</AppButton>
-                        </RouterLink>
-                    </div>
-                </form>
+                    </form>
+                </Box>
+
             </div>
         </div>
     </div>
