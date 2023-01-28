@@ -18,12 +18,11 @@ const ui = useUiStore();
         <component :is="Component" />
       </transition>
     </router-view>
+    <SnackBar :text="ui.snackBarText" :show-snackbar="ui.showSnackBar" />
+    <AppFooter v-if="router.currentRoute.value.name !== 'Login' && router.currentRoute.value.name !== 'Signup'" />
   </UiBackground>
-  <SnackBar :text="ui.snackBarText" :show-snackbar="ui.showSnackBar" />
-  <AppFooter v-if="router.currentRoute.value.name !== 'Login' && router.currentRoute.value.name !== 'Signup'" />
 </template>
 <style scoped>
-
 .slide-leave-active {
   transition: all 0.3s ease-in;
 }

@@ -1,8 +1,6 @@
 <template>
-  <main class="background absolute top-0 left-0 w-full h-full">
-    <div class="mb-24">
-      <slot></slot>
-    </div>
+  <main class="background firelativexed top-0 left-0 w-full h-full mb-16">
+    <slot></slot>
   </main>
 </template>
 <style lang="css" scoped>
