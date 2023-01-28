@@ -129,7 +129,7 @@ const handleDelete = async () => {
             </div>
 
             <div class="flex flex-col justify-between gap-y-3">
-                <Box class="m-4 flex flex-col justify-between gap-y-2">
+                <Box class="m-4">
                     <template #header>
                         <div class="flex justify-end gap-x-4 py-1">
                             <TrashIcon @click="showDeleteModal = true" class=" cursor-pointer text-white pr-1" />
@@ -138,24 +138,27 @@ const handleDelete = async () => {
                             </RouterLink>
                         </div>
                     </template>
-                    <div class="text-sm text-gray-600">{{ toLocaleDateString(food.ordered_at) }}
-                    </div>
-                    <div class="text-3xl font-black">{{ food.name }}</div>
-                    <div class=" text-sm hover:text-primary-purple text-gray-600">
-                        <a :href="googleSearchUrl" target=”_blank”>
-                            {{ food.restaurant_name }}
-                            <div>{{ food.address }}</div>
-                        </a>
-                    </div>
-                    <div class="text-lg">"{{ food.comment }}"</div>
-                    <div class="flex gap-1">
-                        <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in food.rating" :key="`${n}-star-rating`" />
-                    </div>
-                    <div class="flex gap-1 gap-y-4 flex-wrap">
-                        <template v-for="tag in food.tags" :key="tag">
-                            <TagBoxVue :is-active="false" :name="tag" />
-                        </template>
-                    </div>
+                    <template class="flex flex-col gap-y-2">
+                        <div class="text-sm text-gray-600">{{ toLocaleDateString(food.ordered_at) }}
+                        </div>
+                        <div class="text-2xl font-black">{{ food.name }}</div>
+                        <div class=" text-sm hover:text-primary-purple text-gray-600">
+                            <a :href="googleSearchUrl" target=”_blank”>
+                                {{ food.restaurant_name }}
+                                <div>{{ food.address }}</div>
+                            </a>
+                        </div>
+                        <div class="text-lg">"{{ food.comment }}"</div>
+                        <div class="flex gap-1">
+                            <StarIcon fill="#8affdc" class="h-8 w-8" v-for="n in food.rating"
+                                :key="`${n}-star-rating`" />
+                        </div>
+                        <div class="flex gap-1 gap-y-4 flex-wrap">
+                            <template v-for="tag in food.tags" :key="tag">
+                                <TagBoxVue :is-active="false" :name="tag" />
+                            </template>
+                        </div>
+                    </template>
                 </Box>
                 <p class="text-xs text-gray-500 px-4">zuletzt aktualisiert: {{
                     toLocaleDateString(food.date_updated || '')
