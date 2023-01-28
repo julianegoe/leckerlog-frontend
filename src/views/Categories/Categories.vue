@@ -4,7 +4,7 @@ import AppHeader from '../../components/AppHeader.vue';
 import AppBadge from '../../components/globals/AppBadge.vue';
 import { useSortingStore } from '../../store/sorting';
 import CuisinesList from './CuisinesList.vue';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useStorage } from '@vueuse/core';
 
 const grouping = useSortingStore();

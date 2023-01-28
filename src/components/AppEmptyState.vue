@@ -1,5 +1,8 @@
 <template>
-    <div class="border border-black rouned-md p-4 text-center">
+    <AppButton>
         Hier ist noch nichts. Füge ein paar Restaurants und Gerichte zum LeckerLog hinzu.
-    </div>
+    </AppButton>
 </template>
+<script lang="ts" setup>
+import AppButton from './globals/AppButton.vue';
+</script>
