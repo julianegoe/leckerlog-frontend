@@ -13,7 +13,7 @@ const ui = useUiStore();
 <template>
     <main class="mb-24">
         <router-view v-slot="{ Component }">
-            <transition name="fade" mode="out-in">
+            <transition name="slide" mode="out-in">
                 <component :is="Component" />
             </transition>
         </router-view>
@@ -22,17 +22,12 @@ const ui = useUiStore();
     <AppFooter v-if="router.currentRoute.value.name !== 'Login' && router.currentRoute.value.name !== 'Signup'" />
 </template>
 <style scoped>
-.fade-enter-active {
-  transition: all 0.25s ease-out;
+.slide-leave-active {
+  transition: all 0.3s ease-in;
 }
 
-.fade-leave-active {
-  transition: all 0.25s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+.slide-leave-to {
+  transform: translateX(100%)
 }
 
 </style>
