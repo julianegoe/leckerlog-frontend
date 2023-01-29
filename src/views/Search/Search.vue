@@ -8,7 +8,6 @@ import AppSearchBar from '../../components/AppSearchBar.vue';
 import MiniFoodCard from '../../components/MiniFoodCard.vue';
 import SearchPlacesMenu from '../../components/SearchPlacesMenu.vue';
 import { Leckerlog } from '../../types/types';
-import TagsList from '../Categories/TagsList.vue';
 
 const searchQuery = ref('');
 const searchPlaces = ref('food')
@@ -49,7 +48,6 @@ const searchResults = ref<Leckerlog[]>([]);
         <Transition name="slide" mode="out-in">
             <SearchPlacesMenu v-show="searchQuery.length > 0" v-model="searchPlaces" />
         </Transition>
-        <TagsList v-model="searchTags" />
         <div class="p-2 mt-10">
             <template v-if="searchResults.length > 0">
                 <div class="" v-for="result in searchResults" :key="result.restaurant_id + '-search'">
