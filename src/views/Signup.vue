@@ -48,7 +48,7 @@ const register = async () => {
 
 </script>
 <template>
-  <div class="flex flex-col justfy-end items-center gap-4 p-6">
+  <div class="flex flex-col justfy-end items-center gap-2 p-6">
     <Box class="m-2 w-full">
       <h1 class="text-xl font-bold py-2">Hol' dir dein Leckerlog Konto</h1>
       <form class="w-full" @submit.prevent="register" autocomplete="off">
@@ -56,10 +56,10 @@ const register = async () => {
         <AppTextInput v-model="password" label="Passwort" id="password" type="password"
           :server-errors="passwordErrors" />
         <AppButton class="w-full">Registrieren</AppButton>
-        <RouterLink :to="{ name: 'Login' }">
-          <button class="w-full text-md font-bold mt-4" type="submit">Zum Einloggen</button>
-        </RouterLink>
       </form>
     </Box>
+    <RouterLink :to="{ name: 'Login' }">
+      <button class="w-full text-md font-bold" type="submit">Zum Einloggen</button>
+    </RouterLink>
   </div>
 </template>

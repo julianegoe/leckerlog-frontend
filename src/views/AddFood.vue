@@ -14,7 +14,6 @@ import AppTextarea from '../components/AppTextarea.vue';
 import ImageUploadForm from '../components/forms/ImageUploadForm.vue';
 import GooglePlacesTextInput from '../components/GooglePlacesTextInput.vue';
 import { useStorage } from '@vueuse/core';
-import { useRequest } from '../composables/useRequest';
 import { useUiStore } from '../store/ui';
 
 const jwtToken = useStorage('auth', '', localStorage);
@@ -24,7 +23,6 @@ const user = useStorage('user', {
   password: '',
   username: null,
 }, localStorage);
-const { post } = useRequest();
 const ui = useUiStore();
 const loading = ref(false);
 
@@ -48,7 +46,13 @@ const uploadImage: any = async () => {
 
 const uploadData: any = async () => {
   try {
-    const response = await post(`/leckerlog/${user.value.user_id}`, {
+    const response = await fetch(`/leckerlog/${user.value.user_id}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${jwtToken.value}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
       restaurant_name: inputValues.value.restaurantName,
       food_name: inputValues.value.foodName,
       cuisine_id: inputValues.value.cuisine.value,
@@ -58,6 +62,7 @@ const uploadData: any = async () => {
       ordered_at: inputValues.value.photoData.orderedAt,
       image_path: inputValues.value.photoData.imagePath,
       tags: inputValues.value.tags
+    })
     });
     return response;
   } catch (err) {
@@ -92,6 +97,9 @@ const upload = async () => {
     <div class="flex flex-col gap-y-1 p-2">
       <ImageUploadForm v-model="inputValues.photoData" />
       <Box class="m-2">
+        <template #header>
+          <span class="pl-2 text-white">Füge ein Gericht hinzu...</span>
+        </template>
         <form @submit.prevent="upload">
           <GooglePlacesTextInput @update:restaurant="(value: any) => {
             inputValues.restaurantName = value.name;

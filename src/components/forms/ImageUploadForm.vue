@@ -37,12 +37,12 @@ const handlePhotoChange = (e: any) => {
 
 </script>
 <template>
-    <div class="flex flex-col items-center">
+    <div class="w-full flex flex-col items-center">
         <form enctype="multipart/form-data">
             <label for="file-upload"
-                class="cursor-pointer flex justify-center py-1.5 px-2 border bg-white border-black shadow-brutal hover:shadow-none  hover:bg-black hover:text-white">Bild
+                class="w-full cursor-pointer flex justify-center py-1.5 px-2 border bg-white border-black shadow-brutal hover:shadow-none  hover:bg-black hover:text-white">Bild
                 auswählen</label>
-            <input class="hidden" role="button" id="file-upload" type="file" name="file" @change="handlePhotoChange"
+            <input class="hidden w-full" role="button" id="file-upload" type="file" name="file" @change="handlePhotoChange"
                 accept="image/jpeg" />
         </form>
         <img class="w-3/4 object-contain border-2 border-black mt-4" v-if="imagePath" :src="imagePath"

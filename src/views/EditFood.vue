@@ -10,7 +10,6 @@ import AppTextInput from "../components/AppTextInput.vue";
 import { onBeforeMount, ref } from "vue";
 import { FoodOrderedExtended, ListItem } from '../types/types';
 import { useStorage } from '@vueuse/core';
-import { useRequest } from '../composables/useRequest';
 import { useRouter } from 'vue-router';
 import Box from '../components/globals/Box.vue';
 
@@ -18,7 +17,6 @@ const props = defineProps<{
     foodId: string;
 }>();
 
-const { post } = useRequest();
 const router = useRouter();
 const jwtToken = useStorage('auth', '', localStorage);
 
@@ -55,13 +53,20 @@ const updateFood = async () => {
     console.log(cuisine.value.value)
     const path = `/food/update/${props.foodId}`;
     try {
-        const response: any = await post(path, {
-            name: food.value?.name ?? '',
-            rating: food.value?.rating ?? 0,
-            comment: food.value?.comment ?? '',
-            cuisine_id: cuisine.value?.value ?? 1,
-            tags: food.value?.tags ?? [],
-            restaurantName: food.value?.restaurant_name ?? '',
+        const response: any = await fetch(path, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${jwtToken.value}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: food.value?.name ?? '',
+                rating: food.value?.rating ?? 0,
+                comment: food.value?.comment ?? '',
+                cuisine_id: cuisine.value?.value ?? 1,
+                tags: food.value?.tags ?? [],
+                restaurantName: food.value?.restaurant_name ?? '',
+            })
         });
         const data = await response.json();
         router.push({ name: 'Home' })
