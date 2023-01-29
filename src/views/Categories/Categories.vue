@@ -3,7 +3,6 @@ import { FilterItem } from '../../types/types';
 import AppHeader from '../../components/AppHeader.vue';
 import AppBadge from '../../components/globals/AppBadge.vue';
 import { useSortingStore } from '../../store/sorting';
-import CuisinesList from './CuisinesList.vue';
 import { ref } from 'vue';
 import { useStorage } from '@vueuse/core';
 
@@ -34,7 +33,6 @@ const setGroupBy = (groupBy: FilterItem) => {
             </template>
         </div>
         <div v-if="!isLoading && grouping.activeGroupBy.value === 'cuisines'" class="px-2 py-2">
-            <CuisinesList />
         </div>
         <div v-if="isLoading" class="grid grid-cols-2 gap-6 px-2 py-2">
             <div class="bg-gray-200 animate-pulse w-full rounded-md aspect-square"></div>
