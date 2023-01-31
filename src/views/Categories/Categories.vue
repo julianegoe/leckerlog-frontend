@@ -32,6 +32,7 @@ const setGroupBy = (groupBy: FilterItem) => {
                     :active-state="grouping.activeGroupBy" route-name="Categories" />
             </template>
         </div>
+        <img class="w-full h-72 object-cover object-center" src="../../assets/placeholer_test.JPG" alt="loading">
         <div v-if="!isLoading && grouping.activeGroupBy.value === 'cuisines'" class="px-2 py-2">
         </div>
         <div v-if="isLoading" class="grid grid-cols-2 gap-6 px-2 py-2">
@@ -42,3 +43,11 @@ const setGroupBy = (groupBy: FilterItem) => {
         </div>
     </div>
 </template>
+<style scoped>
+img {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+  /* Safari seems to support, but seems deprecated and does the same thing as the others. */
+  image-rendering: -webkit-optimize-contrast;
+}
+</style>

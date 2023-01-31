@@ -46,7 +46,7 @@ const uploadImage: any = async () => {
 
 const uploadData: any = async () => {
   try {
-    const response = await fetch(`/leckerlog/${user.value.user_id}`, {
+    const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/leckerlog/${user.value.user_id}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${jwtToken.value}`,
@@ -117,7 +117,7 @@ const upload = async () => {
             id="comment-input" type="text" />
           <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />
           <AppStarRatingInput v-model="inputValues.rating" />
-          <AppButton>
+          <AppButton class="w-28">
             <div v-if="!loading">Hinzufügen</div>
             <div v-else-if="loading"
               class="w-6 h-6 border-2 border-black border-solid rounded-full animate-spin border-t-transparent"></div>
