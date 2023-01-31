@@ -111,7 +111,7 @@ const upload = async () => {
           <CuisineInput v-model="inputValues.cuisine" />
           <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
             id="meal-input" type="text" />
-          <AppDateInput v-model="inputValues.photoData.orderedAt" :photo-date="inputValues.photoData.orderedAt"
+          <AppDateInput v-model="inputValues.photoData.orderedAt"
             label="Bestellt am" id="date-input" />
           <AppTextarea @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
             id="comment-input" type="text" />

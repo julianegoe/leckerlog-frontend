@@ -4,8 +4,6 @@ import { computed, ref } from 'vue';
 
 const emit = defineEmits(['update:modelValue'])
 
-const orderedAt = ref('');
-
 const imageFile = ref();
 const imagePath = computed(() => {
     if (imageFile.value) {
@@ -19,7 +17,6 @@ const handlePhotoChange = (e: any) => {
             if (!output) {
                 return
             }
-            orderedAt.value = new Date(output.CreateDate).toISOString().split('T')[0];
             emit('update:modelValue', {
                 location: {
                     GPSLatitude: output.GPSLatitude,
@@ -28,7 +25,7 @@ const handlePhotoChange = (e: any) => {
                     GPSLongitudeRef: output.GPSLongitudeRef,
                 },
                 imagePath: imageFile.value.name,
-                orderedAt: orderedAt.value,
+                orderedAt: new Date(output.CreateDate).toISOString().split('T')[0],
                 imageFile: imageFile.value
             })
         });
