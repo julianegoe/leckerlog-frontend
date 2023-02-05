@@ -15,8 +15,10 @@ import ImageUploadForm from '../components/forms/ImageUploadForm.vue';
 import GooglePlacesTextInput from '../components/GooglePlacesTextInput.vue';
 import { useStorage } from '@vueuse/core';
 import { useUiStore } from '../store/ui';
+import { responseInterceptor } from '../utils/requests';
 
-const jwtToken = useStorage('auth', '', localStorage);
+const accessToken = useStorage('accessToken', '', localStorage);
+const refreshToken = useStorage('refreshToken', '', localStorage);
 const user = useStorage('user', {
   user_id: '',
   email: '',
@@ -30,6 +32,20 @@ const inputValues = ref<RecordData>({ ...cloneDeep(INPUT_DEFAULT_VALUES) })
 const isValid = ref(false);
 
 const uploadImage: any = async () => {
+  await responseInterceptor(refreshToken.value, async (token: string) => {
+    const formData = new FormData();
+    if (inputValues.value.photoData.imageFile) {
+      formData.append('file', inputValues.value.photoData.imageFile)
+      const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/upload`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      return response;
+    }
+  })
   const formData = new FormData();
   if (inputValues.value.photoData.imageFile) {
     formData.append('file', inputValues.value.photoData.imageFile)
@@ -37,7 +53,7 @@ const uploadImage: any = async () => {
       method: 'POST',
       body: formData,
       headers: {
-        'Authorization': `Bearer ${jwtToken.value}`
+        'Authorization': `Bearer ${accessToken.value}`
       }
     });
     return response;
@@ -46,23 +62,44 @@ const uploadImage: any = async () => {
 
 const uploadData: any = async () => {
   try {
+    await responseInterceptor(refreshToken.value, async (token: string) => {
+      const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/leckerlog/${user.value.user_id}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${accessToken.value}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          restaurant_name: inputValues.value.restaurantName,
+          food_name: inputValues.value.foodName,
+          cuisine_id: inputValues.value.cuisine.value,
+          address: inputValues.value.address,
+          comment: inputValues.value.comment,
+          rating: inputValues.value.rating,
+          ordered_at: inputValues.value.photoData.orderedAt,
+          image_path: inputValues.value.photoData.imagePath,
+          tags: inputValues.value.tags
+        })
+      });
+      return response;
+    })
     const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/leckerlog/${user.value.user_id}`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${jwtToken.value}`,
+        'Authorization': `Bearer ${accessToken.value}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-      restaurant_name: inputValues.value.restaurantName,
-      food_name: inputValues.value.foodName,
-      cuisine_id: inputValues.value.cuisine.value,
-      address: inputValues.value.address,
-      comment: inputValues.value.comment,
-      rating: inputValues.value.rating,
-      ordered_at: inputValues.value.photoData.orderedAt,
-      image_path: inputValues.value.photoData.imagePath,
-      tags: inputValues.value.tags
-    })
+        restaurant_name: inputValues.value.restaurantName,
+        food_name: inputValues.value.foodName,
+        cuisine_id: inputValues.value.cuisine.value,
+        address: inputValues.value.address,
+        comment: inputValues.value.comment,
+        rating: inputValues.value.rating,
+        ordered_at: inputValues.value.photoData.orderedAt,
+        image_path: inputValues.value.photoData.imagePath,
+        tags: inputValues.value.tags
+      })
     });
     return response;
   } catch (err) {
@@ -111,8 +148,7 @@ const upload = async () => {
           <CuisineInput v-model="inputValues.cuisine" />
           <AppTextInput @validate="(value) => isValid = value" v-model="inputValues.foodName" label="Gericht"
             id="meal-input" type="text" />
-          <AppDateInput v-model="inputValues.photoData.orderedAt"
-            label="Bestellt am" id="date-input" />
+          <AppDateInput v-model="inputValues.photoData.orderedAt" label="Bestellt am" id="date-input" />
           <AppTextarea @validate="(value) => isValid = value" v-model="inputValues.comment" label="Kommentar"
             id="comment-input" type="text" />
           <ChipInput label="Tags" id="tag-input" v-model="inputValues.tags" />

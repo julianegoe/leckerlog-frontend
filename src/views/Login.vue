@@ -38,8 +38,9 @@ async function login() {
     ui.openSnackBar(data.info);
     return;
   }
-  if (data.token) {
-    localStorage.setItem('auth', data.token);
+  if (response.status === 200) {
+    localStorage.setItem('accessToken', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
     localStorage.setItem('user', JSON.stringify(data.user));
   }
   router.push({ name: 'Home' });

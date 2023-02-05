@@ -64,18 +64,18 @@ const router = createRouter({
     scrollBehavior(to, from, savedPosition) {
         // always scroll to top
         return { top: 0 }
-      },
+    },
 });
 
 router.beforeEach(async (to, from) => {
     if (to.name === 'Signup') return true;
     if (
-      !localStorage.getItem('auth') &&
-      to.name !== 'Login'
+        !localStorage.getItem('accessToken') &&
+        to.name !== 'Login'
     ) {
-      return { name: 'Login' }
+        return { name: 'Login' }
     } return true
-  })
+})
 
 
 export default router

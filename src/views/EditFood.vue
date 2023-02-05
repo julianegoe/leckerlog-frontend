@@ -18,7 +18,7 @@ const props = defineProps<{
 }>();
 
 const router = useRouter();
-const jwtToken = useStorage('auth', '', localStorage);
+const accessToken = useStorage('accessToken', '', localStorage);
 
 const isLoading = ref(true);
 const food = ref<FoodOrderedExtended>();
@@ -33,7 +33,7 @@ onBeforeMount(async () => {
         const response = await fetch(path, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${jwtToken.value}`,
+                'Authorization': `Bearer ${accessToken.value}`,
             }
         });
         const json = await response.json();
@@ -51,12 +51,12 @@ onBeforeMount(async () => {
 
 const updateFood = async () => {
     console.log(cuisine.value.value)
-    const path = `/food/update/${props.foodId}`;
+    const path = `${import.meta.env.VITE_BASE_API_URL}/food/update/${props.foodId}`;
     try {
         const response: any = await fetch(path, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${jwtToken.value}`,
+                'Authorization': `Bearer ${accessToken.value}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({

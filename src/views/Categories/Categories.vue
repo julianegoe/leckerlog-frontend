@@ -8,7 +8,6 @@ import { useStorage } from '@vueuse/core';
 
 const grouping = useSortingStore();
 const isLoading = ref(false);
-const jwtToken = useStorage('auth', '', localStorage);
 
 const groupBy = ref<FilterItem[]>([
     {

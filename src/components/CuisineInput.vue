@@ -2,27 +2,45 @@
 import { useStorage } from '@vueuse/core';
 import { computed, onMounted, ref } from 'vue';
 import { Cuisine, ListItem } from '../types/types';
+import { responseInterceptor } from '../utils/requests';
 
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{
     modelValue: ListItem;
 }>();
 
-const jwtToken = useStorage('auth', '', localStorage);
+const accessToken = useStorage('accessToken', '', localStorage);
+const refreshToken = useStorage('refreshToken', '', localStorage);
 const searchQuery = ref(props.modelValue.label);
 const isOpen = ref(false);
 const cuisines = ref<Cuisine[]>([])
 
 onMounted(async () => {
     try {
-        const res = await fetch(import.meta.env.VITE_BASE_API_URL + "/cuisines", {
+        await responseInterceptor(refreshToken.value, async (token: string) => {
+            const response = await fetch(import.meta.env.VITE_BASE_API_URL + "/cuisines", {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${accessToken.value}`,
+                    'Content-Type': 'application/json',
+                }
+            });
+            if (response.status == 200) {
+                const data = await response.json();
+                cuisines.value = data;
+            }
+        })
+        const response = await fetch(import.meta.env.VITE_BASE_API_URL + "/cuisines", {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${jwtToken.value}`,
+                'Authorization': `Bearer ${accessToken.value}`,
+                'Content-Type': 'application/json',
             }
         });
-        const json = await res.json();
-        cuisines.value = json;
+        if (response.status == 200) {
+            const data = await response.json();
+            cuisines.value = data;
+        }
     } catch (err) {
         console.log(err)
     }

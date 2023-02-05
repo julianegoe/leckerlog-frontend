@@ -9,7 +9,7 @@ const props = defineProps<{
   food: FoodOrderedExtended,
 }>();
 
-const jwtToken = useStorage('auth', '', localStorage);
+const accessToken = useStorage('accessToken', '', localStorage);
 
 
 const localeDateString = computed(() => {
@@ -25,7 +25,7 @@ onMounted(async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwtToken.value}`
+                'Authorization': `Bearer ${accessToken.value}`
         }
         });
         const blob = await response.blob();

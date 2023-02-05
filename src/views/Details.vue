@@ -2,7 +2,6 @@
 /// <reference types="vite-svg-loader" />
 import AppHeader from "../components/AppHeader.vue";
 import Box from "../components/globals/Box.vue";
-import AppButton from "../components/globals/AppButton.vue";
 import BackIcon from '../assets/icons/chevron-left.svg?component';
 import StarIcon from '../assets/icons/star-outline.svg?component'
 import TrashIcon from '../assets/icons/trash.svg?component';
@@ -18,7 +17,7 @@ import { useUiStore } from "../store/ui";
 const router = useRouter();
 const ui = useUiStore()
 
-const jwtToken = useStorage('auth', '', localStorage);
+const accessToken = useStorage('accessToken','', localStorage);
 
 const props = defineProps<{
     foodId: string;
@@ -34,7 +33,7 @@ onMounted(async () => {
         const response = await fetch(getPath, {
             method: 'GET',
             headers: {
-                'Authorization': `Bearer ${jwtToken.value}`,
+                'Authorization': `Bearer ${accessToken.value}`,
             }
         });
         const json = await response.json();
@@ -58,7 +57,7 @@ watchEffect(async () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${jwtToken.value}`
+                    'Authorization': `Bearer ${accessToken.value}`
                 }
             });
             const blob = await response.blob();
@@ -91,7 +90,7 @@ const handleDelete = async () => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${jwtToken.value}`
+                'Authorization': `Bearer ${accessToken.value}`
             },
         });
         showDeleteModal.value = false;

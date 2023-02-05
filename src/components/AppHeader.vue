@@ -9,8 +9,9 @@ const router = useRouter();
 const ui = useUiStore()
 
 const logout = () => {
-  localStorage.removeItem('auth');
-  localStorage.removeItem("user");
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('user');
   router.push({ name: 'Login'});
   ui.openSnackBar('Logout erfolgreich.');
 
