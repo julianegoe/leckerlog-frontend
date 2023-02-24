@@ -50,7 +50,6 @@ onBeforeMount(async () => {
 })
 
 const updateFood = async () => {
-    console.log(cuisine.value.value)
     const path = `${import.meta.env.VITE_BASE_API_URL}/food/update/${props.foodId}`;
     try {
         const response: any = await fetch(path, {

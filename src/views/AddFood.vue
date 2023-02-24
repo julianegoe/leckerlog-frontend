@@ -32,20 +32,6 @@ const inputValues = ref<RecordData>({ ...cloneDeep(INPUT_DEFAULT_VALUES) })
 const isValid = ref(false);
 
 const uploadImage: any = async () => {
-  await responseInterceptor(refreshToken.value, async (token: string) => {
-    const formData = new FormData();
-    if (inputValues.value.photoData.imageFile) {
-      formData.append('file', inputValues.value.photoData.imageFile)
-      const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/upload`, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      return response;
-    }
-  })
   const formData = new FormData();
   if (inputValues.value.photoData.imageFile) {
     formData.append('file', inputValues.value.photoData.imageFile)
@@ -61,51 +47,25 @@ const uploadImage: any = async () => {
 }
 
 const uploadData: any = async () => {
-  try {
-    await responseInterceptor(refreshToken.value, async (token: string) => {
-      const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/leckerlog/${user.value.user_id}`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${accessToken.value}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          restaurant_name: inputValues.value.restaurantName,
-          food_name: inputValues.value.foodName,
-          cuisine_id: inputValues.value.cuisine.value,
-          address: inputValues.value.address,
-          comment: inputValues.value.comment,
-          rating: inputValues.value.rating,
-          ordered_at: inputValues.value.photoData.orderedAt,
-          image_path: inputValues.value.photoData.imagePath,
-          tags: inputValues.value.tags
-        })
-      });
-      return response;
+  const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/leckerlog/${user.value.user_id}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken.value}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      restaurant_name: inputValues.value.restaurantName,
+      food_name: inputValues.value.foodName,
+      cuisine_id: inputValues.value.cuisine.value,
+      address: inputValues.value.address,
+      comment: inputValues.value.comment,
+      rating: inputValues.value.rating,
+      ordered_at: inputValues.value.photoData.orderedAt,
+      image_path: inputValues.value.photoData.imagePath,
+      tags: inputValues.value.tags
     })
-    const response = await fetch(`${import.meta.env.VITE_BASE_API_URL}/leckerlog/${user.value.user_id}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${accessToken.value}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        restaurant_name: inputValues.value.restaurantName,
-        food_name: inputValues.value.foodName,
-        cuisine_id: inputValues.value.cuisine.value,
-        address: inputValues.value.address,
-        comment: inputValues.value.comment,
-        rating: inputValues.value.rating,
-        ordered_at: inputValues.value.photoData.orderedAt,
-        image_path: inputValues.value.photoData.imagePath,
-        tags: inputValues.value.tags
-      })
-    });
-    return response;
-  } catch (err) {
-    console.log(err)
-    return err
-  }
+  });
+  return response;
 };
 
 const upload = async () => {

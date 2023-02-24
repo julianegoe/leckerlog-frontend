@@ -8,7 +8,6 @@ import { useStorage } from "@vueuse/core";
 import FoodCard from '../../components/FoodCard.vue';
 import AppEmptyState from '../../components/AppEmptyState.vue';
 import axios from 'axios';
-import { responseInterceptor } from '../../utils/requests';
 
 const accessToken = useStorage('accessToken', '', localStorage);
 const refreshToken = useStorage('refreshToken', '', localStorage);
@@ -38,32 +37,18 @@ const sortBy = ref<FilterItem[]>([
 
 const path = `${import.meta.env.VITE_BASE_API_URL}/food/${user.value.user_id}`;
 onMounted(async () => {
-    try {
-        responseInterceptor(refreshToken.value, async (token: any) => {
-            const response = await axios({
-                method: 'get',
-                url: path,
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            });
-            return response
-        });
-        const response = await axios({
-            method: 'get',
-            url: path,
-            headers: {
-                'Authorization': `Bearer ${accessToken.value}`,
-            }
-        });
-        if (response.status == 200) {
-            const json = await response.data;
-            foods.value = json;
+    const response = await axios({
+        method: 'get',
+        url: path,
+        headers: {
+            'Authorization': `Bearer ${accessToken.value}`,
         }
-        isLoading.value = false;
-    } catch (err) {
-        console.log(err)
+    });
+    if (response.status == 200) {
+        const json = await response.data;
+        foods.value = json;
     }
+    isLoading.value = false;
 })
 const foods = ref<FoodOrderedExtended[]>([]);
 const sortedFood = computed(() => {

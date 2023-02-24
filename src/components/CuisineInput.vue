@@ -2,7 +2,6 @@
 import { useStorage } from '@vueuse/core';
 import { computed, onMounted, ref } from 'vue';
 import { Cuisine, ListItem } from '../types/types';
-import { responseInterceptor } from '../utils/requests';
 
 const emit = defineEmits(['update:modelValue'])
 const props = defineProps<{
@@ -16,33 +15,16 @@ const isOpen = ref(false);
 const cuisines = ref<Cuisine[]>([])
 
 onMounted(async () => {
-    try {
-        await responseInterceptor(refreshToken.value, async (token: string) => {
-            const response = await fetch(import.meta.env.VITE_BASE_API_URL + "/cuisines", {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${accessToken.value}`,
-                    'Content-Type': 'application/json',
-                }
-            });
-            if (response.status == 200) {
-                const data = await response.json();
-                cuisines.value = data;
-            }
-        })
-        const response = await fetch(import.meta.env.VITE_BASE_API_URL + "/cuisines", {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${accessToken.value}`,
-                'Content-Type': 'application/json',
-            }
-        });
-        if (response.status == 200) {
-            const data = await response.json();
-            cuisines.value = data;
+    const response = await fetch(import.meta.env.VITE_BASE_API_URL + "/cuisines", {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${accessToken.value}`,
+            'Content-Type': 'application/json',
         }
-    } catch (err) {
-        console.log(err)
+    });
+    if (response.status == 200) {
+        const data = await response.json();
+        cuisines.value = data;
     }
 })
 
